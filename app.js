@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
 
-// const mathRouter = require('./routes/mathRouter');
-// const meetRouter = require('./routes/meetingRouter');
-// const userRouter = require('./routes/userRouter');
+const userRouter = require('./routes/userRoute');
+const packRouter = require('./routes/packageRoute');
+const productRouter = require('./routes/productRoute');
 
 
 const app = express();
@@ -13,9 +13,9 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-// app.use('/', userRouter);
-// app.use('/math/', mathRouter);
-// app.use('/meeting/', meetRouter);
+app.use('/', userRouter);
+app.use('/products', productRouter);
+app.use('/packages', packRouter);
 
 app.use(express.static(path.join(__dirname + '/public')));
 app.all('*', (req, res, next) => {
