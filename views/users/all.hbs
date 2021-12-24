@@ -1,0 +1,18 @@
+{{#each users}}
+  <p>
+    <a href="/user/{{this.f_ID}}/edit">{{this.f_ID}}</a>
+    <br />
+    {{this.f_Name}}
+    <br />
+    F{{this.f_Fx}}
+    <br />
+    {{#each this.f_RelatedID}}
+      RelatedID:
+      <a href="/user/{{this}}/edit">{{this}}</a>
+      <br />
+    {{/each}}
+  </p>
+{{/each}}
+<form action="/user/create" method="get">
+  <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">ADD NEW USER</button>
+</form>
