@@ -1,45 +1,87 @@
-const { Pool } = require('pg');
+const pgp = require('pg-promise')({
+    capSQL: true
+});
 
-const pool = new Pool({
-    host: process.env.PGHOST,
+const schema = 'public';
+const conn = {
     user: process.env.PGUSER,
-    max: 30,
-    password: process.env.PGPASSWORD,
+    host: process.env.PGHOST,
     database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
     port: process.env.PGPORT,
-})
+    max: 30,
+}
 
-module.exports = {
-    async query(text, params) {
-        const start = Date.now();
-        const res = await pool.query(text, params);
-        const duration = Date.now() - start;
-        console.log('Executed query: ', { text, duration, rows: res.rowCount });
+const db = pgp(conn);
+
+// LOADING
+exports.load = async (tableName) => {
+    const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
+    const queryStr = pgp.as.format('SELECT * from $1', table);
+    try {
+        const res = await db.any(queryStr);
         return res;
-    },
+    } catch (error) {
+        console.log('Error loading: ', error);
+    }
+};
 
-    async getClient() {
-        const client = await pool.connect();
-        const query = client.query;
-        const release = client.release;
+// READING
+exports.get = async (tableName, fieldName, value) => {
+    const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
+    const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}" = '${value}'`, table);
+    try {
+        const res = await db.any(queryStr);
+        return res;
+    } catch (error) {
+        console.log('Error getting: ', error);
+    }
+}
 
-        const timeout = setTimeout(() => {
-            console.log('A client has been checked out for more than 5s!');
-            console.log(`Last executed query: ${client.lastQuery}`)
-        }, 5000)
+// SEARCHING
+exports.search = async (tableName, fieldName, value) => {
+    const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
+    const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"::text like '${value}%'`, table);
+    try {
+        const res = await db.any(queryStr);
+        return res;
+    } catch (error) {
+        console.log('Error searching: ', error);
+    }
+}
 
-        client.query = (...args) => {
-            client.lastQuery = args;
-            return query.apply(client, args)
-        }
+// CREATING
+exports.create = async (tableName, entity) => {
+    const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
+    const queryStr = pgp.helpers.insert(entity, null, table) + " RETURNING *";
+    try {
+        const res = await db.one(queryStr);
+        return res;
+    } catch (error) {
+        console.log('Error creating: ', error);
+    }
+}
 
-        client.release = () => {
-            clearTimeout(timeout)
-            client.query = query
-            client.release = release
-            return release.apply(client)
-        }
+// UPDATING
+exports.update = async (tableName, fieldId, id, newEntity) => {
+    const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
+    const condition = pgp.as.format(` where "${fieldId}" = '${id}'`, newEntity);
+    const queryStr = pgp.helpers.update(newEntity, null, table) + condition;
+    try {
+        db.none(queryStr);
+    } catch (error) {
+        console.log('Error updating: ', error);
+    }
+}
 
-        return client
+// DELETING
+exports.delete = async (tableName, fieldName, value) => {
+    const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
+    const queryStr = pgp.as.format(`DELETE from $1 where "${fieldName}" = '${value}'`, table);
+    try {
+        const res = await db.result(queryStr);
+        return res;
+    } catch (error) {
+        console.log('Error getting: ', error);
     }
 }
