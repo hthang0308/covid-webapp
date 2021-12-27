@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
+require('dotenv').config({ path: './.env' });
 require('./middlewares/handlebars')(app);
 
 const userRouter = require('./routes/userRoute');
