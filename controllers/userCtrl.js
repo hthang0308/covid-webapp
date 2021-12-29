@@ -11,7 +11,7 @@ exports.sortUser = async (req, res) => {
 }
 
 exports.searchUser = async (req, res) => {
-    tmpUser = await userModel.searchById(req.params.id);
+    tmpUser = await userModel.searchUserById(req.params.id);
     res.render('/all', {
         users: tmpUser
     })

@@ -18,7 +18,7 @@ exports.getUserById = async (_f_ID) => {
     return res;
 }
 
-exports.searchById = async (_f_ID) => {
+exports.searchUserById = async (_f_ID) => {
     const res = await db.search(TableName, "f_ID", _f_Name);
     if (!res) return null;
     return res;
