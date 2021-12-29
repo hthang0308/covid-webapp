@@ -27,7 +27,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', userRouter);
+app.use('/', function (req, res) {
+    res.render('homes');
+})
+app.use('/account', userRouter);
 app.use('/products', productRouter);
 app.use('/packages', packRouter);
 
