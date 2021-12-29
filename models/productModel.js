@@ -1,37 +1,12 @@
-const db = require('../utils/db');
-const TableName = "Products"
+const factory = require('../middlewares/handlerFactory');
 
-exports.getAllProducts = async () => {
-    const res = await db.load(TableName);
-    return res;
-}
+const TableName = "Products";
+const prodName = _f_Name, prodId = _f_ID, product = _prod;
 
-exports.getProductByName = async (_f_Name) => {
-    const res = await db.get(TableName, "f_Name", _f_Name);
-    if (!res) return null; return res;
-}
-
-exports.getProductById = async (_f_ID) => {
-    const res = await db.get(TableName, "f_ID", _f_ID);
-    if (!res) return null; return res;
-}
-
-exports.searchProductByName = async (_f_Name) => {
-    const res = await db.search(TableName, "f_Name", _f_Name);
-    if (!res) return null;
-    return res;
-}
-
-exports.addProduct = async (_product) => {
-    const res = await db.create(TableName, _product);
-    return res;
-}
-
-exports.editProduct = async (_f_ID, _product) => {
-    await db.update(TableName, "f_ID", _f_ID, _product);
-}
-
-exports.deleteProduct = async (_f_ID) => {
-    const res = await db.delete(TableName, "f_ID", _f_ID);
-    return res;
-}
+exports.getAllProducts = factory.getAll(TableName);
+exports.getProductByName(prodName) = factory.getOne(TableName, 'f_Name', prodName);
+exports.getProductById(prodId) = factory.getOne(TableName, "f_ID", prodId);
+exports.searchProductByName(prodName) = factory.search(TableName, 'f_Name', prodName);
+exports.addProduct(product) = factory.createOne(TableName, product);
+exports.editProduct(product) = factory.updateOne(TableName, prodId, product);
+exports.deleteProduct(prodId) = factory.deleteOne(TableName, 'f_ID', prodId);
