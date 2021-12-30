@@ -24,7 +24,6 @@ module.exports = {
     const res = await db.create(tbName, _user);
     return res;
   },
-  //update khong co id
   update: async (_f_ID, _user) => {
     await db.update(tbName, "f_ID", _f_ID, _user);
   },
