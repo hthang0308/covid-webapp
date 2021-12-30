@@ -1,4 +1,4 @@
-const factory = require('../middlewares/handlerFactory');
+const factory = require('../utils/handlerFactory');
 
 const TableName = "Products";
 const prodName = _f_Name, prodId = _f_ID, product = _prod;

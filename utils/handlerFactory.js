@@ -1,4 +1,4 @@
-const db = require('../utils/db');
+const db = require('./db');
 
 exports.getAll = async (TableName) => {
     const res = await db.load(TableName);
