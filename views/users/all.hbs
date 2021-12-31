@@ -1,6 +1,6 @@
 {{#each users}}
   <p>
-    <a href="/user/{{this.f_ID}}/edit">{{this.f_ID}}</a>
+    <a href="/user/{{this.f_ID}}">{{this.f_ID}}</a>
     <br />
     {{this.f_Name}}
     <br />
@@ -8,7 +8,7 @@
     <br />
     {{#each this.f_RelatedID}}
       RelatedID:
-      <a href="/user/{{this}}/edit">{{this}}</a>
+      <a href="/user/{{this}}">{{this}}</a>
       <br />
     {{/each}}
   </p>

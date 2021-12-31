@@ -1,26 +1,6 @@
-const router = require("express").Router();
-const listUser = require("../models/user.M");
+const userModel = require("../models/user.M");
 
-// 1.2.1
-// Chua co Update thong tin khac ngoai Fx
-// [GET] /user?sort=date
-router.get("/", async (req, res) => {
-  arr = await listUser.all();
-  if (req.query.sort === "date") sortByDate(arr);
-  if (req.query.sort === "id") sortByID(arr);
-  if (req.query.sort === "name") sortByName(arr);
-  res.render("users/all", {
-    users: arr,
-  });
-});
-
-// [GET] /user/search/:id
-router.get("/search/:id", async (req, res) => {
-  tmpUser = await listUser.searchByID(req.params.id);
-  res.render("users/all", {
-    users: tmpUser,
-  });
-});
+//Utils Function
 const sortByDate = (array) => {
   array.sort(function (a, b) {
     return new Date(b.f_Birthday) - new Date(a.f_Birthday);
@@ -36,14 +16,6 @@ const sortByName = (array) => {
     return a.f_Name.localeCompare(b.f_Name);
   });
 };
-
-// 1.2.2
-
-// [GET] /user/create
-router.get("/create", async (req, res) => {
-  res.render("users/form_adduser");
-});
-
 const isValidName = (name) => {
   if (!name) return false;
   let firstLetters = name.split(/\s/).reduce((response, word) => (response += word.slice(0, 1)), "");
@@ -56,65 +28,80 @@ const isValidFx = (x) => {
 const isNumber = (str) => {
   return /^\d+$/.test(str);
 };
-// [POST] /user/create
-router.post("/create", async (req, res) => {
+// Route
+exports.getAllUsers = async (req, res) => {
+  arr = await userModel.getAllUsers();
+  if (req.query.sort === "date") sortByDate(arr);
+  if (req.query.sort === "id") sortByID(arr);
+  if (req.query.sort === "name") sortByName(arr);
+  res.render("users/all", {
+    users: arr,
+  });
+};
+exports.searchUser = async (req, res) => {
+  tmpUser = await userModel.searchUserByID(req.query.id);
+  res.render("users/all", {
+    users: tmpUser,
+  });
+};
+exports.getCreateForm = async (req, res) => {
+  res.render("users/form_adduser");
+};
+exports.createUser = async (req, res) => {
   //validate
   var err = "";
   if (!isValidName(req.body.f_Name)) err = "Name is not valid";
   if (!isValidFx(req.body.f_Fx)) err = "Fx is not valid";
   if (!isNumber(req.body.f_ID)) err = "Id is not valid";
   if (err !== "") return res.render("users/form_adduser", { err });
-  listUser.create(req.body);
-  res.redirect("./");
+  //set user history
+  var currentdate = new Date();
+  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
+  req.body.f_History = [];
+  req.body.f_History.push(`${currentTime} Create User`);
+  userModel.addUser(req.body);
+  res.redirect("/user");
   //done
-});
-
-// [GET] /user/:id/edit
-router.get("/:id/edit", async (req, res) => {
-  tmpUser = await listUser.getById(req.params.id);
+};
+exports.getUser = async (req, res) => {
+  tmpUser = await userModel.getUserByID(req.params.id);
   res.render("users/single", {
     user: tmpUser,
   });
-});
-
-// [GET] /user/:id/change_covid_address
-router.get("/:id/change_covid_address", async (req, res) => {
-  tmpUser = await listUser.getById(req.params.id);
+};
+exports.getChangeCovidAddressForm = async (req, res) => {
+  tmpUser = await userModel.getUserByID(req.params.id);
   res.render("users/form_change_covid_address", {
     user: tmpUser,
   });
-});
-
-// [POST] /user/:id/edit
-// increase Fx
-router.post("/:id/edit", async (req, res) => {
+};
+exports.editUser = async (req, res) => {
   //Get this ID and Update
-  tmpUser = await listUser.getById(req.params.id);
+  const tmpUser = await userModel.getUserByID(req.params.id);
+  if (tmpUser === undefined) return;
   var currentdate = new Date();
   var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
-  if (tmpUser.f_History === null) tmpUser.f_History = [];
+  //If in form has covid address
   if (req.body.f_CovidAddress !== undefined) {
     tmpUser.f_CovidAddress = req.body.f_CovidAddress;
-    tmpUser.f_History.push(currentTime + `Change Covid Address To ${tmpUser.f_CovidAddress}`);
-    listUser.update(tmpUser.f_ID, tmpUser);
-    return;
+    tmpUser.f_History.push(currentTime + `Change Covid Address To: ${tmpUser.f_CovidAddress}`);
+    userModel.editUser(tmpUser.f_ID, tmpUser);
   }
-  if (tmpUser.f_Fx > 0) {
+  //Update Fx
+  else if (tmpUser.f_Fx > 0) {
     //Get Related ID and Update
     if (tmpUser.f_RelatedID !== null)
       for (const anotherID of tmpUser.f_RelatedID) {
-        tmpUser2 = await listUser.getById(anotherID);
+        tmpUser2 = await userModel.getUserByID(anotherID);
         if (tmpUser2.f_Fx > 0) {
           tmpUser2.f_Fx--;
-          tmpUser2.f_History.push(currentTime + `From F${tmpUser.f_Fx + 1} To F${tmpUser.f_Fx}`);
-          listUser.update(tmpUser2.f_ID, tmpUser2);
+          tmpUser2.f_History.push(currentTime + `From F${tmpUser2.f_Fx + 1} To F${tmpUser2.f_Fx}`);
+          userModel.editUser(tmpUser2.f_ID, tmpUser2);
         }
       }
     //Update this ID
     tmpUser.f_Fx--;
     tmpUser.f_History.push(currentTime + `From F${tmpUser.f_Fx + 1} To F${tmpUser.f_Fx}`);
-    listUser.update(tmpUser.f_ID, tmpUser);
+    userModel.editUser(tmpUser.f_ID, tmpUser);
   }
-});
-
-module.exports = router;
+};

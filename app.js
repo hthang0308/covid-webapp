@@ -1,13 +1,10 @@
 const express = require("express");
 const path = require("path");
 
-// const mathRouter = require('./routes/mathRouter');
-// const meetRouter = require('./routes/meetingRouter');
-// const userRouter = require('./routes/userRouter');
+const userRouter = require("./routes/userRoute");
 
 const app = express();
 require("./middlewares/handlebars")(app);
-
 // app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(
@@ -15,7 +12,11 @@ app.use(
     extended: true,
   })
 );
-app.use("/user", require("./controllers/user.C"));
+//Change: Add Override Method - PUT DELETE
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+//Done Change
+app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
   res.render("home", {

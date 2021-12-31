@@ -1,8 +1,8 @@
-const exphs = require("express-handlebars");
+const exhbs = require("express-handlebars");
 const exhbs_sections = require("express-handlebars-sections");
 
 module.exports = (app) => {
-  const hbs = exphs.create({
+  const hbs = exhbs.create({
     defaultLayout: "homes",
     extname: "hbs",
     helpers: {
