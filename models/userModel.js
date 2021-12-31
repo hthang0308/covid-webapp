@@ -13,19 +13,20 @@ exports.getUserByName = async (_f_Name) => {
 }
 
 exports.getUserById = async (_f_ID) => {
-    const res = await db.get(TableName, "f_ID", _f_Name);
+    const res = await db.get(TableName, "f_ID", _f_ID);
     if (!res) return null;
-    return res;
+    return res[0];
 }
 
 exports.searchUserById = async (_f_ID) => {
-    const res = await db.search(TableName, "f_ID", _f_Name);
+    const res = await db.search(TableName, "f_ID", _f_ID);
     if (!res) return null;
     return res;
 }
 
 exports.createUser = async (_user) => {
     const res = await db.create(TableName, _user);
+    if (!res) return null;
     return res;
 }
 

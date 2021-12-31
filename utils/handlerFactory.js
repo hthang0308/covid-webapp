@@ -7,12 +7,12 @@ exports.getAll = async (TableName) => {
 
 exports.getOne = async (TableName, entity, value) => {
     const res = await db.get(TableName, entity, value);
-    if (!res) return null; return res;
+    if (!res) return null; return res[0];
 }
 
 exports.createOne = async (TableName, object) => {
     const res = await db.create(TableName, object);
-    return res;
+    if (!res) return null; return res;
 }
 
 exports.updateOne = async (TableName, entity, value, object) => {
