@@ -1,0 +1,33 @@
+Name:
+{{user.f_Name}}
+<br />
+ID:
+{{user.f_ID}}
+<br />
+Birthday:
+{{user.f_Birthday}}
+<br />
+Address:
+{{user.f_Address}}
+<br />
+F{{user.f_Fx}}
+<br />
+CovidAddress:
+{{user.f_CovidAddress}}
+<br />
+RelatedID:
+<br />
+{{#each user.f_RelatedID}}
+  <a href="/user/{{this}}/edit">{{this}}</a>
+  <br />
+{{/each}}
+History:
+{{#each user.f_History}}
+  <br />{{this}}
+{{/each}}
+<form method="post" action="/user/{{user.f_ID}}?_method=PUT" onsubmit="setTimeout(function(){window.location.reload();},100);">
+  <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">INCREASE COVID STATUS</button>
+</form>
+<form action="/user/{{user.f_ID}}/change_covid_address" method="get" onsubmit="setTimeout(function(){window.location.reload();},100);">
+  <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">CHANGE COVID ADDRESS</button>
+</form>
