@@ -1,4 +1,4 @@
-const productModel = require('../models/productModel');
+const productModel = require('../models/product.M');
 
 const sortByName = (array) => {
     array.sort(function (a, b) {

@@ -17,12 +17,12 @@ const db = pgp(conn);
 // LOADING
 exports.load = async (tableName) => {
     const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-    const queryStr = pgp.as.format('SELECT * from $1', table);
+    const queryStr = pgp.as.format("SELECT * from $1", table);
     try {
         const res = await db.any(queryStr);
         return res;
     } catch (error) {
-        console.log('Error loading: ', error);
+        console.log("Error loading: ", error);
     }
 };
 
@@ -34,9 +34,9 @@ exports.get = async (tableName, fieldName, value) => {
         const res = await db.any(queryStr);
         return res;
     } catch (error) {
-        console.log('Error getting: ', error);
+        console.log("Error getting: ", error);
     }
-}
+};
 
 // SEARCHING
 exports.search = async (tableName, fieldName, value) => {
@@ -46,9 +46,9 @@ exports.search = async (tableName, fieldName, value) => {
         const res = await db.any(queryStr);
         return res;
     } catch (error) {
-        console.log('Error searching: ', error);
+        console.log("Error searching: ", error);
     }
-}
+};
 
 // CREATING
 exports.create = async (tableName, entity) => {
@@ -58,21 +58,21 @@ exports.create = async (tableName, entity) => {
         const res = await db.one(queryStr);
         return res;
     } catch (error) {
-        console.log('Error creating: ', error);
+        console.log("Error creating: ", error);
     }
-}
+};
 
 // UPDATING
 exports.update = async (tableName, fieldId, id, newEntity) => {
     const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-    const condition = pgp.as.format(` where "${fieldId}" = '${id}'`, newEntity);
+    const condition = pgp.as.format(` WHERE "${fieldId}" = '${id}'`, newEntity);
     const queryStr = pgp.helpers.update(newEntity, null, table) + condition;
     try {
         db.none(queryStr);
     } catch (error) {
-        console.log('Error updating: ', error);
+        console.log("Error updating: ", error);
     }
-}
+};
 
 // DELETING
 exports.delete = async (tableName, fieldName, value) => {
@@ -82,6 +82,6 @@ exports.delete = async (tableName, fieldName, value) => {
         const res = await db.result(queryStr);
         return res;
     } catch (error) {
-        console.log('Error getting: ', error);
+        console.log("Error getting: ", error);
     }
-}
+};

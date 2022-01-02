@@ -1,5 +1,5 @@
 const express = require('express')
-const packCtrl = require('../controllers/packageCtrl')
+const packCtrl = require('../controllers/package.C')
 
 const router = express.Router()
 
