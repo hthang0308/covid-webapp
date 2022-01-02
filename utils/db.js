@@ -1,17 +1,16 @@
-const pgp = require("pg-promise")({
-  capSQL: true,
+const pgp = require('pg-promise')({
+  capSQL: true
 });
 
-const schema = "public";
+const schema = 'public';
 const conn = {
-  //TODO them file env
-  user: "postgres",
-  host: "localhost",
-  database: "qlnguoi",
-  password: "1234",
-  port: 5432,
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT,
   max: 30,
-};
+}
 
 const db = pgp(conn);
 

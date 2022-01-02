@@ -1,11 +1,15 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+require('dotenv').config({ path: './.env' });
+require('./middlewares/handlebars')(app);
 
-const userRouter = require("./routes/userRoute");
+const userRouter = require('./routes/userRoute');
+const packRouter = require('./routes/packageRoute');
+const productRouter = require('./routes/productRoute');
 
 const app = express();
-require("./middlewares/handlebars")(app);
-// app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -16,9 +20,20 @@ app.use(
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 //Done Change
-app.use("/user", userRouter);
 
-app.get("/", (req, res) => {
+app.use(session({
+  cookie: {
+    httpOnly: true, maxAge: null
+  },
+  secret: process.env.SECRET_COOKIE,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/', function (req, res) {
   res.render("home", {
     cssP: () => "css",
     scriptP: () => "empty",
@@ -26,6 +41,10 @@ app.get("/", (req, res) => {
     footerP: () => "footer",
   });
 });
+
+app.use('/user', userRouter);
+app.use('/products', productRouter);
+app.use('/packages', packRouter);
 
 app.use(express.static(path.join(__dirname + "/public")));
 app.all("*", (req, res, next) => {

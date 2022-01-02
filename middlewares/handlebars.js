@@ -1,28 +1,31 @@
-const exhbs = require("express-handlebars");
-const exhbs_sections = require("express-handlebars-sections");
+const exhbs = require('express-handlebars');
+const hbs_section = require('express-handlebars-sections');
 
 module.exports = (app) => {
   const hbs = exhbs.create({
-    defaultLayout: "homes",
-    extname: "hbs",
+    defaultLayout: 'homes',
+    extname: 'hbs',
     helpers: {
-      ifEquals(s1, s2, options) {
-        if (s1 == s2) return options.fn(this);
-        return options.inverse(this);
-      },
-      ifNotEquals(s1, s2, options) {
-        if (s1 != s2) {
-          return options.fn(this);
-        }
-        return options.inverse(this);
+      calculate(op1, op2, opt, choice) {
+        var opts = {
+          'eq': function (l, r) { return l == r },
+          'noteq': function (l, r) { return l != r },
+          'gt': function (l, r) { return Number(l) > Number(r) },
+          'or': function (l, r) { return l || r },
+          'and': function (l, r) { return l & r },
+          '%': function (l, r) { return (l % r) === 0 },
+        }, result = opts[opt](op1, op2);
+
+        if (result) return choice.fn(this);
+        else return choice.inverse(this);
       },
       select(value, options) {
         return options.fn(this).replace(new RegExp(' value="' + value + '"'), '$& selected="selected"');
-      },
-    },
+      }
+    }
   });
-  exhbs_sections(hbs);
-  app.engine("hbs", hbs.engine);
-  app.set("view engine", "hbs");
-  app.set("views", "./views");
-};
+  hbs_section(hbs);
+  app.engine('hbs', hbs.engine);
+  app.set('view engine', 'hbs');
+  app.set('views', './views');
+}
