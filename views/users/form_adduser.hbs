@@ -1,0 +1,35 @@
+<form class="form" action="/user" method="post" style="width:40vw">
+  <h1 class="display-5">ADD NEW USER</h1>
+  <div class="form-group">
+    <label for="f_Name">Name</label>
+    <input type="text" class="form-control" id="f_Name" placeholder="Name" name="f_Name" />
+  </div>
+  <div class="form-group">
+    <label for="f_ID">ID</label>
+    <input type="text" class="form-control" id="f_ID" placeholder="ID" name="f_ID" />
+  </div>
+  <div class="form-group">
+    <label for="f_Birthday">Birthday</label>
+    <input type="date" id="f_Birthday" name="f_Birthday" value="2000-07-22" min="1950-01-01" max="2018-12-31" />
+  </div>
+  <div class="form-group">
+    <label for="f_Address">Address</label>
+    <input type="text" class="form-control" id="f_Address" placeholder="Address" name="f_Address" />
+  </div>
+  <div class="form-group">
+    <label for="f_Fx">Fx</label>
+    <input type="text" class="form-control" id="f_Fx" placeholder="x" name="f_Fx" />
+  </div>
+  <div class="form-group">
+    <label for="f_CovidAddress">CovidAddress</label>
+    <input type="text" class="form-control" id="f_CovidAddress" placeholder="CovidAddress" name="f_CovidAddress" />
+  </div>
+  {{#if err}}
+    <div class="alert alert-danger" role="alert">
+      {{err}}
+    </div>
+  {{/if}}
+  <button type="submit" class="btn btn-default btn-success">
+    Create
+  </button>
+</form>
