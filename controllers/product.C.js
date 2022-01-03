@@ -1,28 +1,12 @@
 const productModel = require('../models/product.M');
+const sort = require('../utils/sort');
 
-const sortByName = (array) => {
-    array.sort(function (a, b) {
-        return a.f_Name.localeCompare(b.f_Name);
-    })
-}
-
-const sortById = (array) => {
-    array.sort(function (a, b) {
-        return a.f_ID - b.f_ID;
-    })
-}
-
-const sortByPrice = (array) => {
-    array.sort(function (a, b) {
-        return a.f_Price - b.f_Price;
-    })
-}
-
-exports.sortProduct = async (req, res) => {
+// Route
+exports.getAllProducts = async (req, res) => {
     arr = await productModel.getAllProducts();
-    if (req.query.sort === "name") sortByName(arr);
-    if (req.query.sort === "id") sortById(arr);
-    if (req.query.sort === "price") sortByPrice(arr);
+    if (req.query.sort === "name") sort.sortByName(arr);
+    if (req.query.sort === "id") sort.sortByID(arr);
+    if (req.query.sort === "price") sort.sortByPrice(arr);
     res.render('/all', {
         products: arr
     });

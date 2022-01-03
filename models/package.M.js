@@ -1,30 +1,12 @@
 const factory = require('../utils/handlerFactory');
 const TableName = "Packages";
 
-exports.getAllPackages = async () => {
-    return await factory.getAll(TableName);
-}
-
-exports.getPackagesByName = async (_f_Name) => {
-    return await factory.getOne(TableName, 'f_Name', _f_Name);
-}
-
-exports.getPackagesById = async (_f_ID) => {
-    return await factory.getOne(TableName, 'f_ID', _f_ID);
-}
-
-exports.searchPackagesByName = async (_f_Name) => {
-    return await factory.search(TableName, 'f_Name', _f_Name);
-}
-
-exports.addPackage = async (_package) => {
-    return await factory.createOne(TableName, _package);
-}
-
-exports.editPackage = async (_f_ID, _package) => {
-    return await factory.updateOne(TableName, 'f_ID', _f_ID, _package);
-}
-
-exports.deletePackage = async (_f_ID) => {
-    return await factory.deleteOne(TableName, 'f_ID', _f_ID);
+module.exports = {
+    getAllPackages: async () => factory.getAll(TableName),
+    getPackageByName: async (_f_name) => factory.getOne(TableName, 'f_Name', _f_name),
+    getPackageById: async (_f_ID) => factory.getOne(TableName, 'f_ID', _f_ID),
+    searchPackageByName: async (_f_name) => factory.search(TableName, 'f_Name', _f_name),
+    addPackage: async (_pack) => factory.createOne(TableName, _pack),
+    editPackage: async (_f_ID, _pack) => factory.updateOne(TableName, 'f_ID', _f_ID, _pack),
+    deletePackage: async (_f_ID) => factory.deleteOne(TableName, 'f_ID', _f_ID)
 }

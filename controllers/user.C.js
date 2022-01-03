@@ -1,21 +1,7 @@
 const userModel = require("../models/user.M");
+const sort = require('../utils/sort');
 
 //Utils Function
-const sortByDate = (array) => {
-  array.sort(function (a, b) {
-    return new Date(b.f_Birthday) - new Date(a.f_Birthday);
-  });
-};
-const sortByID = (array) => {
-  array.sort(function (a, b) {
-    return a.f_ID - b.f_ID;
-  });
-};
-const sortByName = (array) => {
-  array.sort(function (a, b) {
-    return a.f_Name.localeCompare(b.f_Name);
-  });
-};
 const isValidName = (name) => {
   if (!name) return false;
   let firstLetters = name.split(/\s/).reduce((response, word) => (response += word.slice(0, 1)), "");
@@ -28,25 +14,29 @@ const isValidFx = (x) => {
 const isNumber = (str) => {
   return /^\d+$/.test(str);
 };
+
 // Route
 exports.getAllUsers = async (req, res) => {
   arr = await userModel.getAllUsers();
-  if (req.query.sort === "date") sortByDate(arr);
-  if (req.query.sort === "id") sortByID(arr);
-  if (req.query.sort === "name") sortByName(arr);
+  if (req.query.sort === "date") sort.sortByDate(arr);
+  if (req.query.sort === "id") sort.sortByID(arr);
+  if (req.query.sort === "name") sort.sortByName(arr);
   res.render("users/all", {
     users: arr,
   });
 };
+
 exports.searchUser = async (req, res) => {
   tmpUser = await userModel.searchUserByID(req.query.id);
   res.render("users/all", {
     users: tmpUser,
   });
 };
+
 exports.getCreateForm = async (req, res) => {
   res.render("users/form_adduser");
 };
+
 exports.createUser = async (req, res) => {
   //validate
   var err = "";
@@ -63,18 +53,21 @@ exports.createUser = async (req, res) => {
   res.redirect("/user");
   //done
 };
+
 exports.getUser = async (req, res) => {
   tmpUser = await userModel.getUserByID(req.params.id);
   res.render("users/single", {
     user: tmpUser,
   });
 };
+
 exports.getChangeCovidAddressForm = async (req, res) => {
   tmpUser = await userModel.getUserByID(req.params.id);
   res.render("users/form_change_covid_address", {
     user: tmpUser,
   });
 };
+
 exports.editUser = async (req, res) => {
   //Get this ID and Update
   const tmpUser = await userModel.getUserByID(req.params.id);
