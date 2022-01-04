@@ -18,6 +18,7 @@ app.use(
 );
 //Change: Add Override Method - PUT DELETE
 const methodOverride = require("method-override");
+const morgan = require('morgan');
 app.use(methodOverride("_method"));
 //Done Change
 
@@ -32,6 +33,18 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors());
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+} else {
+  app.use(morgan('combined'), {
+    skip(req, res) {
+      return res.statusCode < 400;
+    }
+  })
+}
 
 app.get('/', function (req, res) {
   res.render("home", {

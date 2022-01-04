@@ -3,11 +3,11 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 require('dotenv').config({ path: './.env' });
-require('./middlewares/handlebars')(app);
+require('../middlewares/handlebars')(app);
 
-const userRouter = require('./routes/userRoute');
-const packRouter = require('./routes/packageRoute');
-const productRouter = require('./routes/productRoute');
+// const userRouter = require('./routes/userRoute');
+// const packRouter = require('./routes/packageRoute');
+// const productRouter = require('./routes/productRoute');
 
 const app = express();
 app.use(express.json());
@@ -33,6 +33,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors());
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+} else {
+    app.use(morgan('combined'), {
+        skip(req, res) {
+            return res.statusCode < 400;
+        }
+    })
+}
+
 app.get('/', function (req, res) {
     res.render("home", {
         cssP: () => "css",
@@ -42,11 +54,11 @@ app.get('/', function (req, res) {
     });
 });
 
-app.use('/user', userRouter);
-app.use('/products', productRouter);
-app.use('/packages', packRouter);
+// app.use('/user', userRouter);
+// app.use('/products', productRouter);
+// app.use('/packages', packRouter);
 
-app.use(express.static(path.join(__dirname + "/public")));
+app.use(express.static(path.join(__dirname + "../public")));
 app.all("*", (req, res, next) => {
     next(console.log(`Can't find ${req.originalUrl} on this server`, 404));
 });
