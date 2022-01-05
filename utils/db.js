@@ -85,3 +85,29 @@ exports.delete = async (tableName, fieldName, value) => {
     console.log("Error getting: ", error);
   }
 };
+
+// STATISTICS
+exports.statistic = async (tbName, fieldName, staField, value) => {
+  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+  const qStr = pgp.as.format(`SELECT ${fieldName}, count(*) as "soluong" FROM $1 WHERE "${staField}"='${value}' 
+                              GROUP BY ${fieldName} ORDER BY ${fieldName} ASC`, table);
+  console.log('Qstr: ', qStr);
+  try {
+    const res = await db.any(qStr);
+    return res;
+  } catch (error) {
+    console.log('Error statistics');
+  }
+}
+
+// SIMPLE STATISTICS
+exports.simpleStatistic = async (tbName, fieldName, staField, orderField) => {
+  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+  const qStr = pgp.as.format(`SELECT ${fieldName}, ${staField} FROM $1 ORDER BY ${orderField} ASC`, table);
+  try {
+    const res = await db.any(qStr);
+    return res;
+  } catch (error) {
+    console.log('Error s/statistics');
+  }
+}

@@ -8,6 +8,7 @@ require('./middlewares/handlebars')(app);
 const userRouter = require('./routes/userRoute');
 const packRouter = require('./routes/packageRoute');
 const productRouter = require('./routes/productRoute');
+const statisticRouter = require('./routes/statisticRoute');
 
 const app = express();
 app.use(express.json());
@@ -45,6 +46,7 @@ app.get('/', function (req, res) {
 app.use('/user', userRouter);
 app.use('/products', productRouter);
 app.use('/packages', packRouter);
+app.use('/statistic', statisticRouter);
 
 app.use(express.static(path.join(__dirname + "/public")));
 app.all("*", (req, res, next) => {

@@ -1,4 +1,4 @@
-const db = require('../models/dbCovid');
+const db = require('../utils/db');
 
 exports.statistic = async (req, res) => {
     let tableName = 'relatedcovid';
@@ -16,7 +16,7 @@ exports.simpleStatistic = async (req, res) => {
     let tableName = 'Products';
     let fieldName = 'ProName';
     let staField = 'Sold'
-    data = await db.simpleStatistic(tableName,fieldName,staField,"ProID");
+    data = await db.simpleStatistic(tableName, fieldName, staField, "ProID");
     res.render('simpleSta', {
         status: data
     });
