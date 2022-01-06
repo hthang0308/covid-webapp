@@ -5,7 +5,7 @@ Một sản phẩm từ các thành viên khoa Công nghệ thông tin - Trườ
 Xem cụ thể tại [file này](docs/Project_Covid.pdf)
 
 ## Nền tảng hoạt động
-- Front-end
+- Front-end: Handlebars
 - Back-end: NodeJS/ExpressJS
 - Cơ sở dữ liệu: PostgreSQL
 - Dự kiến đưa lên Heroku
@@ -15,9 +15,9 @@ Xem cụ thể tại [file này](docs/Project_Covid.pdf)
 
 | MSSV   | Họ tên           |1.1 | 1.2    |1.3 |1.4 | 2  |
 |--------|------------------|----|--------|----|----|----|  
-|19120129| Huỳnh Minh Thắng |    | 1 - 3  |    |    | x  |
+|19120129| Huỳnh Minh Thắng |    | 1 - 3  |  x |    |    |
 |19120163| Bùi Lê Tuấn Anh  |    | 4 - 5  |    | x  |    |
-|19120250| Phạm Tiến Khải   |    | 6 - 7  |  x |    |    |
+|19120250| Phạm Tiến Khải   |    | 6 - 7  |    |    | x  |
 
 ### Front-end
 19120540 - Nguyễn Tuấn Khanh

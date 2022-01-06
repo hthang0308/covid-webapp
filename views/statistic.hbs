@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Trang Thai</th>
+            <th scope="col">So luong</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each status}}
+        <tr>
+            <th scope="row">{{this.stt}}</th>
+            <td>{{this.trangthai}}</td>
+            <td>{{this.soluong}}</td>
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>

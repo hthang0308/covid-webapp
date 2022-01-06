@@ -1,0 +1,17 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Ten san pham</th>
+            <th scope="col">So luong</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each status}}
+        <tr>
+            <td>{{this.ProName}}</td>
+            <td>{{this.Sold}}</td>
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
