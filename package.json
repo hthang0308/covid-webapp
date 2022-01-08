@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "concurrently \"cd ./COVIDService && npm start\"  \"cd ./PaymentService && npm start\"",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,22 +22,6 @@
   },
   "homepage": "https://github.com/anthony2708/covid-webapp#readme",
   "dependencies": {
-    "axios": "^0.24.0",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-handlebars": "^6.0.2",
-    "express-session": "^1.17.2",
-    "method-override": "^3.0.0",
-    "multer": "^1.4.4",
-    "passport": "^0.5.2",
-    "passport-local": "^1.0.0",
-    "pg": "^8.7.1",
-    "pg-promise": "^10.11.1",
-    "sequelize": "^7.0.0-alpha.2"
-  },
-  "devDependencies": {
-    "express-handlebars-sections": "^1.0.1",
-    "nodemon": "^2.0.15"
+    "concurrently": "^7.0.0"
   }
 }
