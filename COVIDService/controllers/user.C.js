@@ -45,8 +45,8 @@ exports.createUser = async (req, res) => {
   if (!isNumber(req.body.f_ID)) err = "Id is not valid";
   if (err !== "") return res.render("users/form_adduser", { err });
   //set user history
-  var currentdate = new Date();
-  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
+  var currentDate = new Date();
+  var currentTime = `${currentDate.getMonth() + 1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   req.body.f_History = [];
   req.body.f_History.push(`${currentTime} Create User`);
   userModel.addUser(req.body);
@@ -72,8 +72,8 @@ exports.editUser = async (req, res) => {
   //Get this ID and Update
   const tmpUser = await userModel.getUserByID(req.params.id);
   if (tmpUser === undefined) return;
-  var currentdate = new Date();
-  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
+  var currentDate = new Date();
+  var currentTime = `${currentDate.getMonth() + 1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   //If in form has covid address
   if (req.body.f_CovidAddress !== undefined) {
     tmpUser.f_CovidAddress = req.body.f_CovidAddress;
