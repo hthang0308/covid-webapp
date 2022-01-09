@@ -5,6 +5,6 @@ const router = express.Router()
 
 router.get('/', packCtrl.getAllPackages);
 router.route('/:id').get(packCtrl.getPackage).patch(packCtrl.editPackage).delete(packCtrl.deletePackage);
-router.post('/add', packCtrl.addPackage);
+router.post('/add', packCtrl.createPackage);
 
 module.exports = router

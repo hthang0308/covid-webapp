@@ -15,7 +15,14 @@ exports.getAllPackages = async (req, res) => {
 exports.searchPackages = async (req, res) => {
     tmpPack = await packModel.searchPackageByName(req.params.name);
     res.render('/search', {
-        product: tmpPack
+        package: tmpPack
+    })
+};
+
+exports.getPackage = async (req, res) => {
+    tmpPack = await packModel.getPackageById(req.params.id);
+    res.render('/single', {
+        package: tmpPack
     })
 };
 

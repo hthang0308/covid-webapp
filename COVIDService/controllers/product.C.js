@@ -20,6 +20,13 @@ exports.searchProduct = async (req, res) => {
     });
 }
 
+exports.getProduct = async (req, res) => {
+    tmpProd = await productModel.getProductById(req.params.id);
+    res.render('/single', {
+        products: tmpProd
+    })
+}
+
 exports.createProduct = async (req, res) => {
     if (req.method === "POST") {
         const files = await uploadFiles(req.files);
