@@ -26,6 +26,21 @@ exports.load = async (tableName) => {
   }
 };
 
+// LOADING WITH SORTING
+exports.loadSort = async (tbName) => {
+  const tableName = new pgp.helpers.TableName({
+    table: tbName,
+    schema: schema
+  })
+  const qStr = pgp.as.format('SELECT * FROM ${tableName} ORDER BY ${stt~} ASC', { tableName: tableName, stt: 'stt' });
+  try {
+    const res = await db.any(qStr);
+    return res;
+  } catch (error) {
+    console.log('Error load table');
+  }
+};
+
 // READING
 exports.get = async (tableName, fieldName, value) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
