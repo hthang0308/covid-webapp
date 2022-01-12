@@ -1,0 +1,25 @@
+<form method="POST" action="/changePass" class="mx-auto px-4 py-3 shadow rounded" style="max-width: 400px;">
+    <div class="form-group">
+        <label for="AccID" class="font-weight-bold">Số tài khoản</label>
+        <input name="AccID" type="text" class="form-control shadow-sm rounded" id="AccID" value={{AccID}} disabled>
+    </div>
+    <div class="form-group">
+        <label for="password" class="font-weight-bold">Mật khẩu hiện tại</label>
+        <input name="password" type="password" class="form-control shadow-sm rounded" id="password" value="admin">
+    </div>
+    <div class="form-group">
+        <label for="newpass" class="font-weight-bold">Mật khẩu mới</label>
+        <input name="newpass" type="password" class="form-control shadow-sm rounded" id="newpass" value="admin">
+    </div>
+    <div class="form-group">
+        <label for="password" class="font-weight-bold">Nhập lại mật Khẩu</label>
+        <input name="retype" type="password" class="form-control shadow-sm rounded" id="retype" value="admin">
+    </div>
+    <button type="submit" class="btn btn-success">Đổi mật khẩu</button>
+    {{#if msg}}
+    <div class="alert alert-{{color}}  mt-3" role="alert">
+        {{msg}}
+    </div>
+    <a href="/" class="btn btn-success">Quay lại</a>
+    {{/if}}
+</form>
