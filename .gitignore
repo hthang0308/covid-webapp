@@ -125,3 +125,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Some other files gitignore
+covid-webapp-224c8-firebase-adminsdk-e2tgu-56344d9fbf.json
