@@ -1,12 +1,12 @@
 const admin = require('firebase-admin');
 const _ = require('lodash');
-var serviceAccount = null;
+var serviceAccount = require('../covid-webapp-224c8-firebase-adminsdk-e2tgu-56344d9fbf.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 
-const storageWeb = admin.storage.bucket();
+const storageWeb = admin.storage.bucket(`gs://covid-webapp-224c8.appspot.com/`);
 
 const uploadSingle = async (file) => {
     try {
