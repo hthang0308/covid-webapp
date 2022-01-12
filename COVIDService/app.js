@@ -4,6 +4,7 @@ const session = require('express-session');
 const passport = require('passport');
 require('dotenv').config({ path: './.env' });
 require('./middlewares/handlebars')(app);
+const { rmSync } = require('fs');
 
 const userRouter = require('./routes/userRoute');
 const packRouter = require('./routes/packageRoute');

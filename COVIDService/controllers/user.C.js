@@ -1,19 +1,6 @@
 const userModel = require("../models/user.M");
 const sort = require('../utils/sort');
-
-//Utils Function
-const isValidName = (name) => {
-  if (!name) return false;
-  let firstLetters = name.split(/\s/).reduce((response, word) => (response += word.slice(0, 1)), "");
-  for (const letter of firstLetters) if (letter != letter.toUpperCase()) return false;
-  return true;
-};
-const isValidFx = (x) => {
-  return x >= 0 && x <= 3;
-};
-const isNumber = (str) => {
-  return /^\d+$/.test(str);
-};
+const { isNumber, isValidFx, isValidName } = require('../utils/validate');
 
 // Route
 exports.getAllUsers = async (req, res) => {
@@ -45,8 +32,8 @@ exports.createUser = async (req, res) => {
   if (!isNumber(req.body.f_ID)) err = "Id is not valid";
   if (err !== "") return res.render("users/form_adduser", { err });
   //set user history
-  var currentdate = new Date();
-  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
+  var currentDate = new Date();
+  var currentTime = `${currentDate.getMonth() + 1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   req.body.f_History = [];
   req.body.f_History.push(`${currentTime} Create User`);
   userModel.addUser(req.body);
@@ -72,8 +59,8 @@ exports.editUser = async (req, res) => {
   //Get this ID and Update
   const tmpUser = await userModel.getUserByID(req.params.id);
   if (tmpUser === undefined) return;
-  var currentdate = new Date();
-  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
+  var currentDate = new Date();
+  var currentTime = `${currentDate.getMonth() + 1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   //If in form has covid address
   if (req.body.f_CovidAddress !== undefined) {
     tmpUser.f_CovidAddress = req.body.f_CovidAddress;

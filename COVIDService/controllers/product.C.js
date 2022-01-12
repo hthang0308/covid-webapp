@@ -1,5 +1,6 @@
 const productModel = require('../models/product.M');
 const sort = require('../utils/sort');
+const { uploadFiles } = require('../middlewares/firebase');
 
 // Route
 exports.getAllProducts = async (req, res) => {
@@ -19,21 +20,37 @@ exports.searchProduct = async (req, res) => {
     });
 }
 
+exports.getProduct = async (req, res) => {
+    tmpProd = await productModel.getProductById(req.params.id);
+    res.render('/single', {
+        products: tmpProd
+    })
+}
+
 exports.createProduct = async (req, res) => {
     if (req.method === "POST") {
-        productModel.addProduct(req.body);
-        res.redirect('./');
+        const files = await uploadFiles(req.files);
+        const product = { ...req.body, images: files };
+        await productModel.createProduct(product);
+        res.redirect('form_addProductSuccess');
     }
     res.render('form_addProduct');
 }
 
 exports.editProduct = async (req, res) => {
     tmpProd = await productModel.getProductById(req.params.id);
+    if (req.method === "PATCH") {
+        const files = await uploadFiles(req.files);
+        const product = { ...req.body, images: files };
+        await productModel.editProduct(req.params.id, product);
+        res.redirect('form_editSuccess');
+    }
     res.render('/single', {
         product: tmpProd
     });
 }
 
 exports.deleteProduct = async (req, res) => {
-    res.render('/single');
+    await productModel.deleteProduct(req.params.id);
+    res.redirect('home');
 }

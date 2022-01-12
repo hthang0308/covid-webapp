@@ -21,6 +21,13 @@ module.exports = (app) => {
       },
       select(value, options) {
         return options.fn(this).replace(new RegExp(' value="' + value + '"'), '$& selected="selected"');
+      },
+      json: obj => {
+        const keys = Object.keys(obj);
+        let a = "{";
+        keys.forEach(key => a += "'" + key + "':'" + obj[key] + "',");
+        a = a.slice(0, -1) + "}";
+        return a;
       }
     }
   });
