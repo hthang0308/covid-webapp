@@ -3,7 +3,7 @@ const hbs_section = require('express-handlebars-sections');
 
 module.exports = (app) => {
   const hbs = exhbs.create({
-    defaultLayout: 'homes',
+    defaultLayout: 'main',
     extname: 'hbs',
     helpers: {
       calculate(op1, op2, opt, choice) {

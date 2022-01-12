@@ -1,28 +1,83 @@
-const passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
+let opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = 'matkhau';
+var accountModel = require('../models/account.M');
+const db = require('../models/db');
+const bcrypt = require('bcryptjs');
 
+module.exports = app => {
+    passport.use(new LocalStrategy({
+        usernameField: 'username',
+        passwordField: 'password'
+    },
+        async (username, password, done) => {
+            try {
+                const acc = await accountModel.get(username);
+                if (!acc) {
+                    return done(null, false, { message: 'Sai số tài khoản.' });
+                }
+                if (!acc.Password) {
+                    return done(null, false, { message: 'Chưa tạo mật khẩu cho tài khoản.' });
+                }
+                let checkPass = await bcrypt.compare(password, acc.Password);
+                if (!checkPass) {
+                    return done(null, false, { message: 'Sai mật khẩu.' });
+                }
+                return done(null, acc);
 
-const userModel = require('../models/user.M');
-
-passport.use(new LocalStrategy(
-    async function (username, password, done) {
-        const user = await userModel.checkCorrectAccount(username, password);
-        if (!user) {
-            return done(null, false, { message: 'Incorrect username or password' });
+            } catch (error) {
+                return done(error);
+            }
         }
-        return done(null, user);
-    }
-));
+    ));
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
+    var cookieExtractor = function (req) {
+        var token = null;
+        if (req && req.cookies) token = req.cookies['Authorization'];
+        return token;
+    };
+    passport.use(new JwtStrategy({
+        jwtFromRequest: cookieExtractor,
+        secretOrKey: 'hello'
+    }, function (jwt_payload, done) {
+        try {
+            const user = accountModel.get(jwt_payload.name);
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        } catch (error) {
+            return done(err, false);
 
-passport.deserializeUser(function (id, done) {
-    userModel.getUser(id)
-        .then((user) => {
-            done(null, user);
-        })
-});
+        }
+    }));
 
-module.exports = passport;
+    passport.serializeUser(function (user, done) {
+        const userSe = {
+            AccID: user.AccID,
+            Balance: user.Balance
+        }
+        done(null, userSe);
+    });
+
+    passport.deserializeUser(async (user, done) => {
+        try {
+            const userDe = await accountModel.get(user.AccID);
+            const user2 = {
+                AccID: userDe.AccID,
+                Balance: userDe.Balance
+            }
+            done(null, user2);
+        } catch (error) {
+            done(error, null);
+        }
+    });
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+}

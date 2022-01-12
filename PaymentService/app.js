@@ -3,11 +3,7 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 require('dotenv').config({ path: './.env' });
-require('../middlewares/handlebars')(app);
-
-// const userRouter = require('./routes/userRoute');
-// const packRouter = require('./routes/packageRoute');
-// const productRouter = require('./routes/productRoute');
+var morgan = require('morgan')
 
 const app = express();
 app.use(express.json());
@@ -16,8 +12,10 @@ app.use(
         extended: true,
     })
 );
+
 //Change: Add Override Method - PUT DELETE
 const methodOverride = require("method-override");
+const { mainModule } = require('process');
 app.use(methodOverride("_method"));
 //Done Change
 
@@ -25,38 +23,29 @@ app.use(session({
     cookie: {
         httpOnly: true, maxAge: null
     },
-    secret: process.env.SECRET_COOKIE,
+    secret: "helloworld",
+    //secret: process.env.SECRET_COOKIE,
     resave: false,
     saveUninitialized: false
 }));
-
+require('./middlewares/handlebars')(app);
+require('./middlewares/passport')(app);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors());
+//app.use(cors());
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-} else {
-    app.use(morgan('combined'), {
-        skip(req, res) {
-            return res.statusCode < 400;
-        }
-    })
-}
-
-app.get('/', function (req, res) {
-    res.render("home", {
-        cssP: () => "css",
-        scriptP: () => "empty",
-        navP: () => "nav",
-        footerP: () => "footer",
-    });
-});
-
-// app.use('/user', userRouter);
-// app.use('/products', productRouter);
-// app.use('/packages', packRouter);
+// if (process.env.NODE_ENV === 'development') {
+//     app.use(morgan('dev'));
+// } else {
+//     app.use(morgan('combined'), {
+//         skip(req, res) {
+//             return res.statusCode < 400;
+//         }
+//     })
+// }
+const router = require('./routes/');
+app.use('/', router);
 
 app.use(express.static(path.join(__dirname + "../public")));
 app.all("*", (req, res, next) => {
