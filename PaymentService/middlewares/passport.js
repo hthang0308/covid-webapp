@@ -1,13 +1,16 @@
-var passport = require('passport')
-var LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
+
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
+
+const db = require('../utils/db');
+const accountModel = require('../models/account.M');
+const bcrypt = require('bcryptjs');
+
 let opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = 'matkhau';
-var accountModel = require('../models/account.M');
-const db = require('../models/db');
-const bcrypt = require('bcryptjs');
 
 module.exports = app => {
     passport.use(new LocalStrategy({
@@ -16,7 +19,7 @@ module.exports = app => {
     },
         async (username, password, done) => {
             try {
-                const acc = await accountModel.get(username);
+                const acc = await accountModel.getAccountByUsername(username);
                 if (!acc) {
                     return done(null, false, { message: 'Sai số tài khoản.' });
                 }

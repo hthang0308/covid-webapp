@@ -1,4 +1,4 @@
-const db = require('../models/db');
+const db = require('../utils/db');
 const accountModel = require('../models/account.M');
 const bcrypt = require('bcrypt');
 class SignUpController {
@@ -34,7 +34,7 @@ class SignUpController {
             Password: null,
             Balance: 0,
         };
-        const newAcc = await accountModel.add(acc);
+        const newAcc = await accountModel.addAccount(acc);
         res.json(newAcc);
     }
 }

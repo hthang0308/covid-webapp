@@ -15,11 +15,11 @@ const conn = {
 const db = pgp(conn);
 
 // LOADING
-exports.load = async (tableName) => {
+exports.load = async (tableName, orderField) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format("SELECT * from $1", table);
+  const queryStr = pgp.as.format("SELECT * from $1 ORDER BY $2 ASC", { table, orderField });
   try {
-    const res = await db.any(queryStr);
+    const res = await db.any(queryStr, orderField);
     return res;
   } catch (error) {
     console.log("Error loading: ", error);
@@ -32,21 +32,27 @@ exports.get = async (tableName, fieldName, value) => {
   const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}" = '${value}'`, table);
   try {
     const res = await db.any(queryStr);
-    return res;
+    if (res.length > 0) {
+      return res[0];
+    }
+    return null;
   } catch (error) {
     console.log("Error getting: ", error);
   }
 };
 
-// SEARCHING
-exports.search = async (tableName, fieldName, value) => {
+// READING (ALL)
+exports.getAll = async (tableName, fieldName, value, orderField) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"::text like '${value}%'`, table);
+  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"='${value}' ORDER BY ${orderField} ASC`, table);
   try {
     const res = await db.any(queryStr);
-    return res;
+    if (res.length > 0) {
+      return res;
+    }
+    return null;
   } catch (error) {
-    console.log("Error searching: ", error);
+    console.log("Error getting all: ", error);
   }
 };
 
@@ -66,7 +72,7 @@ exports.create = async (tableName, entity) => {
 exports.update = async (tableName, fieldId, id, newEntity) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
   const condition = pgp.as.format(` WHERE "${fieldId}" = '${id}'`, newEntity);
-  const queryStr = pgp.helpers.update(newEntity, null, table) + condition;
+  const queryStr = pgp.helpers.update(newEntity, null, table) + condition + " RETURNING *";
   try {
     db.none(queryStr);
   } catch (error) {
@@ -77,7 +83,7 @@ exports.update = async (tableName, fieldId, id, newEntity) => {
 // DELETING
 exports.delete = async (tableName, fieldName, value) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format(`DELETE from $1 where "${fieldName}" = '${value}'`, table);
+  const queryStr = pgp.as.format(`DELETE from $1 where "${fieldName}" = '${value}'`, table) + "RETURNING *";
   try {
     const res = await db.result(queryStr);
     return res;
@@ -85,29 +91,3 @@ exports.delete = async (tableName, fieldName, value) => {
     console.log("Error getting: ", error);
   }
 };
-
-// STATISTICS
-exports.statistic = async (tbName, fieldName, staField, value) => {
-  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
-  const qStr = pgp.as.format(`SELECT ${fieldName}, count(*) as "soluong" FROM $1 WHERE "${staField}"='${value}' 
-                              GROUP BY ${fieldName} ORDER BY ${fieldName} ASC`, table);
-  console.log('Qstr: ', qStr);
-  try {
-    const res = await db.any(qStr);
-    return res;
-  } catch (error) {
-    console.log('Error statistics');
-  }
-}
-
-// SIMPLE STATISTICS
-exports.simpleStatistic = async (tbName, fieldName, staField, orderField) => {
-  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
-  const qStr = pgp.as.format(`SELECT ${fieldName}, ${staField} FROM $1 ORDER BY ${orderField} ASC`, table);
-  try {
-    const res = await db.any(qStr);
-    return res;
-  } catch (error) {
-    console.log('Error s/statistics');
-  }
-}

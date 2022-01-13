@@ -60,7 +60,7 @@ class SignInController {
 
     async postFirstSignIn(req, res, next) {
         if (req) {
-            var account = await accountModel.get(req.body.username);
+            var account = await accountModel.getAccountByUsername(req.body.username);
             if (!account) {
                 res.render('firstSignIn', {
                     msg: 'Không tồn tại ID tài khoản',
@@ -84,7 +84,8 @@ class SignInController {
                 Balance: account.Balance
             }
             const colName = "Password";
-            const data = await accountModel.update(acc, colName);
+            // TODO: FIX THIS
+            const data = await accountModel.updateAccount(accID, colName);
             res.render('message');
             return;
         }

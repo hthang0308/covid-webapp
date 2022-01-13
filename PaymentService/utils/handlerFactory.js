@@ -27,8 +27,8 @@ exports.deleteOne = async (TableName, entity, value) => {
   return res;
 };
 
-exports.search = async (TableName, entity, value) => {
-  const res = await db.search(TableName, entity, value);
-  if (!res) return null;
-  return res;
-};
+// exports.search = async (TableName, entity, value) => {
+  // const res = await db.search(TableName, entity, value);
+  // if (!res) return null;
+  // return res;
+// };
