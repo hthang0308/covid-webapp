@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 
 let opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'matkhau';
+opts.secretOrKey = process.env.SECRET_KEY;
 
 module.exports = app => {
     passport.use(new LocalStrategy({
