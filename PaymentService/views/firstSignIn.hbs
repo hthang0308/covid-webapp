@@ -1,0 +1,22 @@
+<form method="POST" action="/firstSignIn" class="mx-auto px-4 py-3 shadow rounded" style="max-width: 400px;">
+  <div class="form-group">
+    <label for="username" class="font-weight-bold">ID tài khoản</label>
+    <input name="username" type="text" class="form-control shadow-sm rounded" id="username" value="1000">
+  </div>
+  <div class="form-group">
+    <label for="password" class="font-weight-bold">Mật Khẩu</label>
+    <input name="password" type="password" class="form-control shadow-sm rounded" id="password" value="admin">
+  </div>
+  <div class="form-group">
+    <label for="password" class="font-weight-bold">Nhập lại mật Khẩu</label>
+    <input name="retype" type="password" class="form-control shadow-sm rounded" id="retype" value="admin">
+  </div>
+  <button type="submit" class="btn btn-success">Tạo mật khẩu</button>
+  {{#if msg}}
+  <div class="alert alert-{{color}}  mt-3 rounded" role="alert">
+    {{msg}}
+  </div>
+  <a href="/signin" class="btn btn-success">Quay lại trang đăng nhập</a>
+
+  {{/if}}
+</form>

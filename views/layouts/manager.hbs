@@ -1,0 +1,100 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/all.min.css" />
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/all.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="../css/main.css" />
+  </head>
+
+  <body>
+
+    <div class="app-container container-fluid pt-4">
+      <div class="app-main container-fluid">
+        <div class="row">
+            {{#section "sidebar"}}
+            <!-- DEFINE THE DEFAULT CONTENT FOR THE 'header' SECTION -->
+              <div class="col-3 sidebar-wrapper">
+                <nav class="card shadow sidebar">
+                  <h4
+                    class="card-header d-flex justify-content-between align-items-center"
+                  >
+                    <span
+                      class="sidebar-section text-nowrap"
+                    >Covid-Webapp</span>
+                    <a
+                      id="toggle-collapse-btn"
+                      class="text-decoration-none"
+                      role="button"
+                    >
+                      <div class="fs-2 text-red sidebar__nav-icon"></div>
+                    </a>
+                  </h4>
+                  <div class="sidebar__inner">
+                    <ul
+                      class="list-group vertical-nav-menu"
+                      style="font-size: 0.9rem"
+                    >
+                      <li class="list-group-item">
+                        <a href="/manager/dashboard" class="card-link active">
+                          <i class="bi bi-house-door-fill"></i>
+                          <span class="sidebar-section pl-2">
+                            Dashboard
+                          </span>
+                        </a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="/manager/people" class="card-link">
+                          <i class="bi bi-people-fill"></i>
+                          <span class="sidebar-section pl-2">
+                            Danh sách người liên quan Covid-19
+                          </span>
+                        </a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="/manager/necessities" class="card-link">
+                          <i class="fas fa-fish"></i>
+                          <span class="sidebar-section pl-2">
+                            Nhu yếu phẩm
+                          </span>
+                        </a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="/manager/packages" class="card-link">
+                          <i class="fas fa-box"></i>
+                          <span class="sidebar-section pl-2">
+                            Gói nhu yếu phẩm
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            {{/section}}
+            <!-- DEFINE a 'sidebar' SECTION -->
+            {{{_sections.sidebar}}}
+            
+            {{{body}}}
+        </div>
+
+      </div>
+    </div>
+
+    <script src="../js/sidebar.js"></script>
+    {{! DEFINE a 'script' SECTION }}
+    {{{_sections.script}}}
+  </body>
+</html>
