@@ -7,12 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-<<<<<<< HEAD
-    "start": "nodemon --inspect server.js"
-=======
     "start": "concurrently \"cd ./COVIDService && npm start\"  \"cd ./PaymentService && npm start\"",
     "dev": "nodemon server.js"
->>>>>>> 308fc459ad01c4a1a7742834c3268b3984b82852
   },
   "repository": {
     "type": "git",
@@ -26,7 +22,6 @@
   },
   "homepage": "https://github.com/anthony2708/covid-webapp#readme",
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^0.24.0"
   },
   "devDependencies": {
@@ -35,9 +30,7 @@
     "express-handlebars": "^6.0.2",
     "express-handlebars-sections": "^1.0.1",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
-=======
+    "nodemon": "^2.0.15",
     "concurrently": "^7.0.0"
->>>>>>> 308fc459ad01c4a1a7742834c3268b3984b82852
   }
 }
