@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/anthony2708/covid-webapp#readme",
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^0.24.0"
   },
   "devDependencies": {
@@ -34,5 +35,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "sequelize": "^6.13.0"
+=======
+    "concurrently": "^7.0.0"
+>>>>>>> f1c76b914a4efeab20887a3417a48ba4085e0f26
   }
 }
