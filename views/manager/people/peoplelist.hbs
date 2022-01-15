@@ -1,0 +1,77 @@
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+  <!-- Danh sách người covid 19 -->
+  <div id="content-1" class="content shadow border rounded p-2" value="people">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          <img
+            src="../assets/img/avt.jpg"
+            alt="Ảnh đại diện"
+            srcset=""
+            class="img-thumbnail img-fluid mt-3"
+            style="width: 100%;"
+          />
+        </div>
+        <div class="col-sm-9">
+          <p
+            class="title text-blue text-center text-sm-left my-3"
+            style="font-size: 1.8rem"
+          >Nguyễn Tuấn Khanh</p>
+          <div class="container info-details border border-bottom-0">
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Ngày sinh</div>
+              <div class="col-8 py-1" style="font-weight: 500;">10/11/2001</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">CMND</div>
+              <div
+                class="col-8 py-1"
+                style="font-weight: 500;"
+              >123456789012</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Địa chỉ</div>
+              <div class="col-8 py-1" style="font-weight: 500;">Bình Phước</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Trạng thái</div>
+              <div class="col-8 py-1" style="font-weight: 500;">F1</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Nơi điều trị/cách ly</div>
+              <div class="col-8 py-1" style="font-weight: 500;">Bình Phước</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Những người liên đới</div>
+              <div class="col-8 py-1" style="font-weight: 500;">
+                Bùi Lê Tuấn Anh, Huỳnh Minh Thắng, Phạm Tiến Khải
+              </div>
+            </div>
+          </div>
+          <div class="my-3">
+            <a class="btn btn-primary" href="/people/:id/edit" role="button">
+              <i class="fas fa-pen mr-1"></i>
+              Cập nhật thông tin
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2 mb-5">
+        <div class="col-12">
+          <h5>Lịch sử điều trị:</h5>
+          <div class="history-progress">
+            Bù Gia Mập &rarr; Đồng Xoài &rarr; Bù Đăng &rarr; Bù Gia Mập
+            <!-- description -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{{/section}}
+
+{{! DEFINE A 'script' SECTION }}
+{{#section "script"}}
+
+{{/section}}

@@ -3,15 +3,16 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const morgan = require('morgan')
+const cors = require('cors')
 
 require('dotenv').config({ path: './.env' });
-require('./middlewares/handlebars')(app);
-require('./middlewares/passport')(app);
 
 // Router
 const paymentRouter = require('./routes/index');
 
 const app = express();
+require('./middlewares/handlebars')(app);
+require('./middlewares/passport')(app);
 app.use(express.json());
 app.use(
     express.urlencoded({

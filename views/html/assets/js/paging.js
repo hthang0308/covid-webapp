@@ -1,7 +1,7 @@
-const perPage = 5;
+const perPage = 3;
 var rowTotal = $('#content-1 .table-content tbody tr').length;
 $('#content-1 #main-pagination').twbsPagination({
-    totalPages: rowTotal/perPage + 1,
+    totalPages: Number.isInteger(rowTotal/perPage) ? rowTotal/perPage : rowTotal/perPage + 1,
     startPage: 1,
     visiblePages: 5,
     onPageClick: function (event, page) {

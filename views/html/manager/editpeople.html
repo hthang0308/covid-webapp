@@ -17,8 +17,6 @@
 </head>
 
 <body>
-  {{!-- DEFAULT HEADER --}}
-  {{#section 'header'}}
   <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
     <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
     <form class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
@@ -59,13 +57,8 @@
       </ul>
     </div>
   </header>
-  {{/section}}
-    {{!-- DEFINE A 'header' SECTION--}}
-  {{{_section.header}}}
   <div class="main-content container-fluid">
     <div class="row">
-      {{!-- DEFAULT SIDEBAR --}}
-      {{#section 'sidebar'}}
       <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
@@ -98,13 +91,66 @@
           </ul>
         </div>
       </nav>
-      {{/section}}
-      {{!-- DEFINE A 'sidebar' SECTION --}}
-      {{{_section.sidebar}}}
-
       <main class=" pt-4 ml-sm-auto col-lg-10">
-        {{!-- DEFINE A 'content' SECTION --}}
-        {{{_section.content}}}
+        
+        <div id="content-1" class="content shadow border rounded p-2 py-3" value="people">
+            <div class="container-fluid pt-3 pb-5">
+                <div class="row">
+                    <div class="col-12 col-sm-3">
+                        <img src="../assets/img/avt.jpg" alt="Ảnh đại diện" srcset="" class="img-thumbnail img-fluid" style="width: 100%;">
+                    </div>
+                    <div class="col-12 col-sm-9">
+                      <form action="#" method="post" >
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="surname-input" class="font-weight-bold">Họ & tên lót</label>
+                            <input id="surname-input" type="text" class="form-control" value="Nguyễn Tuấn" name="surname" readonly>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="firstname-input" class="font-weight-bold">Tên</label>
+                            <input id="firstname-input" type="text" class="form-control" value="Khanh"  name="first" readonly>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="birthday-input" class="font-weight-bold">Ngày sinh</label>
+                            <input type="text" class="form-control" id="birthday-input" value="10/11/2001" name="birthday" readonly>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="idcard-input" class="font-weight-bold">CMND/CCCD</label>
+                            <input type="text" class="form-control" id="idcard-input" value="123456789012" name="idcard" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="people-relative-input" class="font-weight-bold">Những người liên đới</label>
+                          <input type="text" class="form-control" id="people-relative-input" value=" Bùi Lê Tuấn Anh,  Huỳnh Minh Thắng, Phạm Tiến Khải" name="people_relative" readonly>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="status-input" class="font-weight-bold">Trạng thái</label>
+                            <select id="status-input" class="form-control status" name="status">
+                              <option value='F0'>F0</option>
+                              <option value='F1'>F1</option>
+                              <option value='F2'>F2</option>
+                              <option value='F3'>F3</option>
+                              <option value='Khỏi bênh'>Khỏi bênh</option>
+                              <option value='Khác'>Khác</option>
+                            </select>    
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="treatment-place-input" class="font-weight-bold">Nơi điều trị/cách ly</label>
+                            <input type="text" class="form-control" id="treatment-place-input" value="Bình Phước" name="treatment_place">
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                          <i class="fas fa-check mr-1"></i>
+                          Lưu
+                        </button>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer class="container-fluid py-3 my-4 border-top">
           <div class="d-flex align-items-center justify-content-center">
             <span class="text-muted">© 2021 Company, Inc</span>
@@ -116,8 +162,6 @@
   <script src="../assets/js/sidebar.js"></script>
   <script src="../assets/js/jquery.twbsPagination.js"></script>
   <script src="../assets/js/main.js"></script>
-  {{!-- DEFINE A 'script' SECTION --}}
-  {{{_section.script}}}
 </body>
 
 </html>

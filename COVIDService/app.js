@@ -3,7 +3,6 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 require('dotenv').config({ path: './.env' });
-require('./middlewares/handlebars')(app);
 const { rmSync } = require('fs');
 
 const userRouter = require('./routes/userRoute');
@@ -12,6 +11,7 @@ const productRouter = require('./routes/productRoute');
 const statisticRouter = require('./routes/statisticRoute');
 
 const app = express();
+require('./middlewares/handlebars')(app);
 app.use(express.json());
 app.use(
   express.urlencoded({
