@@ -1,4 +1,5 @@
 const productModel = require('../models/product.M');
+const packageModel = require('../models/package.M');
 const sort = require('../utils/sort');
 const { uploadFiles } = require('../middlewares/firebase');
 
@@ -51,6 +52,14 @@ exports.editProduct = async (req, res) => {
 }
 
 exports.deleteProduct = async (req, res) => {
+    tmpProd = await productModel.getProductById(req.params.id);
+    if (tmpProd === undefined) return;
+    pack = await packageModel.getAllPackages();
+    for (const eachPack of pack) {
+        for (const product of eachPack.f_List) {
+            if (tmpProd === product) return;
+        }
+    }
     await productModel.deleteProduct(req.params.id);
     res.redirect('home');
 }
