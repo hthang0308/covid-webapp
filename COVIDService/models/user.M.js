@@ -1,7 +1,7 @@
 const factory = require("../utils/handlerFactory");
 const axios = require('axios');
 const { API_URL } = require("../utils/constant");
-const { getName } = require("../middlewares/getTransaction");
+// const { getName } = require("../middlewares/getTransaction");
 
 const TableName = "Users";
 
@@ -46,28 +46,28 @@ module.exports = {
     return { data };
   },
 
-  checkVerification: async (_f_ID) => {
-    let res = await axios({
-      method: 'POST',
-      url: `${API_URL}/auth/verify`,
-      data: { _f_ID }
-    }).then(res => res.data)
-      .catch(err => console.log(err));
-
-    return { data: res.verified };
-  },
-
-  deposit: async (send_id, amount, token) => {
-    let data = await axios({
-      method: 'POST',
-      url: `${API_URL}/api/transactions/deposit`,
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      data: { send_id, amount }
-    }).then(res => res.data)
-      .catch(err => console.log(err));
-
-    return { data };
-  }
+  // checkVerification: async (_f_ID) => {
+  // let res = await axios({
+  // method: 'POST',
+  // url: `${API_URL}/auth/verify`,
+  // data: { _f_ID }
+  // }).then(res => res.data)
+  // .catch(err => console.log(err));
+  // 
+  // return { data: res.verified };
+  // },
+  // 
+  // deposit: async (send_id, amount, token) => {
+  // let data = await axios({
+  // method: 'POST',
+  // url: `${API_URL}/api/transactions/deposit`,
+  // headers: {
+  // Authorization: `Bearer ${token}`
+  // },
+  // data: { send_id, amount }
+  // }).then(res => res.data)
+  // .catch(err => console.log(err));
+  // 
+  // return { data };
+  // }
 };
