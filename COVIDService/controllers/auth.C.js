@@ -42,11 +42,17 @@ exports.createAndSendToken = (user, statusCode, res) => {
 }
 
 exports.getSignUp = async (req, res) => {
-    res.render('auth/signup');
+    res.render('auth/signup', {
+        layout: 'authBG',
+        title: 'Đăng ký'
+    });
 }
 
 exports.getSignIn = async (req, res) => {
-    res.render('auth/login');
+    res.render('auth/login', {
+        layout: 'authBG',
+        title: 'Đăng nhập'
+    });
 }
 
 exports.signin = async (req, res) => {

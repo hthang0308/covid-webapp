@@ -3,8 +3,10 @@ const hbs_section = require('express-handlebars-sections');
 
 module.exports = (app) => {
   const hbs = exhbs.create({
-    defaultLayout: 'homes',
-    extname: 'hbs',
+    defaultLayout: 'main',
+    extname: '.hbs',
+    layoutsDir: 'views/layouts',
+    partialsDir: 'views/partials',
     helpers: {
       calculate(op1, op2, opt, choice) {
         var opts = {
@@ -28,10 +30,10 @@ module.exports = (app) => {
         keys.forEach(key => a += "'" + key + "':'" + obj[key] + "',");
         a = a.slice(0, -1) + "}";
         return a;
-      }
+      },
+      section: hbs_section()
     }
   });
-  hbs_section(hbs);
   app.engine('hbs', hbs.engine);
   app.set('view engine', 'hbs');
   app.set('views', './views');
