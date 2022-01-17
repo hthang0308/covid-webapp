@@ -1,6 +1,6 @@
 const db = require('../utils/db');
 const accountModel = require('../models/account.M');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 class SignUpController {
     getSignUp(req, res) {
         if (req.user) {
@@ -10,6 +10,7 @@ class SignUpController {
         res.render('signup');
 
     }
+
     async postSignUp(req, res) {
         // if (req.session.user) {
         //     res.redirect('/');

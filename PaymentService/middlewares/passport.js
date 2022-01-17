@@ -17,9 +17,9 @@ module.exports = app => {
         usernameField: 'username',
         passwordField: 'password'
     },
-        async (username, password, done) => {
+        async (accID, password, done) => {
             try {
-                const acc = await accountModel.getAccountByUsername(username);
+                const acc = await accountModel.getAccountById(accID);
                 if (!acc) {
                     return done(null, false, { message: 'Sai số tài khoản.' });
                 }
@@ -38,27 +38,27 @@ module.exports = app => {
         }
     ));
 
-    var cookieExtractor = function (req) {
-        var token = null;
-        if (req && req.cookies) token = req.cookies['Authorization'];
-        return token;
-    };
-    passport.use(new JwtStrategy({
-        jwtFromRequest: cookieExtractor,
-        secretOrKey: 'hello'
-    }, function (jwt_payload, done) {
-        try {
-            const user = accountModel.get(jwt_payload.name);
-            if (user) {
-                return done(null, user);
-            } else {
-                return done(null, false);
-            }
-        } catch (error) {
-            return done(err, false);
+    // var cookieExtractor = function (req) {
+    //     var token = null;
+    //     if (req && req.cookies) token = req.cookies['Authorization'];
+    //     return token;
+    // };
+    // passport.use(new JwtStrategy({
+    //     jwtFromRequest: cookieExtractor,
+    //     secretOrKey: process.env.JWT_SECRET
+    // }, function (jwt_payload, done) {
+    //     try {
+    //         const user = accountModel.get(jwt_payload.name);
+    //         if (user) {
+    //             return done(null, user);
+    //         } else {
+    //             return done(null, false);
+    //         }
+    //     } catch (error) {
+    //         return done(err, false);
 
-        }
-    }));
+    //     }
+    // }));
 
     passport.serializeUser(function (user, done) {
         const userSe = {
@@ -70,7 +70,7 @@ module.exports = app => {
 
     passport.deserializeUser(async (user, done) => {
         try {
-            const userDe = await accountModel.get(user.AccID);
+            const userDe = await accountModel.getAccountById(user.AccID);
             const user2 = {
                 AccID: userDe.AccID,
                 Balance: userDe.Balance
@@ -80,7 +80,7 @@ module.exports = app => {
             done(error, null);
         }
     });
-
+    
     app.use(passport.initialize());
     app.use(passport.session());
 }

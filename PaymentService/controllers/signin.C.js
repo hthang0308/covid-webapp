@@ -44,11 +44,11 @@ class SignInController {
                         nav: () => 'nav'
                     });
                 }
-                // var userToken = {
-                //     name: user.f_Username
-                // }
-                // const token = jwt.sign(userToken, 'hello');
-                // res.cookie('Authorization', token);
+                var userToken = {
+                    id: user.accID
+                }
+                const token = jwt.sign(userToken, process.env.JWT_SECRET);
+                res.cookie('access_token', token);
                 return res.redirect('/');
             });
         })(req, res, next);

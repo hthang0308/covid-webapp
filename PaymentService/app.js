@@ -11,6 +11,16 @@ require('dotenv').config({ path: './.env' });
 const paymentRouter = require('./routes/index');
 
 const app = express();
+
+app.use(session({
+    cookie: {
+        httpOnly: true, maxAge: null
+    },
+    secret: process.env.SECRET_COOKIE,
+    resave: false,
+    saveUninitialized: false
+}));
+
 require('./middlewares/handlebars')(app);
 require('./middlewares/passport')(app);
 app.use(express.json());
@@ -25,16 +35,8 @@ const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 //Done Change
 
-app.use(session({
-    cookie: {
-        httpOnly: true, maxAge: null
-    },
-    secret: process.env.SECRET_COOKIE,
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+
+
 
 app.use(cors());
 
