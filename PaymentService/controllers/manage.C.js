@@ -1,5 +1,43 @@
 const accountModel = require('../models/account.M');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const adminId = 1000;
+exports.getBalance = async (req, res) => {
+    var response = {
+        Response: 'false'
+    }
+    if (req.body) {
+        if (req.body.access_token && req.body.accid) {
+            try {
+                var decoded = await jwt.verify(req.body.access_token, process.env.JWT_SECRET)
+                if (decoded) {
+                    try {
+                        const acc = await accountModel.getAccountById(req.body.accid);
+                        if (acc) {
+                            response.Response = 'true';
+                            response.Balance = acc.Balance;
+                        }
+                    } catch (error) {
+                        response.Error = "Can not get Balance from Database"
+                        res.json(response);
+                        return;
+                    }
+                }
+                res.json(response);
+                return;
+            }
+            catch (err) {
+                response.Error = "Error jwt verify";
+                res.json(response);
+                return;
+            }
+        }
+        res.json(response);
+        return;
+    }
+    res.json(response);
+}
+
 exports.addBalance = async (req, res, next) => {
     if (req.user) {
         const account = await accountModel.getAccountById(req.user.AccID);
@@ -81,4 +119,42 @@ exports.handleChangePass = async (req, res, next) => {
         return;
     }
     res.redirect('/')
+}
+
+exports.transfer = async (req, res, next) => {
+    var response = {
+        Response: 'false'
+    }
+    if (req.body && req.body.access_token) {
+        var decoded = await jwt.verify(req.body.access_token, process.env.JWT_SECRET)
+        if (!decoded) {
+            response.Error = 'Verify failed'
+            res.json(response);
+            return;
+        }
+        const accId = req.body.accid;
+        const money = req.body.money;
+        try {
+            var acc = await accountModel.getAccountById(accId);
+            var accAdmin = await accountModel.getAccountById(adminId);
+            acc.Balance = acc.Balance - money;
+            if (acc.Balance < 0) {
+                response.Error = "Not enough money";
+                res.json(response);
+                return;
+            }
+            accAdmin.Balance = accAdmin.Balance + money;
+            await accountModel.updateAccount(adminId, accAdmin);
+            await accountModel.updateAccount(acc.AccID, acc);
+            response.Response = 'true';
+            response.newBalance = acc.Balance;
+            res.json(response);
+            return;
+
+        } catch (error) {
+            console.log('Error transfer money');
+            response.Error = 'Error transfer money';
+            res.json(response);
+        }
+    }
 }

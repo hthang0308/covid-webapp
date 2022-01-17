@@ -16,39 +16,3 @@ exports.getHome = (req, res) => {
     }
     res.redirect('/signin')
 }
-
-exports.getBalance = async (req, res) => {
-    var response = {
-        Response: 'false'
-    }
-    if (req.body) {
-        if (req.body.access_token && req.body.accid) {
-            try {
-                var decoded = await jwt.verify(req.body.access_token, process.env.JWT_SECRET)
-                if (decoded) {
-                    try {
-                        const acc = await accountModel.getAccountById(req.body.accid);
-                        if (acc) {
-                            response.Response = 'true';
-                            response.Balance = acc.Balance;
-                        }
-                    } catch (error) {
-                        response.Error = "Can not get Balance from Database"
-                        res.json(response);
-                        return;
-                    }
-                }
-                res.json(response);
-                return;
-            }
-            catch (err) {
-                response.Error = "Error jwt verify";
-                res.json(response);
-                return;
-            }
-        }
-        res.json(response);
-        return;
-    }
-    res.json(response);
-}
