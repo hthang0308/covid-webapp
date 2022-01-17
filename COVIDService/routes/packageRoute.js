@@ -7,9 +7,12 @@ const router = express.Router()
 router.use(authCtrl.protect);
 
 // Manager access
-router.use(authCtrl.restrictTo('manager'))
+router.use(authCtrl.restrictTo(2));
 router.get('/', packCtrl.getAllPackages);
-router.route('/:id').get(packCtrl.getPackage).patch(packCtrl.editPackage).delete(packCtrl.deletePackage);
+router.route('/:id')
+    .get(packCtrl.getPackage)
+    .patch(packCtrl.editPackage)
+    .delete(packCtrl.deletePackage);
 router.post('/add', packCtrl.createPackage);
 
 module.exports = router

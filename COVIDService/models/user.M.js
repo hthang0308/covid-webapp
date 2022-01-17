@@ -16,6 +16,12 @@ module.exports = {
   deleteUser: async (_f_ID) => factory.deleteOne(TableName, "f_ID", _f_ID),
 
   // Self-defined
+  blockManager: async (_f_ID, _manager) => {
+    let tmpManager = await factory.getOne(TableName, "f_ID", _f_ID);
+    if (tmpManager === undefined) return;
+    factory.updateOne(TableName, "f_ID", _f_ID, _manager);
+  },
+
   getPayment: async (_f_ID, token) => {
     let { data } = await axios({
       method: 'GET',
@@ -37,37 +43,12 @@ module.exports = {
   getBalance: async (_f_ID, token) => {
     let { data } = await axios({
       method: 'GET',
-      url: `${API_URL}/api/accounts/${_f_ID}/get-balance`,
+      url: `${API_URL}/${_f_ID}/balance`,
       headers: {
         Authorization: `Bearer ${token}`
       }
     }).then(res => res.data)
       .catch(err => console.log(err))
     return { data };
-  },
-
-  // checkVerification: async (_f_ID) => {
-  // let res = await axios({
-  // method: 'POST',
-  // url: `${API_URL}/auth/verify`,
-  // data: { _f_ID }
-  // }).then(res => res.data)
-  // .catch(err => console.log(err));
-  // 
-  // return { data: res.verified };
-  // },
-  // 
-  // deposit: async (send_id, amount, token) => {
-  // let data = await axios({
-  // method: 'POST',
-  // url: `${API_URL}/api/transactions/deposit`,
-  // headers: {
-  // Authorization: `Bearer ${token}`
-  // },
-  // data: { send_id, amount }
-  // }).then(res => res.data)
-  // .catch(err => console.log(err));
-  // 
-  // return { data };
-  // }
+  }
 };

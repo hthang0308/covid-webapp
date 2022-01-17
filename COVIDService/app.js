@@ -7,7 +7,7 @@ const route = require('./routes');
 const methodOverride = require("method-override");
 const morgan = require('morgan');
 const cors = require('cors');
-const { rmSync } = require('fs');
+// const { rmSync } = require('fs');
 const dotenv = require('dotenv');
 
 const app = express();
@@ -51,8 +51,8 @@ if (process.env.NODE_ENV === 'development') {
 app.get('/', function (req, res) {
   res.render("home", {
     cssP: () => "css",
-    scriptP: () => "empty",
-    navP: () => "nav",
+    // scriptP: () => "empty",
+    // navP: () => "nav",
     footerP: () => "footer",
   });
 });

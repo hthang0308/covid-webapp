@@ -5,7 +5,7 @@ const statRouter = require('./statisticRoute');
 const authRouter = require('./authRouter');
 
 function route(app) {
-    app.use('/', authRouter);
+    app.use('/account', authRouter);
     app.use('/user', userRouter);
     app.use('/statistic', statRouter);
     app.use('/products', productRouter);
