@@ -2,27 +2,27 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
-require('dotenv').config({ path: './.env' });
+const handlebars = require('./middlewares/handlebars');
+const route = require('./routes');
+const methodOverride = require("method-override");
+const morgan = require('morgan');
+const cors = require('cors');
 const { rmSync } = require('fs');
-
-const userRouter = require('./routes/userRoute');
-const packRouter = require('./routes/packageRoute');
-const productRouter = require('./routes/productRoute');
-const statisticRouter = require('./routes/statisticRoute');
+const dotenv = require('dotenv');
 
 const app = express();
-require('./middlewares/handlebars')(app);
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
+
 //Change: Add Override Method - PUT DELETE
-const methodOverride = require("method-override");
-const morgan = require('morgan');
 app.use(methodOverride("_method"));
 //Done Change
+
+dotenv.config({ path: './.env' });
 
 app.use(session({
   cookie: {
@@ -35,8 +35,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(cors());
+handlebars(app);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -57,10 +57,7 @@ app.get('/', function (req, res) {
   });
 });
 
-app.use('/user', userRouter);
-app.use('/products', productRouter);
-app.use('/packages', packRouter);
-app.use('/statistic', statisticRouter);
+route(app);
 
 app.use(express.static(path.join(__dirname + "/public")));
 app.all("*", (req, res, next) => {

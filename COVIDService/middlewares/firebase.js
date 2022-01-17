@@ -6,7 +6,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 
-const storageWeb = admin.storage.bucket(`gs://covid-webapp-224c8.appspot.com/`);
+const storageWeb = admin.storage().bucket(`gs://covid-webapp-224c8.appspot.com/`);
 
 const uploadSingle = async (file) => {
     try {
