@@ -23,8 +23,8 @@ exports.addBalance = async (req, res, next) => {
             Password: account.Password,
             Balance: newBalance
         }
-        const colName = "Balance"
-        const rs = await accountModel.update(acc, colName);
+        //const colName = "Balance"
+        const rs = await accountModel.updateAccount(acc.AccID, acc);
         const formatedBal = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND'

@@ -75,7 +75,7 @@ exports.update = async (tableName, fieldId, id, newEntity) => {
   const condition = pgp.as.format(` WHERE "${fieldId}" = '${id}'`, newEntity);
   const queryStr = pgp.helpers.update(newEntity, null, table) + condition + " RETURNING *";
   try {
-    db.none(queryStr);
+    db.one(queryStr);
   } catch (error) {
     console.log("Error updating: ", error);
   }
