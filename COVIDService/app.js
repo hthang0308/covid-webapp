@@ -1,16 +1,20 @@
-const express = require('express');
-const path = require('path');
-const session = require('express-session');
-const passport = require('passport');
-const handlebars = require('./middlewares/handlebars');
-const route = require('./routes');
+const express = require("express");
+const path = require("path");
+const session = require("express-session");
+const passport = require("passport");
+const handlebars = require("./middlewares/handlebars");
+const route = require("./routes");
 const methodOverride = require("method-override");
-const morgan = require('morgan');
-const cors = require('cors');
+const morgan = require("morgan");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 // const { rmSync } = require('fs');
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 const app = express();
+
+app.use(cookieParser());
+// app.use(
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -22,33 +26,37 @@ app.use(
 app.use(methodOverride("_method"));
 //Done Change
 
-dotenv.config({ path: './.env' });
+dotenv.config({ path: "./.env" });
 
-app.use(session({
-  cookie: {
-    httpOnly: true, maxAge: null
-  },
-  secret: process.env.SECRET_COOKIE,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  session({
+    cookie: {
+      httpOnly: true,
+      maxAge: null,
+    },
+    secret: process.env.SECRET_COOKIE,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
+require("./middlewares/passport")(app);
 app.use(cors());
 handlebars(app);
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 } else {
-  app.use(morgan('combined'), {
+  app.use(morgan("combined"), {
     skip(req, res) {
       return res.statusCode < 400;
-    }
-  })
+    },
+  });
 }
 
-app.get('/', function (req, res) {
+app.get("/", function (req, res) {
   res.render("home", {
     cssP: () => "css",
     // scriptP: () => "empty",

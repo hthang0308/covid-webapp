@@ -1,5 +1,5 @@
 const factory = require("../utils/handlerFactory");
-const axios = require('axios');
+const axios = require("axios");
 const { API_URL } = require("../utils/constant");
 // const { getName } = require("../middlewares/getTransaction");
 
@@ -8,7 +8,7 @@ const TableName = "Users";
 module.exports = {
   // Factories
   getAllUsers: async () => factory.getAll(TableName),
-  getUserByName: async (_f_Name) => factory.getOne(TableName, "f_Name", _f_Name),
+  getUserByName: async (_f_Name) => factory.getOne(TableName, "f_Username", _f_Name),
   getUserByID: async (_f_ID) => factory.getOne(TableName, "f_ID", _f_ID),
   searchUserByID: async (_f_ID) => factory.search(TableName, "f_ID", _f_ID),
   addUser: async (_user) => factory.createOne(TableName, _user),
@@ -24,31 +24,33 @@ module.exports = {
 
   getPayment: async (_f_ID, token) => {
     let { data } = await axios({
-      method: 'GET',
+      method: "GET",
       url: `${API_URL}/api/transactions/history/${_f_ID}`,
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then(res => res.data)
-      .catch(err => console.log(err));
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
 
-    data = data.map(item => ({
+    data = data.map((item) => ({
       ...item,
       action: getName(item.action),
-      date: moment
-    }))
+      date: moment,
+    }));
     return { data };
   },
 
   getBalance: async (_f_ID, token) => {
     let { data } = await axios({
-      method: 'GET',
+      method: "GET",
       url: `${API_URL}/${_f_ID}/balance`,
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then(res => res.data)
-      .catch(err => console.log(err))
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
     return { data };
-  }
+  },
 };
