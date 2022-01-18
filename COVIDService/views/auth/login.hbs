@@ -23,6 +23,9 @@
             <input type="checkbox" class="form-check-input" id="keeping" name="keeping" />
             <label class="form-check-label" for="keeping" style="font-size: 1rem">Duy trì đăng nhập</label>
           </div>
+          {{#if msg}}
+            <h6><span class="badge badge-danger">{{msg}}</span></h6>
+          {{/if}}
           <button type="submit" class="btn btn-red text-white font-weight-bold w-100 mb-1 text-uppercase">
             Đăng nhập
           </button>
