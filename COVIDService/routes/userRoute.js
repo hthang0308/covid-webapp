@@ -7,9 +7,6 @@ const router = express.Router();
 // Login to access
 router.use(authCtrl.protect);
 
-// User roles
-router.use(authCtrl.restrictTo(1));
-
 // Manager roles
 router.use(authCtrl.restrictTo(2));
 router.route("/").get(userCtrl.getAllUsers).post(userCtrl.createUser);

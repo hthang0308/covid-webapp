@@ -76,7 +76,6 @@ exports.signin = async (req, res) => {
       });
     }
   }
-
   //TODO: render error
   return res.render("auth/login", {
     layout: "authBG",
