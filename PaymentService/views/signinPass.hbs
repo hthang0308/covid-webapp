@@ -1,13 +1,13 @@
-<form method="POST" action="/signinPass" class="mx-auto px-4 py-3 shadow rounded" style="max-width: 300px;">
+<form method="POST" action="/signin" class="mx-auto px-4 py-3 shadow rounded" style="max-width: 300px;">
   <div class="form-group">
     <label for="username" class="font-weight-bold">ID tài khoản</label>
-    <input name="username" type="text" class="form-control shadow-sm rounded" id="username" value="">
+    <input name="username" type="text" class="form-control shadow-sm rounded" id="username" value={{accid}} readonly>
   </div>
-  {{!-- <div class="form-group">
+  <div class="form-group">
     <label for="password" class="font-weight-bold">Mật Khẩu</label>
     <input name="password" type="password" class="form-control shadow-sm rounded" id="password" value="admin">
   </div>
-  <div class="form-group"><a href="/firstSignIn">Đăng nhập lần đầu</a></div> --}}
+  {{!-- <div class="form-group"><a href="/firstSignIn">Đăng nhập lần đầu</a></div> --}}
   <button type="submit" class="btn btn-success">Đăng nhập</button>
   {{#if msg}}
   <div class="alert alert-{{color}} mt-4" role="alert">
