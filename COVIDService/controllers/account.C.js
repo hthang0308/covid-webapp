@@ -11,12 +11,11 @@ exports.createAccount = async (req, res) => {
   if (accountModel.getAccountByUsername(req.body.f_Username) != null) {
     return res.render("accounts/form_addaccount", { err: "Username already exist!" });
   }
-  //validate
   var currentdate = new Date();
   var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
   req.body.f_History = [];
   req.body.f_History.push(`${currentTime} Create User`);
-  req.body.f_Permission = 1;
+  req.body.f_Permission = 2;
   accountModel.addAccount(req.body);
   res.redirect("/account");
   //done
