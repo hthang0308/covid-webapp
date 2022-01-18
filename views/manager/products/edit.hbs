@@ -1,0 +1,166 @@
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+  <div id="content-1" class="content shadow border rounded p-2">
+    <div class="container-fluid">
+      <!-- IMAGES -->
+      <div class="row min-vh-100 py-3">
+        <div class="col-md-5 col-12 h-100">
+          <div
+            id="necessity-images"
+            class="carousel slide carousel-fade border mx-1 mb-5"
+            data-ride="carousel"
+            style="min-height: 100%; width: 100%;"
+          >
+            <ol class="carousel-indicators">
+              <li
+                data-target="#necessity-images"
+                data-slide-to="0"
+                class="active"
+              ></li>
+              <li data-target="#necessity-images" data-slide-to="1"></li>
+              <li data-target="#necessity-images" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" style="height: 100%;">
+              <div class="carousel-item" data-interval="3000">
+                <img
+                  class="img-fluid necessity-image"
+                  src="../../assets/img/necessities/muoi_bien.webp"
+                  alt="Muối biển VISAchef gói 1kg"
+                />
+              </div>
+              <div class="carousel-item" data-interval="3000">
+                <img
+                  class="img-fluid necessity-image"
+                  src="../../assets/img/necessities/muoi_bien_1.webp"
+                  alt="Muối biển VISAchef gói 1kg"
+                />
+              </div>
+              <div class="carousel-item active" data-interval="3000">
+                <img
+                  class="img-fluid necessity-image"
+                  src="../../assets/img/necessities/muoi_bien_2.webp"
+                  alt="Muối biển VISAchef gói 1kg"
+                />
+              </div>
+            </div>
+            <a
+              class="carousel-control-prev"
+              href="#necessity-images"
+              role="button"
+              data-slide="prev"
+            >
+              <i
+                class="fas fa-angle-left text-black-50"
+                style="font-size: 2.2rem"
+              ></i>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="carousel-control-next"
+              href="#necessity-images"
+              role="button"
+              data-slide="next"
+            >
+              <i
+                class="fas fa-angle-right text-black-50"
+                style="font-size: 2.2rem"
+              ></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-7 col-12 h-100">
+          <form id="edit-form" action="#" method="post">
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="name-input" class="font-weight-bold">Tên</label>
+                <input
+                  id="name-input"
+                  type="text"
+                  class="form-control"
+                  value="Muối biển VISAchef gói 1kg"
+                  name="name"
+                  title="Tên"
+                  readonly
+                />
+                <span class="invalid-feedback"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="price-input" class="font-weight-bold">Đơn giá</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="price-input"
+                    value="11,000"
+                    name="price"
+                    rules="required"
+                    title="Đơn giá"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">đ</span>
+                  </div>
+                  <span class="invalid-feedback"></span>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="unit-input" class="font-weight-bold">Đơn vị định
+                  lượng</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="unit-input"
+                  value="Gói"
+                  name="unit"
+                  rules="required"
+                  title="Đơn vị định lượng"
+                />
+                <span class="invalid-feedback"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12 text-truncate">
+                <label for="images-input" class="font-weight-bold">Thêm ảnh
+                  (.png hoặc jpg)</label>
+                <div class="input-group mb-3">
+                  <div class="custom-file">
+                    <label class="custom-file-label" for="images-input">Chọn ảnh</label>
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="images-input"
+                      aria-describedby="inputGroupFileAddon01"
+                      name="images"
+                      accept="image/png, image/jpeg"
+                      multiple
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-check mr-1"></i>
+              Lưu
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{/section}}
+
+{{! DEFINE A 'script' SECTION }}
+{{#section "script"}}
+  <script
+    src="	https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"
+  ></script>
+  <script src="/js/validator.js"></script>
+  <script>
+    $(document).ready(function () { bsCustomFileInput.init();
+    Validator('#edit-form'); })
+  </script>
+{{/section}}

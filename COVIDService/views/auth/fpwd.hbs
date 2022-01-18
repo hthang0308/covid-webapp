@@ -1,0 +1,32 @@
+<div class="container-lg d-flex flex-column justify-content-around">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
+      <p class="tite h1 text-red py-4 text-uppercase">Covid-webapp</p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <form class="card shadow" action="/auth/forgotpassword" method="POST" novalidate>
+        <h4 class="card-header text-capitalize pl-4">Đặt Lại Mật Khẩu</h4>
+        <div class="card-body p-4">
+          <div class="form-group">
+            <!-- <label class="mb-1" for="email">Email</label> -->
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" rules="required" />
+          </div>
+          <button type="submit" class="btn btn-red text-white font-weight-bold w-100 mb-1 text-uppercase">
+            Khôi phục mật khẩu
+          </button>
+          <a href="/auth/login" class="card-link px-1">Đăng nhập</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <p class="mt-5 mb-3 text-center mb-auto">
+        Copyright &copy; 2021-2022 by ....
+      </p>
+    </div>
+  </div>
+</div>

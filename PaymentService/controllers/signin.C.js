@@ -16,20 +16,58 @@ class SignInController {
             nav: () => 'nav'
         });
     }
+
+    async postSignInWithId(req, res, next) {
+        if (req.body.username) {
+            var acc = await accountModel.getAccountById(req.body.username);
+            if (acc) {
+                if (acc.Password) {
+                    res.render('signinPass', {
+                        accid: acc.AccID
+                    });
+                    return;
+                }
+                res.render('firstSignIn', {
+                    accid: acc.AccID
+                });
+                return;
+            }
+            res.render('signin', {
+                msg: 'ID tài khoản không tồn tại',
+                color: 'danger',
+            })
+        }
+        res.render('signin', {
+            msg: 'ID tài khoản trống',
+            color: 'danger'
+        })
+    }
+
     async postSignIn(req, res, next) {
+        if (!req.body.password) {
+            return res.render('signinPass', {
+                layout: 'main',
+                msg: 'Vui lòng không để trống mật khẩu',
+                accid: req.body.username,
+                color: 'danger',
+                nav: () => 'nav'
+            })
+        }
         passport.authenticate('local', function (err, user, info) {
             if (err) {
-                return res.render('signin', {
+                return res.render('signinPass', {
                     layout: 'main',
                     msg: err,
+                    accid: req.body.username,
                     color: 'danger',
                     nav: () => 'nav'
                 });
             }
             if (!user) {
-                return res.render('signin', {
+                return res.render('signinPass', {
                     layout: 'main',
                     msg: info.message,
+                    accid: req.body.username,
                     color: 'danger',
                     nav: () => 'nav'
                 });
@@ -37,18 +75,19 @@ class SignInController {
 
             req.logIn(user, function (err) {
                 if (err) {
-                    return res.render('signin', {
+                    return res.render('signinPass', {
                         layout: 'main',
                         msg: err,
+                        accid: req.body.username,
                         color: 'danger',
                         nav: () => 'nav'
                     });
                 }
-                // var userToken = {
-                //     name: user.f_Username
-                // }
-                // const token = jwt.sign(userToken, 'hello');
-                // res.cookie('Authorization', token);
+                var userToken = {
+                    id: user.AccID
+                }
+                const token = jwt.sign(userToken, process.env.JWT_SECRET);
+                res.cookie('access_token', token);
                 return res.redirect('/');
             });
         })(req, res, next);
@@ -62,18 +101,18 @@ class SignInController {
         if (req) {
             var account = await accountModel.getAccountByUsername(req.body.username);
             if (!account) {
-                res.render('firstSignIn', {
+                return res.render('firstSignIn', {
+                    accid: 'empty',
                     msg: 'Không tồn tại ID tài khoản',
                     color: 'danger'
                 })
-                return;
             }
             if (account.Password) {
-                res.render('firstSignIn', {
+                return res.render('firstSignIn', {
+                    accid: account.AccID,
                     msg: 'Tài khoản đã được tạo mật khẩu',
                     color: 'danger'
                 })
-                return;
             }
             const pass = req.body.password;
             const saltRounds = 10;
@@ -85,9 +124,8 @@ class SignInController {
             }
             const colName = "Password";
             // TODO: FIX THIS
-            const data = await accountModel.updateAccount(accID, colName);
-            res.render('message');
-            return;
+            const data = await accountModel.updateAccount(acc.AccID, acc);
+            return res.render('message');
         }
         res.redirect('/')
     }

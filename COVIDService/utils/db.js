@@ -1,8 +1,8 @@
-const pgp = require('pg-promise')({
-  capSQL: true
+const pgp = require("pg-promise")({
+  capSQL: true,
 });
 
-const schema = 'public';
+const schema = "public";
 const conn = {
   user: process.env.PGUSER,
   host: process.env.PGHOST,
@@ -10,7 +10,7 @@ const conn = {
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
   max: 30,
-}
+};
 
 const db = pgp(conn);
 
@@ -30,14 +30,14 @@ exports.load = async (tableName) => {
 exports.loadSort = async (tbName) => {
   const tableName = new pgp.helpers.TableName({
     table: tbName,
-    schema: schema
-  })
-  const qStr = pgp.as.format('SELECT * FROM ${tableName} ORDER BY ${stt~} ASC', { tableName: tableName, stt: 'stt' });
+    schema: schema,
+  });
+  const qStr = pgp.as.format("SELECT * FROM ${tableName} ORDER BY ${stt~} ASC", { tableName: tableName, stt: "stt" });
   try {
     const res = await db.any(qStr);
     return res;
   } catch (error) {
-    console.log('Error load table');
+    console.log("Error load table");
   }
 };
 
@@ -79,9 +79,11 @@ exports.create = async (tableName, entity) => {
 
 // UPDATING
 exports.update = async (tableName, fieldId, id, newEntity) => {
+  tmpEntity = JSON.parse(JSON.stringify(newEntity));
+  if (tmpEntity.f_ID != null) delete tmpEntity.f_ID;
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const condition = pgp.as.format(` WHERE "${fieldId}" = '${id}'`, newEntity);
-  const queryStr = pgp.helpers.update(newEntity, null, table) + condition;
+  const condition = pgp.as.format(` WHERE "${fieldId}" = '${id}'`, tmpEntity);
+  const queryStr = pgp.helpers.update(tmpEntity, null, table) + condition;
   try {
     db.none(queryStr);
   } catch (error) {
@@ -104,16 +106,19 @@ exports.delete = async (tableName, fieldName, value) => {
 // STATISTICS
 exports.statistic = async (tbName, fieldName, staField, value) => {
   const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
-  const qStr = pgp.as.format(`SELECT ${fieldName}, count(*) as "soluong" FROM $1 WHERE "${staField}"='${value}' 
-                              GROUP BY ${fieldName} ORDER BY ${fieldName} ASC`, table);
-  console.log('Qstr: ', qStr);
+  const qStr = pgp.as.format(
+    `SELECT ${fieldName}, count(*) as "soluong" FROM $1 WHERE "${staField}"='${value}' 
+                              GROUP BY ${fieldName} ORDER BY ${fieldName} ASC`,
+    table
+  );
+  console.log("Qstr: ", qStr);
   try {
     const res = await db.any(qStr);
     return res;
   } catch (error) {
-    console.log('Error statistics');
+    console.log("Error statistics");
   }
-}
+};
 
 // SIMPLE STATISTICS
 exports.simpleStatistic = async (tbName, fieldName, staField, orderField) => {
@@ -123,6 +128,6 @@ exports.simpleStatistic = async (tbName, fieldName, staField, orderField) => {
     const res = await db.any(qStr);
     return res;
   } catch (error) {
-    console.log('Error s/statistics');
+    console.log("Error s/statistics");
   }
-}
+};

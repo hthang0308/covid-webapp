@@ -7,21 +7,22 @@ exports.getAllPackages = async (req, res) => {
     if (req.query.sort === "name") sort.sortByName(arr);
     if (req.query.sort === "id") sort.sortByID(arr);
     if (req.query.sort === "price") sort.sortByPrice(arr);
-    res.render('/all', {
-        products: arr
+    res.render('packages/all', {
+        packages: arr
     })
 }
 
 exports.searchPackages = async (req, res) => {
     tmpPack = await packModel.searchPackageByName(req.params.name);
-    res.render('/search', {
+    res.render('packages/search', {
         package: tmpPack
     })
 };
 
 exports.getPackage = async (req, res) => {
     tmpPack = await packModel.getPackageById(req.params.id);
-    res.render('/single', {
+    if (tmpPack === undefined) return;
+    res.render('packages/single', {
         package: tmpPack
     })
 };
@@ -40,9 +41,11 @@ exports.createPackage = async (req, res) => {
                 });
 
         await packModel.addPackage(_package);
-        res.redirect('/package-success');
+        res.redirect('packages/package-success', {
+            messages: 'Thêm gói nhu yếu phẩm thành công'
+        });
     }
-    res.render('form_addPackage');
+    res.render('packages/add');
 }
 
 exports.editPackage = async (req, res) => {
@@ -60,14 +63,18 @@ exports.editPackage = async (req, res) => {
                 });
 
         await packModel.editPackage(req.params.id, _package);
-        res.redirect('/package-success');
+        res.redirect('packages/package-success', {
+            messages: 'Chỉnh sửa gói nhu yếu phẩm thành công'
+        });
     }
-    res.render('/single', {
-        pack: tmpPack
+    res.render('packages/edit', {
+        package: tmpPack
     });
 }
 
 exports.deletePackage = async (req, res) => {
     await packModel.deletePackage(req.params.id);
-    res.redirect('/home');
+    res.redirect('packages/package-success', {
+        messages: 'Xóa gói nhu yếu phẩm thành công'
+    });
 }

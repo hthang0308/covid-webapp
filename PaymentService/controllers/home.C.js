@@ -1,4 +1,8 @@
-module.exports = (req, res) => {
+const jwt = require('jsonwebtoken');
+const db = require('../utils/db');
+const accountModel = require('../models/account.M');
+
+exports.getHome = (req, res) => {
     if (req.user) {
         const formatedBal = new Intl.NumberFormat('vi-VN', {
             style: 'currency',

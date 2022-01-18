@@ -1,7 +1,5 @@
 var rowTotal = $('.menu .section').length;
-// if (!rowTotal) {
-//     rowTotal = $('#content-1 necessities-list necessity').length
-// }
+
 $('#content-1 #main-pagination').twbsPagination({
     totalPages: Number.isInteger(rowTotal/perPage) ? rowTotal/perPage : rowTotal/perPage + 1,
     startPage: 1,

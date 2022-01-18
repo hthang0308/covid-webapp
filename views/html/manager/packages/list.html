@@ -19,7 +19,8 @@
 <body>
   <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
     <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
-    <form class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
+    <form
+      class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
       <div class="input-group flex-grow-1">
         <input class="form-control border-0  shadow-none" type="text" placeholder="Tìm kiếm" aria-label="Search"
           name='search'>
@@ -38,8 +39,8 @@
     </button>
     <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
       <div class="btn-group nav-item dropdown ml-auto">
-        <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button" data-toggle="dropdown"
-          aria-expanded="false">
+        <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button"
+          data-toggle="dropdown" aria-expanded="false">
           <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
@@ -63,20 +64,22 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#"
-                aria-current="page">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#" aria-current="page">
                 <i class="fas fa-home"></i>
                 <span class="ml-2">Dashboard</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#">
                 <i class="fas fa-users"></i>
                 <span class="ml-2">Nguời liên quan Covid-19</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#">
                 <i class="fas fa-fish"></i>
                 <span class="ml-2"> Nhu yếu phẩm</span>
               </a>
@@ -92,32 +95,43 @@
         </div>
       </nav>
       <main class=" pt-4 ml-sm-auto col-lg-10">
-        <!-- Danh sách người covid 19 -->
+        <!-- Danh các gói nhu yếu phẩm -->
         <div id="content-1" class="content shadow border rounded container-fluid">
-          <h3 class="text-lg-left text-center pt-3">Danh sách các gói nhu yếu phẩm</h3>
+          <h3 class="text-lg-left text-center pt-3 text-uppercase text-blue border-bottom font-weight-bold"
+            style="font-size: 1.8rem;">
+            Danh sách các gói nhu yếu phẩm
+          </h3>
           <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4"
             style="font-size:.9rem">
-              <!-- Search-form -->
-              <form id='sub-nav__search-form' class="form-inline" action="/manager/people" method="GET">
-                <div class="form-group mb-2">
-                  <label for="sub-nav__search-input">Tìm kiếm</label>
-                  <input type="text" class="form-control shadow-none mx-sm-2" id="sub-nav__search-input" name="search"></input>
-                </div>
-              </form>
-           
+            <!-- Search-form -->
+            <form id='sub-nav__search-form' class="form-inline" action="/manager/people" method="GET">
+              <div class="form-group mb-2">
+                <label for="sub-nav__search-input">Tìm kiếm</label>
+                <input type="text" class="form-control shadow-none mx-sm-2" id="sub-nav__search-input"
+                  name="search"></input>
+              </div>
+            </form>
+
             <!-- Sort -->
-            <form id='sortby-form' class="form-inline" action="/manager/people">
+            <form id='sortby-form' class="form-inline" action="/manager/people" method="GET">
               <div class="form-group mb-2">
                 <label for="sub-nav__sort-by">Sắp xếp theo</label>
-                <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by" aria-label="sort-by" name="sort_by">
+                <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by"
+                  aria-label="sort-by" name="sort_by">
                   <option class="py-1" value="name-ascending" data-filter="&sortby=(name:asc)">Tên: A &rarr; Z</option>
-                  <option class="py-1" value="name-descending" data-filter="&sortby=(name:desc)">Tên: Z &rarr; A</option>
+                  <option class="py-1" value="name-descending" data-filter="&sortby=(name:desc)">Tên: Z &rarr; A
+                  </option>
                   <option class="py-1" value="price-ascending" data-filter="&sortby=(price:asc)">Giá: Tăng dần</option>
-                  <option class="py-1" value="price-descending" data-filter="&sortby=(price:desc)">Giá: Giảm dần</option>
-                  <option class="py-1" value="limitPackage-ascending" data-filter="&sortby=(limitPackage:asc)">Mức gói giới hạn: Tăng dần</option>
-                  <option class="py-1" value="limitPackage-descending" data-filter="&sortby=(limitPackage:desc)">Mức gói giới hạn: Giảm dần</option>
-                  <option class="py-1" value="limitTime-ascending" data-filter="&sortby=(limitTime:asc)">Thời gian giới hạn: Tăng dần</option>
-                  <option class="py-1" value="limitTime-descending" data-filter="&sortby=(limitTime:desc)">Thời gian giới hạn: Giảm dần</option>
+                  <option class="py-1" value="price-descending" data-filter="&sortby=(price:desc)">Giá: Giảm dần
+                  </option>
+                  <option class="py-1" value="limitPackage-ascending" data-filter="&sortby=(limitPackage:asc)">Mức gói
+                    giới hạn: Tăng dần</option>
+                  <option class="py-1" value="limitPackage-descending" data-filter="&sortby=(limitPackage:desc)">Mức gói
+                    giới hạn: Giảm dần</option>
+                  <option class="py-1" value="limitTime-ascending" data-filter="&sortby=(limitTime:asc)">Thời gian giới
+                    hạn: Tăng dần</option>
+                  <option class="py-1" value="limitTime-descending" data-filter="&sortby=(limitTime:desc)">Thời gian
+                    giới hạn: Giảm dần</option>
                 </select>
               </div>
             </form>
@@ -132,23 +146,26 @@
                   <th scope="col">Các sản phẩm trong gói</th>
                   <th class="text-center" scope="col">Mức giới hạn gói/người</th>
                   <th class="text-center" scope="col">Thời gian giới hạn</th>
-                  <th class="text-center" scope="col">Đơn vị thời gian</th>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col">&nbsp;</th>
                   <th scope="col">&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="section">
-                  <th scope="row">1</th>
+                  <th class="align-middle" scope="row">1</th>
                   <td class="align-middle name" title="name">
                     <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                      Gói lương thực
+                      Gói lương thực, thực phẩm
                     </a>
                   </td>
                   <td class="align-middle products" title="products">Gạo, Mì gói</td>
                   <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
-                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
-                  <td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                  <td colspan="6" class="align-middle text-center">
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
@@ -157,25 +174,25 @@
                         </a>
                       </li>
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                          data-target="#delete-modal">
                           <i class="fa fa-trash"></i>
                         </button>
                       </li>
                     </ul>
-                </td>
+                  </td>
                 </tr>
                 <tr class="section">
-                  <th scope="row">2</th>
+                  <th class="align-middle" scope="row">2</th>
                   <td class="align-middle name" title="name">
                     <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                      Gói lương thực
+                      Gói vệ sinh cá nhân
                     </a>
                   </td>
                   <td class="align-middle products" title="products">Gạo, Mì gói</td>
                   <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
-                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
-                  <td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                  <td colspan="6" class="align-middle text-center">
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
@@ -184,25 +201,25 @@
                         </a>
                       </li>
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                          data-target="#delete-modal">
                           <i class="fa fa-trash"></i>
                         </button>
                       </li>
                     </ul>
-                </td>
+                  </td>
                 </tr>
                 <tr class="section">
-                  <th scope="row">3</th>
+                  <th class="align-middle" scope="row">3</th>
                   <td class="align-middle name" title="name">
                     <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                      Gói lương thực
+                      Gói thuốc men
                     </a>
                   </td>
                   <td class="align-middle products" title="products">Gạo, Mì gói</td>
                   <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
-                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
-                  <td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                  <td colspan="6" class="align-middle text-center">
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
@@ -211,25 +228,25 @@
                         </a>
                       </li>
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                          data-target="#delete-modal">
                           <i class="fa fa-trash"></i>
                         </button>
                       </li>
                     </ul>
-                </td>
+                  </td>
                 </tr>
                 <tr class="section">
-                  <th scope="row">4</th>
+                  <th class="align-middle" scope="row">4</th>
                   <td class="align-middle name" title="name">
                     <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                      Gói lương thực
+                      Gói vệ sinh nhà cửa
                     </a>
                   </td>
                   <td class="align-middle products" title="products">Gạo, Mì gói</td>
                   <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
-                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
-                  <td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                  <td colspan="6" class="align-middle text-center">
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
@@ -238,15 +255,16 @@
                         </a>
                       </li>
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                          data-target="#delete-modal">
                           <i class="fa fa-trash"></i>
                         </button>
                       </li>
                     </ul>
-                </td>
+                  </td>
                 </tr>
                 <tr class="section">
-                  <th scope="row">5</th>
+                  <th class="align-middle" scope="row">5</th>
                   <td class="align-middle name" title="name">
                     <a class="nav-link p-0 details-link text-default" href="/packages/:id">
                       Gói lương thực
@@ -254,9 +272,8 @@
                   </td>
                   <td class="align-middle products" title="products">Gạo, Mì gói</td>
                   <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
-                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
-                  <td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                  <td colspan="6" class="align-middle text-center">
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
@@ -265,15 +282,16 @@
                         </a>
                       </li>
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                          data-target="#delete-modal">
                           <i class="fa fa-trash"></i>
                         </button>
                       </li>
                     </ul>
-                </td>
+                  </td>
                 </tr>
                 <tr class="section">
-                  <th scope="row">6</th>
+                  <th class="align-middle" scope="row">6</th>
                   <td class="align-middle name" title="name">
                     <a class="nav-link p-0 details-link text-default" href="/packages/:id">
                       Gói lương thực
@@ -281,9 +299,8 @@
                   </td>
                   <td class="align-middle products" title="products">Gạo, Mì gói</td>
                   <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
-                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
-                  <td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                  <td colspan="6" class="align-middle text-center">
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
@@ -292,19 +309,22 @@
                         </a>
                       </li>
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                        <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                          data-target="#delete-modal">
                           <i class="fa fa-trash"></i>
                         </button>
                       </li>
                     </ul>
-                </td>
+                  </td>
                 </tr>
 
               </tbody>
             </table>
-            <a href="/manager/people/add" class="add d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none" style="width: 100%">
+            <a href="/manager/packages/add"
+              class="add d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none"
+              style="width: 100%">
               <i class="fas fa-plus"></i>
-              <span class="px-2">Thêm gói mới</span>
+              <span class="px-2">Tạo gói mới</span>
             </a>
           </div>
           <!-- PAGINATION -->
@@ -320,28 +340,28 @@
   </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
-  <form class="modal-dialog modal-dialog-centered" action="#" method="post">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <h5 class="modal-title" id="delete-model__label">Xoá</h5> -->
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <input type="hidden" readonly class="hidden" id="ID-input" name="id">
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
+    <form class="modal-dialog modal-dialog-centered" action="#" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="delete-model__label">Xoá</h5> -->
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <h5 class="message"></h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-red text-white">Xóa</button>
-      </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <input type="hidden" readonly class="hidden" id="ID-input" name="id">
+            </div>
+          </div>
+          <h5 class="message"></h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-red text-white">Xóa</button>
+        </div>
     </form>
   </div>
   <script>

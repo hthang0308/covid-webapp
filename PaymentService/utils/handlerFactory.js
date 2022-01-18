@@ -8,9 +8,7 @@ exports.getAll = async (TableName) => {
 exports.getOne = async (TableName, entity, value) => {
   const res = await db.get(TableName, entity, value);
   if (!res) return null;
-  //Change from res -> res[0]
-  return res[0];
-  //Done Change
+  return res;
 };
 
 exports.createOne = async (TableName, object) => {

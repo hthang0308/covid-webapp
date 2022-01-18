@@ -1,0 +1,79 @@
+<div class="container-lg d-flex flex-column justify-content-around">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
+      <p class="tite h1 text-red py-4 text-uppercase">Covid-webapp</p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <form class="card shadow" action="/auth/signup" method="POST" novalidate>
+        <h4 class="card-header text-capitalize pl-4">Đăng ký</h4>
+        <div class="card-body p-4">
+          <div class="form-row">
+            <div class="form-group col-sm-6 col-lg-6">
+              <input type="text" class="form-control" id="surName" name="surName" placeholder="Họ" rules="alpha" />
+              <span class="invalid-feedback"></span>
+            </div>
+            <div class="form-group col-sm-6 col-lg-6">
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Tên" rules="alpha" />
+              <span class="invalid-feedback"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" rules="required" />
+            <span class="invalid-feedback"></span>
+          </div>
+
+          <div class="form-group">
+            <!-- <label class="mb-1" for="password">Mật khẩu</label> -->
+            <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" rules="required|strong|min:8" required />
+            <span class="invalid-feedback"></span>
+          </div>
+
+          <div class="form-group">
+            <!-- <label class="mb-1" for="repeatpwd">Nhập lại mật khẩu</label> -->
+            <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Xác nhận" rules="equal:#password" />
+            <span class="invalid-feedback"></span>
+          </div>
+
+          <div class="form-group form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="agreement-check"
+              name="agreement-check"
+              placeholder="Đồng ý"
+              value=""
+              rules="checkedRequired"
+            />
+            <label class="form-check-label" for="agreement-check" style="font-size: 1rem">Tôi đồng ý về Điều khoản dịch vụ & Chính sách bảo mật</label>
+            <span class="invalid-feedback"></span>
+          </div>
+
+          <button type="submit" class="btn btn-red text-white font-weight-bold w-100 mb-1 text-uppercase">
+            Tạo Tài khoản
+          </button>
+        </div>
+        <div class="card-footer d-inline-flex flex-wrap justify-content-center">
+          <p class="text-muted d-inline-block m-0">
+            Bạn đã có tài khoản?
+          </p>
+          <div class="d-flex">
+            <a href="/auth/login" class="card-link px-1">Đăng nhập</a>
+            <sp class="vr mx-1"></sp>
+            <a href="/auth/forgotpassword" class="card-link m-0 px-1">Quên mật khẩu</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <p class="mt-5 mb-3 text-center mb-auto">
+        Copyright &copy; 2022
+      </p>
+    </div>
+  </div>
+</div>

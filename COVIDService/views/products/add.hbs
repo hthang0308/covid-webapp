@@ -1,0 +1,35 @@
+<form class="form" action="/user" method="post" style="width:40vw">
+    <h1 class="display-5">ADD NEW PRODUCT</h1>
+    <div class="form-group">
+        <label for="f_Name">Name</label>
+        <input type="text" class="form-control" id="f_Name" placeholder="Name" name="f_Name" />
+    </div>
+    <div class="form-group">
+        <label for="f_ID">ID</label>
+        <input type="text" class="form-control" id="f_ID" placeholder="ID" name="f_ID" />
+    </div>
+    {{!-- <div class="form-group">
+        <label for="f_Time">Time</label>
+        <input type="date" id="f_Time" name="f_Time" value="2000-07-22" min="1950-01-01" max="2018-12-31" />
+    </div> --}}
+    <div class="form-group">
+        <label for="f_Price">Price</label>
+        <input type="number" class="form-control" id="f_Price" placeholder="100000" name="f_Price" />
+    </div>
+    <div class="form-group">
+        <label for="f_Unit">Unit</label>
+        <input type="text" class="form-control" id="f_Unit" placeholder="Cái" name="f_Unit" />
+    </div>
+    <div class="form-group">
+        <label for="f_Images">Images</label>
+        {{!-- <input type="text" class="form-control" id="f_Products" placeholder="Products" name="f_Products" /> --}}
+    </div>
+    {{#if err}}
+    <div class="alert alert-danger" role="alert">
+        {{err}}
+    </div>
+    {{/if}}
+    <button type="submit" class="btn btn-default btn-success">
+        Create
+    </button>
+</form>

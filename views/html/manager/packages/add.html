@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nguời liên quan Covid-19</title>
+  <title>Gói nhu yếu phẩm</title>
   <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../../assets/css/all.min.css" />
   <script src="../../assets/js/jquery-3.6.0.min.js"></script>
@@ -19,7 +19,8 @@
 <body>
   <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
     <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
-    <form class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
+    <form
+      class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
       <div class="input-group flex-grow-1">
         <input class="form-control border-0  shadow-none" type="text" placeholder="Tìm kiếm" aria-label="Search"
           name='search'>
@@ -38,8 +39,8 @@
     </button>
     <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
       <div class="btn-group nav-item dropdown ml-auto">
-        <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button" data-toggle="dropdown"
-          aria-expanded="false">
+        <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button"
+          data-toggle="dropdown" aria-expanded="false">
           <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
@@ -63,20 +64,22 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#"
-                aria-current="page">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#" aria-current="page">
                 <i class="fas fa-home"></i>
                 <span class="ml-2">Dashboard</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#">
                 <i class="fas fa-users"></i>
                 <span class="ml-2">Nguời liên quan Covid-19</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#">
                 <i class="fas fa-fish"></i>
                 <span class="ml-2"> Nhu yếu phẩm</span>
               </a>
@@ -94,65 +97,123 @@
       <main class=" pt-4 ml-sm-auto col-lg-10">
         <!-- BEGIN: CONTENT SECTION -->
         <div id="content-1" class="content shadow border rounded p-2 py-3">
-            <div class="container-fluid pt-3 pb-5">
-              <div class="row">
-                <div class="col-12">
-                  <p class="title text-blue text-center text-sm-left font-weight-bold" style="font-size: 1.8rem">THÊM NHU YẾU PHẨM</p>
-                </div>
+          <div class="container-fluid pt-3 pb-5">
+            <div class="row">
+              <div class="col-12">
+                <p class="title text-blue text-center text-md-left font-weight-bold text-uppercase border-bottom"
+                  style="font-size: 1.8rem">Tạo Gói nhu yếu phẩm</p>
               </div>
-                <div class="row">
-                    <div class="col-12">
-                      <!-- Begin: Form thêm người liên quan -->
-                <form id="edit-form" action="#" method="post">
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <!-- Begin: Form thêm người liên quan -->
+                <form id="add-form" action="#" method="POST">
                   <div class="form-row">
                     <div class="form-group col-12">
-                      <label for="name-input" class="font-weight-bold">Tên</label>
-                      <input id="name-input" type="text" class="form-control"
-                        name="name" rules="required" title="Tên">
-                        <span class="invalid-feedback"></span>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="price-input" class="font-weight-bold">Đơn giá</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="price-input" name="price" rules="required" title="Đơn giá">
-                        <div class="input-group-append">
-                          <span class="input-group-text">đ</span>
-                        </div>
-                        <span class="invalid-feedback"></span>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="unit-input" class="font-weight-bold">Đơn vị định lượng</label>
-                      <input type="text" class="form-control" id="unit-input" name="unit" rules="required" title="Đơn vị định lượng">
+                      <label for="name-input" class="font-weight-bold">Tên gói</label>
+                      <input id="name-input" type="text" class="form-control" name="name" rules="required"
+                        title="Tên gói">
                       <span class="invalid-feedback"></span>
                     </div>
                   </div>
                   <div class="form-row">
-                    <div class="form-group col-12 text-truncate">
-                      <label for="images-input" class="font-weight-bold">Thêm ảnh (.png hoặc jpg)</label> 
-                      <div class="input-group mb-3">
-                        <div class="custom-file">
-                          <label class="custom-file-label" for="images-input">Chọn ảnh</label>
-                          <input type="file" class="custom-file-input" id="images-input"
-                            aria-describedby="inputGroupFileAddon01" name="images" accept="image/png, image/jpeg"
-                            multiple required>
-                        </div>
+                    <div class="form-group col-md-4">
+                      <label for="package-limit-input" class="font-weight-bold">Mức giới hạn gói cho mỗi người</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="package-limit-input" name="package_limit"
+                          rules="required|number" title="Mức giới hạn">
+                        <span class="invalid-feedback"></span>
                       </div>
                     </div>
+                    <div class="form-group col-md-4">
+                      <label for="unit-input" class="font-weight-bold">Thời gian giới hạn</label>
+                      <input type="text" class="form-control" id="unit-input" name="unit" rules="required|number"
+                        title="Thời gian giới hạn cho gói">
+                      <span class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="time-unit-input" class="font-weight-bold" style="opacity: 0;">Đơn vị thời gian</label>
+                      <select type="text" class="form-control" id="time-unit-input" name="time-unit" rules="required"
+                        title="Đơn vị thời gian">
+                        <option value="d">Ngày</option>
+                        <option value="m">Tháng</option>
+                        <option value="y">Năm</option>
+                      </select>
+                      <span class="invalid-feedback"></span>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-12">
+                      <label for="time-unit-input" class="font-weight-bold">Danh sách các sản phẩm</label>
+                      <div class="table-responsive-xl table-hover">
+                        <table class="table table-content border mb-0 menu" id="product-list-input">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Sản phẩm</th>
+                              <th class="text-center" scope="col">Số lượng sản phẩm tối đa</th>
+                              <th class="text-center" scope="col">Đơn vị sản phẩm</th>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">&nbsp;</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- <tr class="section">
+                              <th class="align-middle" scope="row">1</th>
+                              <td class="align-middle name" title="name">
+                                <select class="form-control productOptions" name="products[]" title='Sản phẩm'>
+                                  <option value="riceID">Gạo</option>
+                                  <option value="vegetableID">Rau củ</option>
+                                  <option value="saltID">Muối sấy</option>
+                                  <option value="fishID">Cá thu</option>
+                                </select>
+                              </td>
+                              <td class="align-middle text-center product-limit-number" title="product-limit-number">
+                                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                                  name="product_limits[]" rules='required' title="Số lượng giới hạn">
+                                <span class="invalid-feedback"></span>
+                              </td>
+                              <td class="align-middle text-center product-unit" title="product-unit">
+                                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                                  name="product_units[]" rules='required' title="Đơn vị">
+                                <span class="invalid-feedback"></span>
+                              </td>
+                              <td colspan="6" class="text-center align-middle">
+                                <ul class="list-inline m-0">
+                                  <li class="list-inline-item mb-1">
+                                    <button class="btn btn-danger btn-sm rounded delete-section-btn">
+                                      <i class="fa fa-trash"></i>
+                                    </button>
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr> -->
+                          </tbody>
+                        </table>
+                        <a
+                          class="add add-section-btn w-100 d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none">
+                          <i class="fas fa-plus"></i>
+                          <span class="px-2">Thêm nhu yếu phẩm</span>
+                        </a>
+                      </div>
+                    </div>
+
                   </div>
                   <button type="submit" class="btn btn-primary">
                     <i class="fas fa-check mr-1"></i>
-                    Thêm nhu yếu phẩm
+                    Tạo gói
                   </button>
                 </form>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
         <!-- END: CONTENT SECTION -->
-        
+
         <footer class="container-fluid py-3 my-4 border-top">
           <div class="d-flex align-items-center justify-content-center">
             <span class="text-muted">© 2021 Company, Inc</span>
@@ -165,12 +226,82 @@
   <script src="../../assets/js/jquery.twbsPagination.js"></script>
   <script src="../../assets/js/main.js"></script>
   <script src="../../assets/js/validator.js"></script>
-  <script src="	https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
   <script>
+    var removeSection
     $(document).ready(function () {
-      bsCustomFileInput.init();
-      Validator('#edit-form');
+      Validator('#add-form');
+      const products = {
+        "Gạo": 1,
+        "Rau củ": 2,
+        "Cá": 3,
+      };
+
+      var createOptions = function (options) {
+        const keys = Object.keys(options);
+        if ($(".section").length >= keys.length) {
+          return;
+        }
+        var result = "";
+        for (const key of keys) {
+          result += `<option value="${options[key]}">${key}</option>`
+        }
+        return result;
+      }
+
+      $(".add-section-btn").click(function () {
+        const options = createOptions(products);
+        if (options) {
+          $("#product-list-input").find('tbody').append(`
+            <tr class="section">
+              <th class="align-middle" scope="row">${$("tr.section").length + 1}</th>
+              <td class="align-middle name" title="name">
+                <select class="form-control productOptions" name="products[]" title='Sản phẩm'>
+                  ${options}
+                </select>
+              </td>
+              <td class="align-middle text-center product-limit-number" title="product-limit-number">
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                  name="product_limits[]" rules="required|number" title="Số lượng giới hạn">
+                <span class="invalid-feedback"></span>
+              </td>
+              <td class="align-middle text-center product-unit" title="product-unit">
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                  name="product_units[]" rules="required|number" title="Đơn vị">
+                <span class="invalid-feedback"></span>
+              </td>
+              <td colspan="6" class="text-center align-middle">
+                <!-- Call to action buttons -->
+                <ul class="list-inline m-0">
+                  <li class="list-inline-item mb-1">
+                    <button type="button" class="btn btn-danger btn-sm rounded delete-section-btn">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>`)
+
+          if ($(".section").length >= Object.keys(products).length) {
+            $(this).attr("style", "display: none !important");
+          }
+        }
+      })
+
+      $(".delete-section-btn").click(function () {
+        $(this).parents('.section').remove();
+        if($(".section").length > 0) {
+          let i = 1;
+          $(".section").each(function () {
+            $(this).find('th').text(i);
+            i = i + 1;
+          })
+        }
+        if($(".add-section-btn").attr("style", "display: none !important")) {
+          $(".add-section-btn").attr("style", "display: block");
+        }
+      })
     })
+
   </script>
 </body>
 

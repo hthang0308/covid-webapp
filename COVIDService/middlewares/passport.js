@@ -1,28 +1,42 @@
-const passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+const passport = require("passport");
+const JwtStrategy = require("passport-jwt").Strategy;
 
+const userM = require("../models/user.M");
 
-const userModel = require('../models/user.M');
+var opts = {};
+opts.secretOrKey = process.env.JWT_SECRET;
+opts.jwtFromRequest = function (req) {
+  var token = null;
+  if (req && req.cookies) {
+    token = req.cookies["jwt"];
+  }
+  return token;
+};
 
-passport.use(new LocalStrategy(
-    async function (username, password, done) {
-        const user = await userModel.checkCorrectAccount(username, password);
+module.exports = (app) => {
+  passport.use(
+    new JwtStrategy(opts, async function (jwt_payload, done) {
+      try {
+        let user = await userM.getUserByID(jwt_payload.id);
         if (!user) {
-            return done(null, false, { message: 'Incorrect username or password' });
-        }
-        return done(null, user);
+          return done(null, false, { message: "Incorrect username." });
+        } else return done(null, user, { message: "Successfully" });
+      } catch (err) {
+        return done(err, false);
+      }
+    })
+  );
+  passport.serializeUser(function (user, done) {
+    done(null, user);
+  });
+
+  passport.deserializeUser(async (user, done) => {
+    try {
+      const u = await userM.get(user.f_Username);
+      done(null, u);
+    } catch (error) {
+      done(new Error("err"), null);
     }
-));
-
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-    userModel.getUser(id)
-        .then((user) => {
-            done(null, user);
-        })
-});
-
-module.exports = passport;
+  });
+  app.use(passport.initialize());
+};

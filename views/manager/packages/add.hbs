@@ -1,0 +1,209 @@
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+  <div id="content-1" class="content shadow border rounded p-2 py-3">
+    <div class="container-fluid pt-3 pb-5">
+      <div class="row">
+        <div class="col-12">
+          <p
+            class="title text-blue text-center text-md-left font-weight-bold text-uppercase border-bottom"
+            style="font-size: 1.8rem"
+          >Tạo Gói nhu yếu phẩm</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <!-- Begin: Form thêm người liên quan -->
+          <form id="add-form" action="#" method="POST">
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="name-input" class="font-weight-bold">Tên gói</label>
+                <input
+                  id="name-input"
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  rules="required"
+                  title="Tên gói"
+                />
+                <span class="invalid-feedback"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="package-limit-input" class="font-weight-bold">Mức
+                  giới hạn gói cho mỗi người</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="package-limit-input"
+                    name="package_limit"
+                    rules="required|number"
+                    title="Mức giới hạn"
+                  />
+                  <span class="invalid-feedback"></span>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="unit-input" class="font-weight-bold">Thời gian giới
+                  hạn</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="unit-input"
+                  name="unit"
+                  rules="required|number"
+                  title="Thời gian giới hạn cho gói"
+                />
+                <span class="invalid-feedback"></span>
+              </div>
+              <div class="form-group col-md-4">
+                <label
+                  for="time-unit-input"
+                  class="font-weight-bold"
+                  style="opacity: 0;"
+                >Đơn vị thời gian</label>
+                <select
+                  type="text"
+                  class="form-control"
+                  id="time-unit-input"
+                  name="time-unit"
+                  rules="required"
+                  title="Đơn vị thời gian"
+                >
+                  <option value="d">Ngày</option>
+                  <option value="m">Tháng</option>
+                  <option value="y">Năm</option>
+                </select>
+                <span class="invalid-feedback"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="time-unit-input" class="font-weight-bold">Danh sách
+                  các sản phẩm</label>
+                <div class="table-responsive-xl table-hover">
+                  <table
+                    class="table table-content border mb-0 menu"
+                    id="product-list-input"
+                  >
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Sản phẩm</th>
+                        <th class="text-center" scope="col">Số lượng sản phẩm
+                          tối đa</th>
+                        <th class="text-center" scope="col">Đơn vị sản phẩm</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                  <a
+                    class="add add-section-btn w-100 d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none"
+                  >
+                    <i class="fas fa-plus"></i>
+                    <span class="px-2">Thêm nhu yếu phẩm</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-check mr-1"></i>
+              Tạo gói
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{/section}}
+
+{{! DEFINE A 'script' SECTION }}
+{{#section "script"}}
+  <script src="../../assets/js/jquery.twbsPagination.js"></script>
+  <script src="/js/validator.js"></script>
+  <script>
+    $(document).ready(function () {
+      Validator('#add-form');
+      const products = {
+        "Gạo": 1,
+        "Rau củ": 2,
+        "Cá": 3,
+      };
+
+      var createOptions = function (options) {
+        const keys = Object.keys(options);
+        if ($(".section").length >= keys.length) {
+          return;
+        }
+        var result = "";
+        for (const key of keys) {
+          result += `<option value="${options[key]}">${key}</option>`
+        }
+        return result;
+      }
+
+      $(".add-section-btn").click(function () {
+        const options = createOptions(products);
+        if (options) {
+          $("#product-list-input").find('tbody').append(`
+            <tr class="section">
+              <th class="align-middle" scope="row">${$("tr.section").length + 1}</th>
+              <td class="align-middle name" title="name">
+                <select class="form-control productOptions" name="products[]" title='Sản phẩm'>
+                  ${options}
+                </select>
+              </td>
+              <td class="align-middle text-center product-limit-number" title="product-limit-number">
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                  name="product_limits[]" rules="required|number" title="Số lượng giới hạn">
+                <span class="invalid-feedback"></span>
+              </td>
+              <td class="align-middle text-center product-unit" title="product-unit">
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                  name="product_units[]" rules="required|number" title="Đơn vị">
+                <span class="invalid-feedback"></span>
+              </td>
+              <td colspan="6" class="text-center align-middle">
+                <!-- Call to action buttons -->
+                <ul class="list-inline m-0">
+                  <li class="list-inline-item mb-1">
+                    <button type="button" class="btn btn-danger btn-sm rounded delete-section-btn">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>`)
+
+          if ($(".section").length >= Object.keys(products).length) {
+            $(this).attr("style", "display: none !important");
+          }
+        }
+      })
+
+      $(".delete-section-btn").click(function () {
+        $(this).parents('.section').remove();
+        if($(".section").length > 0) {
+          let i = 1;
+          $(".section").each(function () {
+            $(this).find('th').text(i);
+            i = i + 1;
+          })
+        }
+        if($(".add-section-btn").attr("style", "display: none !important")) {
+          $(".add-section-btn").attr("style", "display: block");
+        }
+      })
+    })
+
+  </script>
+{{/section}}

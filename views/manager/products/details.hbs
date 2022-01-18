@@ -1,0 +1,124 @@
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+  <div id="content-1" class="content shadow border rounded p-2">
+    <div class="container-fluid">
+      <!-- IMAGES -->
+      <div class="row min-vh-100 py-3">
+        <div class="col-md-5 col-12 h-100">
+          <div
+            id="product-images"
+            class="carousel slide carousel-fade border mx-1 mb-5"
+            data-ride="carousel"
+            style="min-height: 100%; width: 100%;"
+          >
+            <ol class="carousel-indicators">
+              <li
+                data-target="#product-images"
+                data-slide-to="0"
+                class="active"
+              ></li>
+              <li data-target="#product-images" data-slide-to="1"></li>
+              <li data-target="#product-images" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" style="height: 100%;">
+              <div class="carousel-item" data-interval="3000">
+                <img
+                  class="img-fluid product-image"
+                  src="../../assets/img/products/muoi_bien.webp"
+                  alt="Muối biển VISAchef gói 1kg"
+                />
+              </div>
+              <div class="carousel-item" data-interval="3000">
+                <img
+                  class="img-fluid product-image"
+                  src="../../assets/img/products/muoi_bien_1.webp"
+                  alt="Muối biển VISAchef gói 1kg"
+                />
+              </div>
+              <div class="carousel-item active" data-interval="3000">
+                <img
+                  class="img-fluid product-image"
+                  src="../../assets/img/products/muoi_bien_2.webp"
+                  alt="Muối biển VISAchef gói 1kg"
+                />
+              </div>
+            </div>
+            <a
+              class="carousel-control-prev"
+              href="#product-images"
+              role="button"
+              data-slide="prev"
+            >
+              <i
+                class="fas fa-angle-left text-black-50"
+                style="font-size: 2.2rem"
+              ></i>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="carousel-control-next"
+              href="#product-images"
+              role="button"
+              data-slide="next"
+            >
+              <i
+                class="fas fa-angle-right text-black-50"
+                style="font-size: 2.2rem"
+              ></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-7 col-12 h-100">
+          <p
+            id="product-name"
+            class="title text-blue text-center text-md-left border-bottom"
+            style="font-size: 1.8rem"
+          >Muối biển VISAchef gói 1kg</p>
+          <div class="container product-info border border-bottom-0">
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Đơn giá</div>
+              <div
+                class="col-8 py-1 price-info"
+                style="font-weight: 500;"
+              >11,000đ</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-4 text-right bg-light py-1">Đơn vị định lượng</div>
+              <div class="col-8 py-1" style="font-weight: 500;">Gói</div>
+            </div>
+          </div>
+          <div class="my-3">
+            <ul class="list-inline m-0">
+              <li class="list-inline-item mb-1">
+                <a
+                  class="btn btn-primary"
+                  href="/products/:id/edit"
+                  role="button"
+                >
+                  <i class="fas fa-pen mr-1"></i>
+                  Cập nhật thông tin
+                </a>
+              </li>
+              <li class="list-inline-item mb-1">
+                <button
+                  type="button"
+                  class="btn btn-danger rounded"
+                  data-toggle="modal"
+                  data-target="#delete-modal"
+                >
+                  <i class="fa fa-trash mr-1"></i>
+                  Xoá sản phẩm
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{/section}}
+
+{{! DEFINE A 'script' SECTION }}
+{{#section "script"}}{{/section}}

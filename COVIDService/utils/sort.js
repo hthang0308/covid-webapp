@@ -1,6 +1,6 @@
 const sortByDate = (array) => {
     array.sort(function (a, b) {
-        return new Date(b.f_Birthday) = new Date(a.f_Birthday);
+        return new Date(b.f_Birthday) - new Date(a.f_Birthday);
     });
 };
 

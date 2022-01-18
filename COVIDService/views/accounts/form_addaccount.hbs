@@ -1,0 +1,19 @@
+<form class="form" action="/account" method="post" style="width:40vw">
+  <h1 class="display-5">ADD NEW ACCOUNT</h1>
+  <div class="form-group">
+    <label for="f_Username">Username</label>
+    <input type="text" class="form-control" id="f_Username" placeholder="Name" name="f_Username" />
+  </div>
+  <div class="form-group">
+    <label for="f_Password">Password</label>
+    <input type="password" class="form-control" id="f_Password" placeholder="Password" name="f_Password" />
+  </div>
+  {{#if err}}
+    <div class="alert alert-danger" role="alert">
+      {{err}}
+    </div>
+  {{/if}}
+  <button type="submit" class="btn btn-default btn-success">
+    Create
+  </button>
+</form>

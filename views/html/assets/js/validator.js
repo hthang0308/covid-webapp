@@ -5,6 +5,11 @@ function Validator(selector) {
             return onlyAlpha.exec(value) || !value ? undefined : `${title} chỉ cho phép các chữ cái.`;
         },
 
+        number: function (value, title) {
+            const onlyNumber = /^[0-9]+$/;
+            return onlyNumber.exec(value) || !value ? undefined : `${title} chỉ cho phép nhập số.`;
+        },
+
         required: function (value, title) {
             return value ? undefined : `Hãy nhập ${title.toLowerCase()}`;
         },
@@ -77,7 +82,7 @@ function Validator(selector) {
     var formRules = {};
     // Lấy ra form element
     var formElement = $(selector);
-    console.log(formElement);
+    // console.log(formElement);
 
     // Chỉ xử lý dữ liệu khi form tồn tại
     if (formElement) {
@@ -150,10 +155,10 @@ function Validator(selector) {
                 var rules = formRules[$(this).attr('id')];
                 var errorMessage;
                 for (var rule of rules) {
-                    let title = $(this).attr('placeholder');
-                    console.log($(this));
-                    console.log(title)
-                    errorMessage = rule($(this).val(), $(this).attr('placeholder'));
+                    let title = $(this).attr('title');
+                    // console.log($(this));
+                    // console.log(title)
+                    errorMessage = rule($(this).val(), $(this).attr('title'));
                     if(errorMessage) {
                         isValid = false;
                         $(this).removeClass('is-valid');
@@ -171,7 +176,7 @@ function Validator(selector) {
                 }
 
             })
-            console.log(isValid);
+            // console.log(isValid);
             if(isValid) {
                 $(this).submit();
             }

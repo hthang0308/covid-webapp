@@ -3,6 +3,7 @@ const pgp = require('pg-promise')({
 });
 
 const schema = 'public';
+
 const conn = {
   user: process.env.PGUSER,
   host: process.env.PGHOST,
@@ -14,12 +15,12 @@ const conn = {
 
 const db = pgp(conn);
 
-// LOADING
+// THIS CODE RUN FOR PAYMENT, please don't change my code
 exports.load = async (tableName, orderField) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format("SELECT * from $1 ORDER BY $2 ASC", { table, orderField });
-  try {
-    const res = await db.any(queryStr, orderField);
+  const qStr = pgp.as.format('SELECT * FROM ${table} ORDER BY ${orderField~} ASC', { table, orderField });
+    try {
+    const res = await db.any(qStr);
     return res;
   } catch (error) {
     console.log("Error loading: ", error);
@@ -29,7 +30,7 @@ exports.load = async (tableName, orderField) => {
 // READING
 exports.get = async (tableName, fieldName, value) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}" = '${value}'`, table);
+  const queryStr = pgp.as.format('SELECT * from ${table} where ${fieldName~} = ${value}', {table, fieldName, value});
   try {
     const res = await db.any(queryStr);
     if (res.length > 0) {
@@ -74,7 +75,7 @@ exports.update = async (tableName, fieldId, id, newEntity) => {
   const condition = pgp.as.format(` WHERE "${fieldId}" = '${id}'`, newEntity);
   const queryStr = pgp.helpers.update(newEntity, null, table) + condition + " RETURNING *";
   try {
-    db.none(queryStr);
+    db.one(queryStr);
   } catch (error) {
     console.log("Error updating: ", error);
   }
