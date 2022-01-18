@@ -1,0 +1,21 @@
+{{account.f_ID}}
+{{account.f_Username}}
+{{account.f_Password}}
+<br />
+{{account.f_Permission}}
+<br />
+{{#each account.f_History}}
+  {{this}}
+  <br />
+{{/each}}
+<form
+  class="form"
+  action="/account/{{account.f_ID}}"
+  method="post"
+  style="width:40vw"
+  onsubmit="setTimeout(function(){window.location.reload();},100);"
+>
+  <button type="submit" class="btn btn-default btn-success">
+    Lock/Unlock User
+  </button>
+</form>
