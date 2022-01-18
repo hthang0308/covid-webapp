@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 exports.protect = async (req, res, next) => {
   // Checking token
   let token;
-  //TODO: check this
   if (req.cookies.token !== null) req.headers.authorization = "Bearer " + req.cookies.jwt;
   //
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
@@ -58,6 +57,7 @@ exports.getSignIn = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
+  //TODO: chuyen huong khi da co jwt
   let user = await userModel.getUserByName(req.body.username);
   console.log(user);
   if (user === undefined || user === null) {
@@ -84,4 +84,7 @@ exports.signin = async (req, res) => {
   }
 };
 
-exports.signup = async (req, res) => {};
+exports.signup = async (req, res) => {
+  console.log(req.params);
+  console.log(req.query);
+};
