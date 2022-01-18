@@ -38,7 +38,7 @@ exports.createQuarantineLocation = async (req, res) => {
 };
 exports.lockAccount = async (req, res) => {
   const tmpAccount = await accountModel.getAccountByID(req.params.id);
-  tmpAccount.f_Permission *= -1;
+  if (tmpAccount.f_Permission != null) tmpAccount.f_Permission *= -1;
   var tmpID = tmpAccount.f_ID;
   delete tmpAccount.f_ID;
   var currentdate = new Date();
