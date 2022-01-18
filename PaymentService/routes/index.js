@@ -13,8 +13,10 @@ router.get('/signout', signoutController);
 router.post('/balance', manageController.getBalance);
 router.route('/firstSignIn').get(signinController.getFirstSignIn).post(signinController.postFirstSignIn);
 router.route('/changePass').get(manageController.getChangePass).post(manageController.handleChangePass);
+
 router.post('/addBalance', manageController.addBalance);
 router.post('/transfer', manageController.transfer);
+router.post('/addAccount',signupController.addAccount);
 //router.get('/signup', signupController.getSignUp);
 router.get('/', homeController.getHome);
 

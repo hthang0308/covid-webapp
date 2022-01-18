@@ -16,6 +16,7 @@ class SignInController {
             nav: () => 'nav'
         });
     }
+    
     async postSignIn(req, res, next) {
         passport.authenticate('local', function (err, user, info) {
             if (err) {
@@ -45,7 +46,7 @@ class SignInController {
                     });
                 }
                 var userToken = {
-                    id: user.accID
+                    id: user.AccID
                 }
                 const token = jwt.sign(userToken, process.env.JWT_SECRET);
                 res.cookie('access_token', token);
