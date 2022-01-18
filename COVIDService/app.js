@@ -3,6 +3,7 @@ const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 const handlebars = require("./middlewares/handlebars");
+const passportUtils = require('./middlewares/passport');
 const route = require("./routes");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
@@ -42,7 +43,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-require("./middlewares/passport")(app);
+passportUtils(app);
 app.use(cors());
 handlebars(app);
 

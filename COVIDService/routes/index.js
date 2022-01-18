@@ -3,7 +3,7 @@ const productRouter = require("./productRoute");
 const userRouter = require("./userRoute");
 const statRouter = require("./statisticRoute");
 const authRouter = require("./authRouter");
-const accountRouter = require("./accountRouter");
+const accountRouter = require("./accountRoute");
 const passport = require("passport");
 
 function route(app) {
