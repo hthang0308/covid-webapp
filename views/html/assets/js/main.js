@@ -7,7 +7,7 @@ $(function() {
         let target_modal = $(this).attr('data-target');
         for(const col of $(this).parents('td').siblings()) {
             let value = $(col).text();
-            let class_name = $(col).attr('class');
+            let class_name = $(col).attr('title');
             $(`#edit-modal .modal-body .${class_name}`).val(value.trim());
         }
 

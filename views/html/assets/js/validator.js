@@ -1,12 +1,12 @@
 function Validator(selector) {
     var validatorRules = {
         alpha: function (value, title) {
-            const onlyAlpha = /^[A-Za-z]+$/;
-            return onlyAlpha.exec(value) || !value ? undefined : `${title} của bạn chỉ nhập các chữ cái.`;
+            const onlyAlpha = /[A-Za-z]+/ug;
+            return onlyAlpha.exec(value) || !value ? undefined : `${title} chỉ cho phép các chữ cái.`;
         },
 
         required: function (value, title) {
-            return value ? undefined : `Hãy nhập ${title.toLowerCase()} của bạn.`;
+            return value ? undefined : `Hãy nhập ${title.toLowerCase()}`;
         },
 
         email: function (value, title) {
@@ -31,10 +31,10 @@ function Validator(selector) {
                 const temp = $(selector).val();
                 if (temp) {
                     if(!value) {
-                        return `${title} ${$(selector).attr('placeholder').toLowerCase()} của bạn.`
+                        return `${title} ${$(selector).attr('title').toLowerCase()} của bạn.`
                     }
                 }
-                return temp == value ? undefined : `Các ${$(selector).attr('placeholder').toLowerCase()} đã nhập không khớp nhau. Hãy thử lại.`;
+                return temp == value ? undefined : `Các ${$(selector).attr('title').toLowerCase()} đã nhập không khớp nhau. Hãy thử lại.`;
             };
         },
 
@@ -77,6 +77,7 @@ function Validator(selector) {
     var formRules = {};
     // Lấy ra form element
     var formElement = $(selector);
+    console.log(formElement);
 
     // Chỉ xử lý dữ liệu khi form tồn tại
     if (formElement) {
@@ -108,9 +109,12 @@ function Validator(selector) {
                     var rules = formRules[$(this).attr('id')];
                     var errorMessage;
                     for (var rule of rules) {
-                        errorMessage = rule($(this).val(), $(this).attr('placeholder'));
+                        let title = $(this).attr('title');
+                        if(!title) {
+                            title = $(this).siblings('label').text()
+                        }                        
+                        errorMessage = rule($(this).val(), $(this).attr('title'));
                         if(errorMessage) {
-                            title = $(this).attr('placeholder');
                             $(this).addClass('is-invalid');
                             $(this).siblings('span.invalid-feedback').text(errorMessage);
                             break;
@@ -146,10 +150,12 @@ function Validator(selector) {
                 var rules = formRules[$(this).attr('id')];
                 var errorMessage;
                 for (var rule of rules) {
+                    let title = $(this).attr('placeholder');
+                    console.log($(this));
+                    console.log(title)
                     errorMessage = rule($(this).val(), $(this).attr('placeholder'));
                     if(errorMessage) {
                         isValid = false;
-                        title = $(this).attr('placeholder');
                         $(this).removeClass('is-valid');
                         $(this).addClass('is-invalid');
                         $(this).siblings('span.invalid-feedback').text(errorMessage);

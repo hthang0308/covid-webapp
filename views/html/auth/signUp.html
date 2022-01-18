@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng ký</title>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
     <script src="../assets/js/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
   </head>
 
   <body>
@@ -35,6 +35,7 @@
                       id="surName"
                       name="surName"
                       placeholder="Họ"
+                        title="Họ"
                       rules="alpha"
                     />
                     <span class="invalid-feedback"></span>
@@ -46,6 +47,7 @@
                       id="firstName"
                       name="firstName"
                       placeholder="Tên"
+                        title="Tên"
                       rules="alpha"
                     />
                     <span class="invalid-feedback"></span>
@@ -59,6 +61,7 @@
                     id="username"
                     name="username"
                     placeholder="Username"
+                    title="Username"
                     rules="required"
                   />
                   <span class="invalid-feedback"></span>
@@ -72,6 +75,7 @@
                     id="password"
                     name="password"
                     placeholder="Mật khẩu"
+                    title="Mật khẩu"
                     rules="required|strong|min:8"
                     required
                   />
@@ -86,6 +90,7 @@
                     id="confirm"
                     name="confirm"
                     placeholder="Xác nhận"
+                    title="Xác nhận"
                     rules="equal:#password"
                   />
                   <span class="invalid-feedback"></span>
@@ -98,6 +103,7 @@
                     id="agreement-check"
                     name="agreement-check"
                     placeholder="Đồng ý"
+                    title="Đồng ý"
                     value=""
                     rules="checkedRequired"
                     />
@@ -156,7 +162,6 @@
       </div>
     </div>
 
-    <script src="../assets/js/jquery.slim.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/validator.js"></script>

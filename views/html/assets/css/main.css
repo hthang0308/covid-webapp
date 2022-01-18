@@ -56,6 +56,22 @@ a.add:hover {
   /* text-decoration: none */
 }
 
+.carousel-inner > .carousel-item {
+  text-align: center;
+  align-items: center;
+}
+
+.carousel-inner > .carousel-item.active {
+  display: flex;
+  justify-content: center;
+}
+
+
+.carousel-inner > .carousel-item > img {
+  height: 100%;
+  object-fit: cover;
+}
+
 .page-item .page-link {
   background-color: white;
   color: var(--salmon);

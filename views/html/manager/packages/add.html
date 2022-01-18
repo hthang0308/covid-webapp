@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nguời liên quan Covid-19</title>
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../assets/css/all.min.css" />
+  <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+  <script src="../../assets/js/popper.min.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/all.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+</head>
+
+<body>
+  <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
+    <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
+    <form class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
+      <div class="input-group flex-grow-1">
+        <input class="form-control border-0  shadow-none" type="text" placeholder="Tìm kiếm" aria-label="Search"
+          name='search'>
+        <div class="input-group-prepend">
+          <button class="btn text-center" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+    <button class="order-n1 navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#sidebar"
+      aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button class="navbar-toggler  border-0" type="button" data-toggle="collapse" data-target="#account-menu"
+      aria-controls="account-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-v"></i>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
+      <div class="btn-group nav-item dropdown ml-auto">
+        <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button" data-toggle="dropdown"
+          aria-expanded="false">
+          <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
+          <a class="dropdown-item nav-link" href="#">
+            <i class="fas fa-user mr-1 "></i>
+            Tài khoản của tôi
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-sign-out-alt mr-1"></i>
+            Đăng xuất
+          </a>
+        </div>
+      </div>
+      </ul>
+    </div>
+  </header>
+  <div class="main-content container-fluid">
+    <div class="row">
+      <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#"
+                aria-current="page">
+                <i class="fas fa-home"></i>
+                <span class="ml-2">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#">
+                <i class="fas fa-users"></i>
+                <span class="ml-2">Nguời liên quan Covid-19</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2" href="#">
+                <i class="fas fa-fish"></i>
+                <span class="ml-2"> Nhu yếu phẩm</span>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center" href="#">
+                <i class="fas fa-box"></i>
+                <span class="ml-2">Gói nhu yếu phẩm</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class=" pt-4 ml-sm-auto col-lg-10">
+        <!-- BEGIN: CONTENT SECTION -->
+        <div id="content-1" class="content shadow border rounded p-2 py-3">
+            <div class="container-fluid pt-3 pb-5">
+              <div class="row">
+                <div class="col-12">
+                  <p class="title text-blue text-center text-sm-left font-weight-bold" style="font-size: 1.8rem">THÊM NHU YẾU PHẨM</p>
+                </div>
+              </div>
+                <div class="row">
+                    <div class="col-12">
+                      <!-- Begin: Form thêm người liên quan -->
+                <form id="edit-form" action="#" method="post">
+                  <div class="form-row">
+                    <div class="form-group col-12">
+                      <label for="name-input" class="font-weight-bold">Tên</label>
+                      <input id="name-input" type="text" class="form-control"
+                        name="name" rules="required" title="Tên">
+                        <span class="invalid-feedback"></span>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="price-input" class="font-weight-bold">Đơn giá</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="price-input" name="price" rules="required" title="Đơn giá">
+                        <div class="input-group-append">
+                          <span class="input-group-text">đ</span>
+                        </div>
+                        <span class="invalid-feedback"></span>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="unit-input" class="font-weight-bold">Đơn vị định lượng</label>
+                      <input type="text" class="form-control" id="unit-input" name="unit" rules="required" title="Đơn vị định lượng">
+                      <span class="invalid-feedback"></span>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-12 text-truncate">
+                      <label for="images-input" class="font-weight-bold">Thêm ảnh (.png hoặc jpg)</label> 
+                      <div class="input-group mb-3">
+                        <div class="custom-file">
+                          <label class="custom-file-label" for="images-input">Chọn ảnh</label>
+                          <input type="file" class="custom-file-input" id="images-input"
+                            aria-describedby="inputGroupFileAddon01" name="images" accept="image/png, image/jpeg"
+                            multiple required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check mr-1"></i>
+                    Thêm nhu yếu phẩm
+                  </button>
+                </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: CONTENT SECTION -->
+        
+        <footer class="container-fluid py-3 my-4 border-top">
+          <div class="d-flex align-items-center justify-content-center">
+            <span class="text-muted">© 2021 Company, Inc</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+  <script src="../../assets/js/sidebar.js"></script>
+  <script src="../../assets/js/jquery.twbsPagination.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/validator.js"></script>
+  <script src="	https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+  <script>
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+      Validator('#edit-form');
+    })
+  </script>
+</body>
+
+</html>

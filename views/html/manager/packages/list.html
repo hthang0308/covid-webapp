@@ -5,15 +5,15 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../assets/css/all.min.css" />
-  <script src="../assets/js/jquery-3.6.0.min.js"></script>
-  <script src="../assets/js/popper.min.js"></script>
-  <script src="../assets/js/bootstrap.min.js"></script>
-  <script src="../assets/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/all.min.js"></script>
-  <link rel="stylesheet" href="../assets/css/main.css" />
+  <title>Gói nhu yếu phẩm</title>
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../assets/css/all.min.css" />
+  <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+  <script src="../../assets/js/popper.min.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/all.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
 </head>
 
 <body>
@@ -40,7 +40,7 @@
       <div class="btn-group nav-item dropdown ml-auto">
         <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button" data-toggle="dropdown"
           aria-expanded="false">
-          <img src="../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
+          <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
           <a class="dropdown-item nav-link" href="#">
@@ -93,8 +93,8 @@
       </nav>
       <main class=" pt-4 ml-sm-auto col-lg-10">
         <!-- Danh sách người covid 19 -->
-        <div id="content-1" class="content shadow border rounded p-2" value="people">
-          <h3 class="text-lg-left text-center pt-3">Danh sách người liên quan Covid-19</h3>
+        <div id="content-1" class="content shadow border rounded container-fluid">
+          <h3 class="text-lg-left text-center pt-3">Danh sách các gói nhu yếu phẩm</h3>
           <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4"
             style="font-size:.9rem">
               <!-- Search-form -->
@@ -106,55 +106,55 @@
               </form>
            
             <!-- Sort -->
-            <form id='sortby-form'  class="form-inline" action="/manager/people">
+            <form id='sortby-form' class="form-inline" action="/manager/people">
               <div class="form-group mb-2">
                 <label for="sub-nav__sort-by">Sắp xếp theo</label>
                 <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by" aria-label="sort-by" name="sort_by">
                   <option class="py-1" value="name-ascending" data-filter="&sortby=(name:asc)">Tên: A &rarr; Z</option>
                   <option class="py-1" value="name-descending" data-filter="&sortby=(name:desc)">Tên: Z &rarr; A</option>
-                  <option class="py-1" value="year-ascending" data-filter="&sortby=(year:asc)">Năm sinh: Tăng dần</option>
-                  <option class="py-1" value="year-descending" data-filter="&sortby=(year:desc)">Năm sinh: Giảm dần</option>
-                  <option class="py-1" value="status-ascending" data-filter="&sortby=(name:asc)">Trạng thái: F0 &rarr; F3</option>
-                  <option class="py-1" value="status-descending" data-filter="&sortby=(name:desc)">Trạng thái: F3 &rarr; F1</option>
+                  <option class="py-1" value="price-ascending" data-filter="&sortby=(price:asc)">Giá: Tăng dần</option>
+                  <option class="py-1" value="price-descending" data-filter="&sortby=(price:desc)">Giá: Giảm dần</option>
+                  <option class="py-1" value="limitPackage-ascending" data-filter="&sortby=(limitPackage:asc)">Mức gói giới hạn: Tăng dần</option>
+                  <option class="py-1" value="limitPackage-descending" data-filter="&sortby=(limitPackage:desc)">Mức gói giới hạn: Giảm dần</option>
+                  <option class="py-1" value="limitTime-ascending" data-filter="&sortby=(limitTime:asc)">Thời gian giới hạn: Tăng dần</option>
+                  <option class="py-1" value="limitTime-descending" data-filter="&sortby=(limitTime:desc)">Thời gian giới hạn: Giảm dần</option>
                 </select>
               </div>
             </form>
           </div>
-
+          <!-- LIST OF PACKAGES -->
           <div class="table-responsive-xl table-hover">
-            <table class="table table-content border mb-0">
+            <table class="table table-content border mb-0 menu">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col d-flex align-items-center">#</th>
-                  <th scope="col">Họ tên</th>
-                  <th scope="col">CMND/CCCD</th>
-                  <th scope="col">Năm sinh</th>
-                  <th scope="col">Địa chỉ</th>
-                  <th scope="col">Trạng thái</th>
-                  <th scope="col">Nơi đang điều trị/cách ly</th>
+                  <th scope="col">#</th>
+                  <th scope="col">Tên gói</th>
+                  <th scope="col">Các sản phẩm trong gói</th>
+                  <th class="text-center" scope="col">Mức giới hạn gói/người</th>
+                  <th class="text-center" scope="col">Thời gian giới hạn</th>
+                  <th class="text-center" scope="col">Đơn vị thời gian</th>
                   <th scope="col">&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="">
+                <tr class="section">
                   <th scope="row">1</th>
-                  <td class="name">
-                    <a class="nav-link details-link text-default" href="/people/:id">
-                      Nguyễn Tuấn Khanh
+                  <td class="align-middle name" title="name">
+                    <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                      Gói lương thực
                     </a>
                   </td>
-                  <td class="CMND">012345678912</td>
-                  <td class="birth-year">2001</td>
-                  <td class="address">Bình Phước</td>
-                  <td class="status">F1</td>
-                  <td class="treatment-place">Bình Phước</td>
+                  <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                  <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
+                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
                   <td>
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-success btn-sm rounded" data-toggle="modal" data-target="#edit-modal">
+                        <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
                           <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
                       </li>
                       <li class="list-inline-item mb-1">
                         <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
@@ -164,25 +164,24 @@
                     </ul>
                 </td>
                 </tr>
-                <tr class="">
+                <tr class="section">
                   <th scope="row">2</th>
-                  <td class="name">
-                    <a class="nav-link details-link text-default" href="/people/:id">
-                      Bùi Lê Tuấn Anh
+                  <td class="align-middle name" title="name">
+                    <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                      Gói lương thực
                     </a>
                   </td>
-                  <td class="CMND">012345678912</td>
-                  <td class="birth-year">2001</td>
-                  <td class="address">Tây Ninh</td>
-                  <td class="status">F1</td>
-                  <td class="treatment-place">Bình Phước</td>
+                  <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                  <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
+                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
                   <td>
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-success btn-sm rounded" data-toggle="modal" data-target="#edit-modal">
+                        <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
                           <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
                       </li>
                       <li class="list-inline-item mb-1">
                         <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
@@ -192,25 +191,24 @@
                     </ul>
                 </td>
                 </tr>
-                <tr class="">
+                <tr class="section">
                   <th scope="row">3</th>
-                  <td class="name">
-                    <a class="nav-link details-link text-default" href="/people/:id">
-                      Phạm Tiến Khải
+                  <td class="align-middle name" title="name">
+                    <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                      Gói lương thực
                     </a>
                   </td>
-                  <td class="CMND">012345678912</td>
-                  <td class="birth-year">2001</td>
-                  <td class="address">Tây Ninh</td>
-                  <td class="status">F1</td>
-                  <td class="treatment-place">Bình Phước</td>
+                  <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                  <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
+                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
                   <td>
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-success btn-sm rounded" data-toggle="modal" data-target="#edit-modal">
+                        <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
                           <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
                       </li>
                       <li class="list-inline-item mb-1">
                         <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
@@ -220,25 +218,24 @@
                     </ul>
                 </td>
                 </tr>
-                <tr class="">
+                <tr class="section">
                   <th scope="row">4</th>
-                  <td class="name">
-                    <a class="nav-link details-link text-default" href="/people/:id">
-                      Huỳnh Minh Thắng
+                  <td class="align-middle name" title="name">
+                    <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                      Gói lương thực
                     </a>
                   </td>
-                  <td class="CMND">012345678912</td>
-                  <td class="birth-year">2001</td>
-                  <td class="address">Bình Phước</td>
-                  <td class="status">F1</td>
-                  <td class="treatment-place">Bình Phước</td>
+                  <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                  <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
+                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
                   <td>
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-success btn-sm rounded" data-toggle="modal" data-target="#edit-modal">
+                        <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
                           <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
                       </li>
                       <li class="list-inline-item mb-1">
                         <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
@@ -248,25 +245,24 @@
                     </ul>
                 </td>
                 </tr>
-                <tr class="">
+                <tr class="section">
                   <th scope="row">5</th>
-                  <td class="name">
-                    <a class="nav-link details-link text-default" href="/people/:id">
-                      Nguyễn Tuấn Khanh
+                  <td class="align-middle name" title="name">
+                    <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                      Gói lương thực
                     </a>
                   </td>
-                  <td class="CMND">012345678912</td>
-                  <td class="birth-year">2001</td>
-                  <td class="address">Bình Phước</td>
-                  <td class="status">F1</td>
-                  <td class="treatment-place">Bình Phước</td>
+                  <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                  <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
+                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
                   <td>
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-success btn-sm rounded" data-toggle="modal" data-target="#edit-modal">
+                        <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
                           <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
                       </li>
                       <li class="list-inline-item mb-1">
                         <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
@@ -276,25 +272,24 @@
                     </ul>
                 </td>
                 </tr>
-                <tr class="">
+                <tr class="section">
                   <th scope="row">6</th>
-                  <td class="name">
-                    <a class="nav-link details-link text-default" href="/people/:id">
-                      Huỳnh Minh Thắng
+                  <td class="align-middle name" title="name">
+                    <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                      Gói lương thực
                     </a>
                   </td>
-                  <td class="CMND">012345678912</td>
-                  <td class="birth-year">2001</td>
-                  <td class="address">Bình Phước</td>
-                  <td class="status">F3</td>
-                  <td class="treatment-place">Bình Phước</td>
+                  <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                  <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                  <td class="align-middle limit-time text-center" title="limit-time">2</td>
+                  <td class="align-middle unit-time text-center" title="unit-time">Tuần</td>
                   <td>
                     <!-- Call to action buttons -->
                     <ul class="list-inline m-0">
                       <li class="list-inline-item mb-1">
-                        <button type="button" class="btn btn-success btn-sm rounded" data-toggle="modal" data-target="#edit-modal">
+                        <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
                           <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
                       </li>
                       <li class="list-inline-item mb-1">
                         <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
@@ -309,9 +304,10 @@
             </table>
             <a href="/manager/people/add" class="add d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none" style="width: 100%">
               <i class="fas fa-plus"></i>
-              <span class="px-2">Thêm người</span>
+              <span class="px-2">Thêm gói mới</span>
             </a>
           </div>
+          <!-- PAGINATION -->
           <nav id="main-pagination" class="mt-3" aria-label="Search results pages"></nav>
         </div>
         <footer class="container-fluid py-3 my-4 border-top">
@@ -325,63 +321,6 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true">
-  <form class="modal-dialog modal-dialog-centered" method='POST' action="/manager/people">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="edit-model__label">Thay đổi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <input type="hidden" readonly class="hidden" id="ID-input" name="id">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="static-name-input" class="col-sm-4 col-form-label">Họ tên:</label>
-          <div class="col-sm-8">
-            <input type="text" readonly class="form-control-plaintext name" id="static-name-input" name="full_name">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="static-id-input" class="col-sm-4 col-form-label">CMND/CCCD:</label>
-          <div class="col-sm-8">
-            <input type="text" readonly class="form-control-plaintext CMND" id="static-id-input" name="cmnd">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="status-input" class="col-sm-4 col-form-label ">Trạng thái:</label>
-          <div class="col-sm-8">
-            <select class="form-control status" name="status">
-              <option value='F0'>F0</option>
-              <option value='F1'>F1</option>
-              <option value='F2'>F2</option>
-              <option value='F3'>F3</option>
-              <option value='Khỏi bênh'>Khỏi bênh</option>
-              <option value='Khác'>Khác</option>
-            </select>    
-          </div>
-        </div>
-        <div class="form-group row ">
-          <label for="treatment-place-input" class="col-sm-4 col-form-label">NĐĐT/CL:</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control treatment-place" id="treatment-place-input" name="treatment_place">
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        <a role="button" href="#" class="btn btn-red text-white more-info-link">Chi tiết hơn</a>
-        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-      </div>
-    </div>
-  </form>
-</div>
-
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
   <form class="modal-dialog modal-dialog-centered" action="#" method="post">
     <div class="modal-content">
@@ -405,10 +344,14 @@
       </div>
     </form>
   </div>
-  <script src="../assets/js/sidebar.js"></script>
-  <script src="../assets/js/jquery.twbsPagination.js"></script>
-  <script src="../assets/js/paging.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script>
+    var perPage = 4;
+  </script>
+  <script src="../../assets/js/sidebar.js"></script>
+  <script src="../../assets/js/jquery.twbsPagination.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/paging.js">
+  </script>
 </body>
 
 </html>
