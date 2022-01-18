@@ -1,0 +1,18 @@
+<select class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+  <option selected>Select a quarantine location</option>
+  {{#each qls}}
+    {{this.f_Address}}
+    <option value="{{this.f_ID}}">{{this.f_Address}}
+      <br /></option>
+  {{/each}}
+</select>
+{{!-- TODO <form class="form" action="/ql/{{}}" method="get" style="width:40vw">
+  <button type="submit" class="btn btn-default btn-success">
+    See Detail
+  </button>
+</form> --}}
+<form class="form" action="/ql/create" method="get" style="width:40vw">
+  <button type="submit" class="btn btn-default btn-success">
+    Add New Quarantine Location
+  </button>
+</form>

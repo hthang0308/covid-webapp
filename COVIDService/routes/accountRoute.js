@@ -13,7 +13,6 @@ router.route("/").get(accountCtrl.getAllAccounts).post(accountCtrl.createAccount
 
 //router.get("/search", userCtrl.searchUser); //user/search?id=2333
 router.get("/create", accountCtrl.getCreateForm);
-router.route("/create_quarantinelocation").get(accountCtrl.getCreateQuarantineLocationForm).post(accountCtrl.createQuarantineLocation);
 router.route("/:id").get(accountCtrl.getAccount).post(accountCtrl.lockAccount); //.put(userCtrl.editUser);
 
 module.exports = router;

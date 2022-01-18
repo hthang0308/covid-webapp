@@ -1,8 +1,10 @@
-{{account.f_ID}}
 {{account.f_Username}}
-{{account.f_Password}}
 <br />
-{{account.f_Permission}}
+{{#if msg}}
+  <h6><span class="badge badge-danger">{{msg}}</span></h6>
+{{/if}}
+<br />
+<b>History Of Account</b>
 <br />
 {{#each account.f_History}}
   {{this}}

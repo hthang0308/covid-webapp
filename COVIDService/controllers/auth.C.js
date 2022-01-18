@@ -80,33 +80,37 @@ exports.getSignOut = async (req, res) => {
 
 exports.signin = async (req, res) => {
   let user = await userModel.getUserByName(req.body.username);
-  let msg = "Tài khoản hoặc mật khẩu sai!";
-  if (user == null) msg = "";
-  if (user != null && user !== undefined) {
-    const challengeResult = await bcrypt.compare(req.body.password, user.f_Password);
-    if (challengeResult) {
-      const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN,
-      });
-      //res.cookie("token", token, { httpOnly: true });
-      // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
-      res.cookie("jwt", token);
-      // Send the response with 200 status code (ok) and the user object + the token
-      // The client will send the token with every future request
-      // against secured API endpoints.
-      res.status(200).send({
-        user: user,
-        token: token,
-      });
-      return;
-    }
+  if (user === null || user === undefined) {
+    return res.render("auth/login", {
+      layout: "authBG",
+      title: "Đăng nhập",
+      msg: "Không tồn tại username",
+    });
   }
-  //TODO: render error
-  return res.render("auth/login", {
-    layout: "authBG",
-    title: "Đăng nhập",
-    msg: "Tài khoản hoặc mật khẩu sai!",
-  });
+  if (user.f_Permission < 0) {
+    return res.render("auth/login", {
+      layout: "authBG",
+      title: "Đăng nhập",
+      msg: "Tài khoản đã bị khóa",
+    });
+  }
+  const challengeResult = await bcrypt.compare(req.body.password, user.f_Password);
+  if (challengeResult) {
+    const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+    //res.cookie("token", token, { httpOnly: true });
+    // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+    res.cookie("jwt", token);
+    // Send the response with 200 status code (ok) and the user object + the token
+    // The client will send the token with every future request
+    // against secured API endpoints.
+    res.status(200).send({
+      user: user,
+      token: token,
+    });
+    return;
+  }
 };
 
 exports.signup = async (req, res) => {

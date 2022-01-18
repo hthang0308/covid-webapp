@@ -1,5 +1,6 @@
 const accountModel = require("../models/account.M");
-
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 // Route
 exports.getAllAccounts = async (req, res) => {
   arr = await accountModel.getAllAccounts();
@@ -8,32 +9,25 @@ exports.getAllAccounts = async (req, res) => {
   });
 };
 exports.createAccount = async (req, res) => {
-  if (accountModel.getAccountByUsername(req.body.f_Username) != null) {
-    return res.render("accounts/form_addaccount", { err: "Username already exist!" });
+  let tmp = await accountModel.getAccountByUsername(req.body.username);
+  if (tmp !== null && tmp !== undefined) {
+    return res.render("accounts/form_add", { msg: "Username already exist!", color: "danger" });
   }
   var currentdate = new Date();
   var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
-  req.body.f_History = [];
-  req.body.f_History.push(`${currentTime} Create User`);
-  req.body.f_Permission = 2;
-  accountModel.addAccount(req.body);
-  res.redirect("/account");
+  const f_Password = await bcrypt.hash(req.body.password, saltRounds);
+  const tmpUser = {
+    f_Username: req.body.username,
+    f_Password,
+    f_History: [`${currentTime} Create User`],
+    f_Permission: 2,
+  };
+  accountModel.addAccount(tmpUser);
+  return res.render("accounts/form_add", { msg: "Create account successfully!", color: "success" });
   //done
 };
 exports.getCreateForm = async (req, res) => {
-  res.render("accounts/form_addaccount");
-};
-exports.getCreateQuarantineLocationForm = async (req, res) => {
-  res.render("accounts/form_addquarantinelocation");
-};
-exports.createQuarantineLocation = async (req, res) => {
-  // if (accountModel.getAccountByUsername(req.body.f_Username) != null) {
-  //   return res.render("accounts/form_addaccount", { err: "Username already exist!" });
-  // }
-  //validate
-  accountModel.addQuanrantineLocation(req.body);
-  res.redirect("/account");
-  //done
+  res.render("accounts/form_add");
 };
 exports.lockAccount = async (req, res) => {
   const tmpAccount = await accountModel.getAccountByID(req.params.id);
@@ -48,8 +42,11 @@ exports.lockAccount = async (req, res) => {
 };
 exports.getAccount = async (req, res) => {
   tmpAccount = await accountModel.getAccountByID(req.params.id);
+  let msg = "";
+  if (tmpAccount != null && tmpAccount.f_Permission < 0) msg = "This account is disabled!";
   res.render("accounts/single", {
     account: tmpAccount,
+    msg,
   });
 };
 // exports.getChangeCovidAddressForm = async (req, res) => {
