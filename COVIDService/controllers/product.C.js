@@ -16,7 +16,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.searchProduct = async (req, res) => {
   tmpProd = await productModel.searchProductByName(req.params.name);
-  res.render("/all", {
+  res.render("products/all", {
     products: tmpProd,
   });
 };
@@ -33,9 +33,11 @@ exports.createProduct = async (req, res) => {
     const files = await uploadFiles(req.files);
     const product = { ...req.body, images: files };
     await productModel.createProduct(product);
-    res.redirect("form_addProductSuccess");
+    res.redirect("products/product_success", {
+      messages: "Thêm sản phẩm vào cơ sở dữ liệu thành công"
+    });
   }
-  res.render("form_addProduct");
+  res.render("products/add");
 };
 
 exports.editProduct = async (req, res) => {
@@ -44,9 +46,11 @@ exports.editProduct = async (req, res) => {
     const files = await uploadFiles(req.files);
     const product = { ...req.body, images: files };
     await productModel.editProduct(req.params.id, product);
-    res.redirect("form_editSuccess");
+    res.redirect("products/product_success", {
+      messages: "Chỉnh sửa sản phẩm thành công"
+    });
   }
-  res.render("/single", {
+  res.render("products/edit", {
     product: tmpProd,
   });
 };
@@ -60,5 +64,7 @@ exports.deleteProduct = async (req, res) => {
     }
   }
   await productModel.deleteProduct(req.params.id);
-  res.redirect("home");
+  res.redirect("products/product_success", {
+    messages: "Xóa sản phẩm thành công"
+  });
 };
