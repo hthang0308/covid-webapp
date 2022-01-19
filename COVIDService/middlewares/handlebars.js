@@ -45,8 +45,8 @@ module.exports = (app) => {
         return a;
       },
       section: hbs_section(),
-      sum: (op1, op2) => {
-        return Number(op1) + Number(op2);
+      sum: function (a, b) {
+        return a + b;
       }
     },
   });
