@@ -1,7 +1,6 @@
 const express = require("express");
 const userCtrl = require("../controllers/user.C");
 const authCtrl = require("../controllers/auth.C");
-const accountCtrl = require("../controllers/account.C");
 const router = express.Router();
 
 // Login to access
@@ -11,7 +10,7 @@ router.use(authCtrl.protect);
 
 // User roles
 router.use(authCtrl.restrictTo(1))
-router.route('/'); // TODO: Home routes when login successfully
+router.route('/').get(userCtrl.getHome);
 
 
 // Manager roles

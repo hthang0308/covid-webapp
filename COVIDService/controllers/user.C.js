@@ -3,6 +3,15 @@ const sort = require('../utils/sort');
 const { isNumber, isValidFx, isValidName } = require('../utils/validate');
 
 // Route
+// GetHomePage for Users
+exports.getHome = (req, res) => {
+  res.render('users/dashboard', {
+    title: 'Trang chủ',
+  })
+}
+
+
+// For managers
 exports.getAllUsers = async (req, res) => {
   arr = await userModel.getAllUsers();
   if (req.query.sort === "date") sort.sortByDate(arr);
