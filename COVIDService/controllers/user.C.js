@@ -93,7 +93,7 @@ exports.createUser = async (req, res) => {
     f_History: [`${currentTime} Manager Create User`],
   };
   var quarantineLocation = await userModel.getQLByID(req.body.ql);
-  if (quarantineLocation.f_CurrentCapacity >= quarantineLocation) {
+  if (quarantineLocation.f_CurrentCapacity >= quarantineLocation.f_Capacity) {
     err = "Quarantine Location Already Full!";
   } else {
     quarantineLocation.f_CurrentCapacity++;
@@ -151,7 +151,7 @@ exports.getChangeCovidAddressForm = async (req, res) => {
   const oldql = await userModel.getQLByID(tmpUser.f_QuarantineID);
   res.render("users/form_change_covid_address", {
     user: tmpUser,
-    oldql: oldql.f_Address,
+    oldql,
     qls,
   });
 };
@@ -167,6 +167,15 @@ exports.editUser = async (req, res) => {
   if (req.body.ql !== undefined) {
     tmpUser.f_QuarantineID = req.body.ql;
     const tmpNewCovidAddress = await userModel.getQLByID(tmpUser.f_QuarantineID);
+    if (tmpNewCovidAddress.f_CurrentCapacity >= tmpNewCovidAddress.f_Capacity) {
+      return res.json({ Err: "Quarantine Location Already Full!" });
+    } else {
+      tmpNewCovidAddress.f_CurrentCapacity++;
+      const oldCovidAddress = await userModel.getQLByID(req.body.oldql);
+      oldCovidAddress.f_CurrentCapacity--;
+      await userModel.editQL(req.body.oldql, oldCovidAddress);
+      await userModel.editQL(tmpNewCovidAddress.f_ID, tmpNewCovidAddress);
+    }
     tmpUser.f_History.push(currentTime + `Manager Change Covid Address To: ${tmpNewCovidAddress.f_Address}`);
     userModel.editUser(tmpUser.f_ID, tmpUser);
   }

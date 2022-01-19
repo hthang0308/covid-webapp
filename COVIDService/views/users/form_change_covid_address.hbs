@@ -7,7 +7,7 @@
 >
   <h1 class="display-5">CHANGE COVID ADDRESS</h1>
   Old Covid Address:
-  {{oldql}}
+  {{oldql.f_Address}}
   <br />
   New Covid Address:
   <select id="ql" name="ql" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
@@ -17,5 +17,6 @@
         <br /></option>
     {{/each}}
   </select>
+  <input type="hidden" name="oldql" value="{{oldql.f_ID}}" />
   <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">CONFIRM CHANGE</button>
 </form>
