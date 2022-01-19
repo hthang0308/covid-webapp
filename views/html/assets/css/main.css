@@ -55,6 +55,10 @@ a.add:hover {
   background-color: #cccc;
   /* text-decoration: none */
 }
+button.disabled,
+a.disabled {
+  cursor: not-allowed !important;
+}
 
 .carousel-inner > .carousel-item {
   text-align: center;
@@ -107,6 +111,33 @@ a.add:hover {
   color: white;
   background: var(--seaSerpent);
 }
+
+.loading {
+  z-index: 10000000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+.spinner-border-lg {
+  height: 6rem;
+  width: 6rem;
+  border-width: .75em;
+  border-right-color: transparent;
+}
+
+.spinner-grow-xs {
+  height: .5rem;
+  width: .5rem;
+}
+
 
 .text-default {
   color: var(--charlestonGreen);

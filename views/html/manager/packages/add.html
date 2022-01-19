@@ -106,8 +106,8 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <!-- Begin: Form thêm người liên quan -->
-                <form id="add-form" action="#" method="POST">
+                <!-- Begin: FORM TẠO GÓI -->
+                <form id="add-form" action="/manager/packages/create" method="POST">
                   <div class="form-row">
                     <div class="form-group col-12">
                       <label for="name-input" class="font-weight-bold">Tên gói</label>
@@ -145,65 +145,32 @@
                   <div class="form-row">
                     <div class="form-group col-12">
                       <label for="time-unit-input" class="font-weight-bold">Danh sách các sản phẩm</label>
-                      <div class="table-responsive-xl table-hover">
-                        <table class="table table-content border mb-0 menu" id="product-list-input">
+                      <div class="table-responsive-xl table-hover" id="product-list-input">
+                        <table class="table table-content border mb-0 menu">
                           <thead class="thead-light">
                             <tr>
                               <th scope="col">#</th>
-                              <th scope="col">Sản phẩm</th>
+                              <th scope="col" colspan="5">Sản phẩm</th>
                               <th class="text-center" scope="col">Số lượng sản phẩm tối đa</th>
-                              <th class="text-center" scope="col">Đơn vị sản phẩm</th>
-                              <th scope="col">&nbsp;</th>
-                              <th scope="col">&nbsp;</th>
                               <th scope="col">&nbsp;</th>
                               <th scope="col">&nbsp;</th>
                               <th scope="col">&nbsp;</th>
                               <th scope="col">&nbsp;</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <!-- <tr class="section">
-                              <th class="align-middle" scope="row">1</th>
-                              <td class="align-middle name" title="name">
-                                <select class="form-control productOptions" name="products[]" title='Sản phẩm'>
-                                  <option value="riceID">Gạo</option>
-                                  <option value="vegetableID">Rau củ</option>
-                                  <option value="saltID">Muối sấy</option>
-                                  <option value="fishID">Cá thu</option>
-                                </select>
-                              </td>
-                              <td class="align-middle text-center product-limit-number" title="product-limit-number">
-                                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
-                                  name="product_limits[]" rules='required' title="Số lượng giới hạn">
-                                <span class="invalid-feedback"></span>
-                              </td>
-                              <td class="align-middle text-center product-unit" title="product-unit">
-                                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
-                                  name="product_units[]" rules='required' title="Đơn vị">
-                                <span class="invalid-feedback"></span>
-                              </td>
-                              <td colspan="6" class="text-center align-middle">
-                                <ul class="list-inline m-0">
-                                  <li class="list-inline-item mb-1">
-                                    <button class="btn btn-danger btn-sm rounded delete-section-btn">
-                                      <i class="fa fa-trash"></i>
-                                    </button>
-                                  </li>
-                                </ul>
-                              </td>
-                            </tr> -->
-                          </tbody>
+                          <tbody></tbody>
                         </table>
-                        <a
+                        <a role="button"
                           class="add add-section-btn w-100 d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none">
                           <i class="fas fa-plus"></i>
                           <span class="px-2">Thêm nhu yếu phẩm</span>
                         </a>
+                        <span class="invalid-feedback d-block"></span>
                       </div>
                     </div>
 
                   </div>
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary" role="submit">
                     <i class="fas fa-check mr-1"></i>
                     Tạo gói
                   </button>
@@ -227,13 +194,15 @@
   <script src="../../assets/js/main.js"></script>
   <script src="../../assets/js/validator.js"></script>
   <script>
-    var removeSection
+    var removeSection = null;
     $(document).ready(function () {
       Validator('#add-form');
+
       const products = {
         "Gạo": 1,
         "Rau củ": 2,
         "Cá": 3,
+        "Muối": 4,
       };
 
       var createOptions = function (options) {
@@ -249,31 +218,28 @@
       }
 
       $(".add-section-btn").click(function () {
+        $("#product-list-input span.invalid-feedback").text("")
+        if ($(this).hasClass("disable")) return;
         const options = createOptions(products);
         if (options) {
           $("#product-list-input").find('tbody').append(`
             <tr class="section">
               <th class="align-middle" scope="row">${$("tr.section").length + 1}</th>
-              <td class="align-middle name" title="name">
-                <select class="form-control productOptions" name="products[]" title='Sản phẩm'>
+              <td colspan="5" class="align-middle name" title="name">
+                <select class="form-control productOptions" name="products[]" title='Sản phẩm' rules="required" id="productOptions-${$("tr.section").length + 1}">
                   ${options}
                 </select>
               </td>
               <td class="align-middle text-center product-limit-number" title="product-limit-number">
                 <input type="text" class="form-control mx-auto" style="max-width: 100px;"
-                  name="product_limits[]" rules="required|number" title="Số lượng giới hạn">
+                  name="product_limits[]" rules="required|number" title="Số lượng giới hạn" id="product_limits-${$("tr.section").length + 1}">
                 <span class="invalid-feedback"></span>
               </td>
-              <td class="align-middle text-center product-unit" title="product-unit">
-                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
-                  name="product_units[]" rules="required|number" title="Đơn vị">
-                <span class="invalid-feedback"></span>
-              </td>
-              <td colspan="6" class="text-center align-middle">
+              <td colspan="4" class="text-center align-middle">
                 <!-- Call to action buttons -->
                 <ul class="list-inline m-0">
                   <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded delete-section-btn">
+                    <button type="button" class="btn btn-danger btn-sm rounded delete-section-btn" onclick="removeSection(this)">
                       <i class="fa fa-trash"></i>
                     </button>
                   </li>
@@ -281,27 +247,64 @@
               </td>
             </tr>`)
 
+          Validator('#add-form');
+
           if ($(".section").length >= Object.keys(products).length) {
-            $(this).attr("style", "display: none !important");
+            $(this).addClass("disabled");
           }
         }
       })
 
-      $(".delete-section-btn").click(function () {
-        $(this).parents('.section').remove();
-        if($(".section").length > 0) {
+      removeSection = function (object) {
+        console.log($(object).parents('tr'));
+        $(object).parents('tr.section').remove();
+        if ($("tr.section").length > 0) {
           let i = 1;
-          $(".section").each(function () {
-            $(this).find('th').text(i);
-            i = i + 1;
+          $("tr.section").each(function () {
+            $(this).find("th[scope=row]").text(i);
+            i++;
           })
         }
-        if($(".add-section-btn").attr("style", "display: none !important")) {
-          $(".add-section-btn").attr("style", "display: block");
+
+        if ($(".add-section-btn").hasClass("disabled")) {
+          $(".add-section-btn").removeClass("disabled");
+        }
+      }
+
+      $("#add-form").one('submit', function (event) {
+        event.preventDefault();
+        var products = $(this).find("tr.section select.productOptions option:selected");
+        let pIds = [];
+        let isValid = true;
+        if (products.length <= 0) {
+          $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng thêm sản phẩm`);
+          $(this).find('[type=submit]').addClass('disabled');
+          $(this).find('[type=submit]').attr('type', 'button');
+          return false;
+        } else {
+          for (const product of products) {
+            if (pIds.includes($(product).val())) {
+              isValid = false;
+              break;
+            } else {
+              pIds.push($(product).val());
+            }
+          }
+
+          if (isValid) {
+            $(this).find("#product-list-input span.invalid-feedback").text("")
+            $(this).submit();
+            return;
+          } else {
+            $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng chọn 2 sản phẩm khác nhau`)
+            $(this).find('[type=submit]').addClass('disabled');
+            $(this).find('[type=submit]').attr('type', 'button');
+            return false;
+          }
         }
       })
-    })
 
+    })
   </script>
 </body>
 

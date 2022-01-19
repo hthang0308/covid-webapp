@@ -35,103 +35,298 @@
 </form> --}}
 {{! DEFINE A 'content' SECTION }}
 {{#section "content"}}
-<div id="content-1" class="content shadow border rounded p-2">
-    <div class="container-fluid">
-        <!-- IMAGES -->
-        <div class="row min-vh-100 py-3">
-            <div class="col-md-5 col-12 h-100">
-                <div id="necessity-images" class="carousel slide carousel-fade border mx-1 mb-5" data-ride="carousel"
-                    style="min-height: 100%; width: 100%;">
-                    <ol class="carousel-indicators">
-                        <li data-target="#necessity-images" data-slide-to="0" class="active"></li>
-                        <li data-target="#necessity-images" data-slide-to="1"></li>
-                        <li data-target="#necessity-images" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" style="height: 100%;">
-                        <div class="carousel-item" data-interval="3000">
-                            <img class="img-fluid necessity-image" src="../../assets/img/necessities/muoi_bien.webp"
-                                alt="Muối biển VISAchef gói 1kg">
-                        </div>
-                        <div class="carousel-item" data-interval="3000">
-                            <img class="img-fluid necessity-image" src="../../assets/img/necessities/muoi_bien_1.webp"
-                                alt="Muối biển VISAchef gói 1kg">
-                        </div>
-                        <div class="carousel-item active" data-interval="3000">
-                            <img class="img-fluid necessity-image" src="../../assets/img/necessities/muoi_bien_2.webp"
-                                alt="Muối biển VISAchef gói 1kg">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#necessity-images" role="button" data-slide="prev">
-                        <i class="fas fa-angle-left text-black-50" style="font-size: 2.2rem"></i>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#necessity-images" role="button" data-slide="next">
-                        <i class="fas fa-angle-right text-black-50" style="font-size: 2.2rem"></i>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-7 col-12 h-100">
-                <form id="edit-form" action="#" method="post">
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="name-input" class="font-weight-bold">Tên</label>
-                            <input id="name-input" type="text" class="form-control" value="Muối biển VISAchef gói 1kg"
-                                name="name" rules="required" title="Tên">
-                            <span class="invalid-feedback"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="price-input" class="font-weight-bold">Đơn giá</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="price-input" value="11,000" name="price"
-                                    rules="required" title="Đơn giá">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">đ</span>
-                                </div>
-                                <span class="invalid-feedback"></span>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="unit-input" class="font-weight-bold">Đơn vị định lượng</label>
-                            <input type="text" class="form-control" id="unit-input" value="Gói" name="unit"
-                                rules="required" title="Đơn vị định lượng">
-                            <span class="invalid-feedback"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-12 text-truncate">
-                            <label for="images-input" class="font-weight-bold">Thêm ảnh (.png hoặc jpg)</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="images-input">Chọn ảnh</label>
-                                    <input type="file" class="custom-file-input" id="images-input"
-                                        aria-describedby="inputGroupFileAddon01" name="images"
-                                        accept="image/png, image/jpeg" multiple>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-check mr-1"></i>
-                        Lưu
-                    </button>
-                </form>
-            </div>
+{{#if package}}
+  <div id="content-1" class="content shadow border rounded p-2 py-3">
+    <div class="container-fluid pt-3 pb-5">
+      <div class="row">
+        <div class="col-12">
+          <p
+            class="title text-blue text-center text-md-left font-weight-bold text-uppercase border-bottom"
+            style="font-size: 1.8rem">
+            Chỉnh sửa {{this.f_Name}}
+          </p>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <!-- Begin: FORM TẠO GÓI -->
+          <form id="add-form" action="/manager/packages/edit/{{this.f_ID}}" method="POST">
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="name-input" class="font-weight-bold">Tên gói</label>
+                <input
+                  id="name-input"
+                  type="text"
+                  class="form-control"
+                  name="this.f_Name"
+                  value="{{this.f_Name}}"
+                  rules="required"
+                  title="Tên gói"
+                />
+                <span class="invalid-feedback"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="package-limit-input" class="font-weight-bold">Mức giới hạn gói cho mỗi người</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="package-limit-input"
+                    name="f_MaxPerPerson"
+                    value="{{this.f_MaxPerPerson}}"
+                    rules="required|number"
+                    title="Mức giới hạn"
+                  />
+                  <span class="invalid-feedback"></span>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="unit-input" class="font-weight-bold">Thời gian giới
+                  hạn</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="unit-input"
+                  name="f_Time"
+                  value="{{this.f_Time}}"
+                  rules="required|number"
+                  title="Thời gian giới hạn cho gói"
+                />
+                <span class="invalid-feedback"></span>
+              </div>
+              <div class="form-group col-md-4">
+                <label
+                  for="time-unit-input"
+                  class="font-weight-bold"
+                  style="opacity: 0;"
+                >Đơn vị thời gian</label>
+                <select
+                  type="text"
+                  class="form-control"
+                  id="time-unit-input"
+                  name="time_unit"
+                  rules="required"
+                  title="Đơn vị thời gian"
+                >
+                  <option value="d">Ngày</option>
+                  <option value="w">Tuần</option>
+                  <option value="m">Tháng</option>
+                  <option value="y">Năm</option>
+                </select>
+                <span class="invalid-feedback"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="time-unit-input" class="font-weight-bold">Danh sách
+                  các sản phẩm</label>
+                <div
+                  class="table-responsive-xl table-hover"
+                  id="product-list-input"
+                >
+                  <table class="table table-content border mb-0 menu">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" colspan="5">Sản phẩm</th>
+                        <th class="text-center" scope="col">Số lượng sản phẩm
+                          tối đa</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {{#each this.f_Products}}
+                      <tr class="section">
+                        <th class="align-middle" scope="row">1</th>
+                        <td colspan="5" class="align-middle name" title="name">
+                          <select
+                            class="form-control productOptions is-valid"
+                            name="f_Products"
+                            title="Sản phẩm"
+                            rules="required"
+                            id="productOptions-{{@index}}"
+                          >
+                            <option value="1">Gạo</option>
+                            <option value="2">Rau củ</option>
+                            <option value="3">Cá</option>
+                            <option value="4">Muối</option>
+                          </select>
+                        </td>
+                        <td
+                          class="align-middle text-center product-limit-number"
+                          title="product-limit-number"
+                        >
+                          <input
+                            type="text"
+                            class="form-control mx-auto"
+                            style="max-width: 100px;"
+                            name="f_MaxPerProducts"
+                            value="{{lookup ../f_MaxPerProducts @index}}"
+                            rules="required|number"
+                            title="Số lượng giới hạn"
+                            id="product_limits-{{@index}}"
+                          />
+                          <span class="invalid-feedback"></span>
+                        </td>
+                        <td colspan="4" class="text-center align-middle">
+                          <!-- Call to action buttons -->
+                          <ul class="list-inline m-0">
+                            <li class="list-inline-item mb-1">
+                              <button
+                                type="button"
+                                class="btn btn-danger btn-sm rounded delete-section-btn"
+                                onclick="removeSection(this)"
+                              >
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    {{#each}}
+                    </tbody>
+                  </table>
+                  <a
+                    role="button"
+                    class="add add-section-btn w-100 d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none"
+                  >
+                    <i class="fas fa-plus"></i>
+                    <span class="px-2">Thêm nhu yếu phẩm</span>
+                  </a>
+                  <span class="invalid-feedback d-block"></span>
+                </div>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary" role="submit">
+              <i class="fas fa-check mr-1"></i>
+              Tạo gói
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+{{else}}
+  <h3>Không có dữ liệu {{this.f_Name}}</h3>
+{{/if}}
 {{/section}}
 
 {{! DEFINE A 'script' SECTION }}
 {{#section "script"}}
-<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
-<script src="/js/validator.js"></script>
-<script>
+  <script src="/js/validator.js"></script>
+  <script>
+    var removeSection = null;
     $(document).ready(function () {
-        bsCustomFileInput.init();
-        Validator('#edit-form');
+      Validator('#add-form');
+      const products = {
+
+      };
+
+      var createOptions = function (options) {
+        const keys = Object.keys(options);
+        if ($(".section").length >= keys.length) {
+          return;
+        }
+        var result = "";
+        for (const key of keys) {
+          result += `<option value="${options[key]}">${key}</option>`
+        }
+        return result;
+      }
+
+      $(".add-section-btn").click(function () {
+        $("#product-list-input span.invalid-feedback").text("")
+        if ($(this).hasClass("disable")) return;
+        const options = createOptions(products);
+        if (options) {
+          $("#product-list-input").find('tbody').append(`
+            <tr class="section">
+              <th class="align-middle" scope="row">${$("tr.section").length + 1}</th>
+              <td colspan="5" class="align-middle name" title="name">
+                <select class="form-control productOptions" name="f_Products" title='Sản phẩm' rules="required" id="productOptions-${$("tr.section").length + 1}">
+                  ${options}
+                </select>
+              </td>
+              <td class="align-middle text-center product-limit-number" title="product-limit-number">
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                  name="f_MaxPerProducts" rules="required|number" title="Số lượng giới hạn" id="product_limits-${$("tr.section").length + 1}">
+                <span class="invalid-feedback"></span>
+              </td>
+              <td colspan="4" class="text-center align-middle">
+                <!-- Call to action buttons -->
+                <ul class="list-inline m-0">
+                  <li class="list-inline-item mb-1">
+                    <button type="button" class="btn btn-danger btn-sm rounded delete-section-btn" onclick="removeSection(this)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>`)
+
+          Validator('#add-form');
+
+          if ($(".section").length >= Object.keys(products).length) {
+            $(this).addClass("disabled");
+          }
+        }
+      })
+
+      removeSection = function (object) {
+        console.log($(object).parents('tr'));
+        $(object).parents('tr.section').remove();
+        if ($("tr.section").length > 0) {
+          let i = 1;
+          $("tr.section").each(function () {
+            $(this).find("th[scope=row]").text(i);
+            i++;
+          })
+        }
+
+        if ($(".add-section-btn").hasClass("disabled")) {
+          $(".add-section-btn").removeClass("disabled");
+        }
+      }
+
+      $("#add-form").one('submit', function (event) {
+        event.preventDefault();
+        var products = $(this).find("tr.section select.productOptions option:selected");
+        let pIds = [];
+        let isValid = true;
+        if (products.length <= 0) {
+          $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng thêm sản phẩm`);
+          $(this).find('[type=submit]').addClass('disabled');
+          $(this).find('[type=submit]').attr('type', 'button');
+          return false;
+        } else {
+          for (const product of products) {
+            if (pIds.includes($(product).val())) {
+              isValid = false;
+              break;
+            } else {
+              pIds.push($(product).val());
+            }
+          }
+
+          if (isValid) {
+            $(this).find("#product-list-input span.invalid-feedback").text("")
+            $(this).submit();
+            return;
+          } else {
+            $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng chọn 2 sản phẩm khác nhau`)
+            $(this).find('[type=submit]').addClass('disabled');
+            $(this).find('[type=submit]').attr('type', 'button');
+            return false;
+          }
+        }
+      })
+
     })
-</script>
+  </script>
 {{/section}}
