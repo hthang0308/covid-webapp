@@ -1,6 +1,212 @@
-{{tmpPack.f_ID}}
-{{tmpPack.f_Products}}
-{{tmpPack.f_Name}}
-{{tmpPack.f_MaxPerProducts}}
-{{tmpPack.f_MaxPerPerson}}
-{{tmpPack.f_Time}}
+{{!-- {{package.f_ID}}
+{{package.f_Products}}
+{{package.f_Name}}
+{{package.f_MaxPerProducts}}
+{{package.f_MaxPerPerson}}
+{{package.f_Time}} --}}
+
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+<div id="content-1" class="content shadow border rounded p-2">
+    <div class="container-fluid min-vh-100">
+        <div class="row pt-3">
+            <div class="col-12 h-100">
+                <p id="product-name" class="title text-blue text-center text-md-left border-bottom text-uppercase"
+                    style="font-size: 1.8rem; font-weight: bold;">
+                    Gói lương thực, thực phẩm
+                    <a href="/packages/edit/:id" class="px-1 align-middle text-success" style="font-size: 1rem"><i
+                            class="fas fa-pen"></i></a>
+                </p>
+            </div>
+        </div>
+        <!-- LIST OF PRODUCTS -->
+        <div class="row">
+            <div class="col-12">
+                <p class="" style="font-size: 1.1rem; font-weight: bold;">
+                    Mức gới hạn: 1 gói/1 người/2 tuần
+                    <a href="/packages/edit/:id" class="px-1 align-middle text-success" style="font-size: 1rem"><i
+                            class="fas fa-pen"></i></a>
+                </p>
+            </div>
+            <div class="col-12">
+                <h5 class="text-muted" style="font-size: 1.1rem;">Danh sách các sản
+                    phẩm</h5>
+                <div class="table-responsive-xl table-hover">
+                    <table class="table table-content border mb-0 menu">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Sản phẩm</th>
+                                <th class="text-center" scope="col">Số lượng sản phẩm tối đa</th>
+                                <th class="text-center" scope="col">Đơn vị sản phẩm</th>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="section">
+                                <th class="align-middle" scope="row">1</th>
+                                <td class="align-middle name" title="name">
+                                    <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                        Gạo
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center product--limit-number"
+                                    title="product--limit-number">1</td>
+                                <td class="align-middle text-center product-unit" title="product-unit">bao</td>
+                                <td colspan="6" class="text-center">
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item mb-1">
+                                            <a role="button" class="btn btn-success btn-sm rounded"
+                                                href="/packages/edit/:id">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="section">
+                                <th class="align-middle" scope="row">2</th>
+                                <td class="align-middle name" title="name">
+                                    <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                        Mì
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center product--limit-number"
+                                    title="product--limit-number">2</td>
+                                <td class="align-middle text-center product-unit" title="product-unit">thùng</td>
+
+                                <td colspan="6" class="text-center">
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item mb-1">
+                                            <a role="button" class="btn btn-success btn-sm rounded"
+                                                href="/packages/edit/:id">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="section">
+                                <th class="align-middle" scope="row">1</th>
+                                <td class="align-middle name" title="name">
+                                    <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                        Gạo
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center product--limit-number"
+                                    title="product--limit-number">1</td>
+                                <td class="align-middle text-center product-unit" title="product-unit">bao</td>
+                                <td colspan="6" class="text-center">
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item mb-1">
+                                            <a role="button" class="btn btn-success btn-sm rounded"
+                                                href="/packages/edit/:id">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr class="section">
+                                <th class="align-middle" scope="row">1</th>
+                                <td class="align-middle name" title="name">
+                                    <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                        Gạo
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center product--limit-number"
+                                    title="product--limit-number">1</td>
+                                <td class="align-middle text-center product-unit" title="product-unit">bao</td>
+                                <td colspan="6" class="text-center">
+
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item mb-1">
+                                            <a role="button" class="btn btn-success btn-sm rounded"
+                                                href="/packages/edit/:id">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr class="section">
+                                <th class="align-middle" scope="row">1</th>
+                                <td class="align-middle name" title="name">
+                                    <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                        Gạo
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center product--limit-number"
+                                    title="product--limit-number">1</td>
+                                <td class="align-middle text-center product-unit" title="product-unit">bao</td>
+                                <td colspan="6" class="text-center">
+
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item mb-1">
+                                            <a role="button" class="btn btn-success btn-sm rounded"
+                                                href="/packages/edit/:id">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr class="section">
+                                <th class="align-middle" scope="row">1</th>
+                                <td class="align-middle name" title="name">
+                                    <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                        Gạo
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center product--limit-number"
+                                    title="product--limit-number">1</td>
+                                <td class="align-middle text-center product-unit" title="product-unit">bao</td>
+                                <td colspan="6" class="text-center">
+
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item mb-1">
+                                            <a role="button" class="btn btn-success btn-sm rounded"
+                                                href="/packages/edit/:id">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="/packages/edit/:id"
+                        class="add d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none"
+                        style="width: 100%">
+                        <i class="fas fa-plus"></i>
+                        <span class="px-2">Thêm nhu yếu phẩm</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{/section}}
+
+{{! DEFINE A 'script' SECTION }}
+{{#section "script"}}
+<script>var perPage = 4;</script>
+<script src="/js/jquery.twbsPagination.js"></script>
+<script src="/js/paging.js"></script>
+
+{{/section}}

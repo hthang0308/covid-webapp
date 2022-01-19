@@ -1,35 +1,79 @@
-<form class="form" action="/user" method="post" style="width:40vw">
-    <h1 class="display-5">ADD NEW PRODUCT</h1>
-    <div class="form-group">
-        <label for="f_Name">Name</label>
-        <input type="text" class="form-control" id="f_Name" placeholder="Name" name="f_Name" />
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+<div id="content-1" class="content shadow border rounded p-2 py-3">
+    <div class="container-fluid pt-3 pb-5">
+        <div class="row">
+            <div class="col-12">
+                <p class="title text-blue text-center text-sm-left font-weight-bold" style="font-size: 1.8rem">THÊM NHU
+                    YẾU PHẨM</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Begin: Form thêm người liên quan -->
+                <form id="edit-form" action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="name-input" class="font-weight-bold">Tên</label>
+                            <input id="name-input" type="text" class="form-control" name="name" rules="required"
+                                title="Tên" />
+                            <span class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="price-input" class="font-weight-bold">Đơn giá</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="price-input" name="price" rules="required"
+                                    title="Đơn giá" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">đ</span>
+                                </div>
+                                <span class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="unit-input" class="font-weight-bold">Đơn vị định
+                                lượng</label>
+                            <input type="text" class="form-control" id="unit-input" name="unit" rules="required"
+                                title="Đơn vị định lượng" />
+                            <span class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-12 text-truncate">
+                            <label for="images-input" class="font-weight-bold">Thêm ảnh
+                                (.png hoặc jpg)</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="images-input">Chọn ảnh</label>
+                                    <input type="file" class="custom-file-input" id="images-input"
+                                        aria-describedby="inputGroupFileAddon01" name="images"
+                                        accept="image/png, image/jpeg" multiple required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check mr-1"></i>
+                        Thêm nhu yếu phẩm
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="f_ID">ID</label>
-        <input type="text" class="form-control" id="f_ID" placeholder="ID" name="f_ID" />
-    </div>
-    {{!-- <div class="form-group">
-        <label for="f_Time">Time</label>
-        <input type="date" id="f_Time" name="f_Time" value="2000-07-22" min="1950-01-01" max="2018-12-31" />
-    </div> --}}
-    <div class="form-group">
-        <label for="f_Price">Price</label>
-        <input type="number" class="form-control" id="f_Price" placeholder="100000" name="f_Price" />
-    </div>
-    <div class="form-group">
-        <label for="f_Unit">Unit</label>
-        <input type="text" class="form-control" id="f_Unit" placeholder="Cái" name="f_Unit" />
-    </div>
-    <div class="form-group">
-        <label for="f_Images">Images</label>
-        {{!-- <input type="text" class="form-control" id="f_Products" placeholder="Products" name="f_Products" /> --}}
-    </div>
-    {{#if err}}
-    <div class="alert alert-danger" role="alert">
-        {{err}}
-    </div>
-    {{/if}}
-    <button type="submit" class="btn btn-default btn-success">
-        Create
-    </button>
-</form>
+</div>
+
+{{/section}}
+
+<!-- {{! DEFINE A 'script' SECTION }} -->
+{{#section "script"}}
+<script src="../../assets/js/validator.js"></script>
+<script src="	https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+        Validator('#edit-form');
+    })
+</script>
+{{/section}}
