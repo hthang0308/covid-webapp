@@ -1,7 +1,13 @@
+const https = require("https");
 const port = 3000;
-const app = require('./app');
+const { app, credentials } = require('./app');
 
-const server = app.listen(port, () => {
+// const server = app.listen(port, () => {
+// console.log(`Server started on port ${port}`);
+// });
+
+// Change to HTTPS;
+https.createServer(credentials, app).listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
 

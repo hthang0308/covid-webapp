@@ -8,13 +8,12 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-// const { rmSync } = require('fs');
+const fs = require("fs");
 const dotenv = require("dotenv");
 
 const app = express();
 
 app.use(cookieParser());
-// app.use(
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -55,6 +54,12 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
+// Change to https
+const credentials = {
+  key: fs.readFileSync(path.join(__dirname, 'certs', ''), { encoding: 'utf-8' }),
+  cert: fs.readFileSync(path.join(__dirname, 'certs', ''), { encoding: 'utf-8' })
+};
+
 app.get("/", function (req, res) {
   res.render("home", {
     cssP: () => "css",
@@ -63,7 +68,6 @@ app.get("/", function (req, res) {
     footerP: () => "footer",
   });
 });
-
 route(app);
 
 app.use(express.static(path.join(__dirname + "/public")));
@@ -71,4 +75,4 @@ app.all("*", (req, res, next) => {
   next(console.log(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
-module.exports = app;
+module.exports = { app, credentials };
