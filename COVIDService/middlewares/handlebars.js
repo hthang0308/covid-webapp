@@ -45,6 +45,9 @@ module.exports = (app) => {
         return a;
       },
       section: hbs_section(),
+      sum: function (a, b) {
+        return a + b;
+      }
     },
   });
   app.engine("hbs", hbs.engine);
