@@ -1,7 +1,7 @@
 function Validator(selector) {
     var validatorRules = {
         alpha: function (value, title) {
-            const onlyAlpha = /[A-Za-z]+/ug;
+            const onlyAlpha = /^[A-Za-z]+$/ug;
             return onlyAlpha.exec(value) || !value ? undefined : `${title} chỉ cho phép các chữ cái.`;
         },
 
@@ -86,7 +86,8 @@ function Validator(selector) {
 
     // Chỉ xử lý dữ liệu khi form tồn tại
     if (formElement) {
-        var inputs = formElement.find('input[name][rules]');
+        var submitBtn = formElement.find('[role=submit]');
+        var inputs = formElement.find('input[name][rules], select');
         inputs.each(function () {
             var rules = $(this).attr('rules').split('|');
             for(let rule of rules) {
@@ -120,8 +121,13 @@ function Validator(selector) {
                         }                        
                         errorMessage = rule($(this).val(), $(this).attr('title'));
                         if(errorMessage) {
+                        // Xảy ra lỗi input
                             $(this).addClass('is-invalid');
                             $(this).siblings('span.invalid-feedback').text(errorMessage);
+                            if(!submitBtn.hasClass("disabled")) {
+                                submitBtn.addClass('disabled');
+                                submitBtn.attr("type", "button");
+                            }
                             break;
                         }
                     }
@@ -130,7 +136,11 @@ function Validator(selector) {
                         $(this).siblings('span.invalid-feedback').text('');
                         if(!$(this).hasClass('is-valid') && $(this).val()){
                             $(this).addClass('is-valid');
-                        }    
+                        }
+                        if(submitBtn.hasClass("disabled")) {
+                            submitBtn.removeClass('disabled');
+                            submitBtn.attr("type", "submit");
+                        }
                     }
 
                 },
@@ -142,6 +152,10 @@ function Validator(selector) {
                     }
                     if ($(this).hasClass('is-valid')) {
                         $(this).removeClass('is-valid');
+                    }
+                    if(submitBtn.hasClass("disabled")) {
+                        submitBtn.removeClass('disabled');
+                        submitBtn.attr("type", "submit");
                     }
                 }
             });
@@ -160,10 +174,15 @@ function Validator(selector) {
                     // console.log(title)
                     errorMessage = rule($(this).val(), $(this).attr('title'));
                     if(errorMessage) {
+                        // Xảy ra lỗi input
                         isValid = false;
                         $(this).removeClass('is-valid');
                         $(this).addClass('is-invalid');
                         $(this).siblings('span.invalid-feedback').text(errorMessage);
+                        if(!submitBtn.hasClass("disabled")) {
+                            submitBtn.addClass('disabled');
+                            submitBtn.attr("type", "button");
+                        }
                         break;
                     }
                 }
@@ -172,15 +191,19 @@ function Validator(selector) {
                     if(!$(this).hasClass('is-valid') && $(this).val()){
                         $(this).addClass('is-valid');
                     }
+                    if(submitBtn.hasClass("disabled")) {
+                        submitBtn.removeClass('disabled');
+                        submitBtn.attr("type", "submit");
+                    }
                     $(this).siblings('span.invalid-feedback').text('');
                 }
-
             })
             // console.log(isValid);
             if(isValid) {
                 $(this).submit();
+                return true;
             }
-
+            window.history.back();
         });
     }
 }

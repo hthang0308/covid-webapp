@@ -4,33 +4,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{title}}</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="../css/all.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/loading.css" />
-    <script src="../js/loading.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/all.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/loading.css" />
+    <script src="/js/loading.js"></script>
   </head>
   <body>
-    <div class="loading">
-      <div class="spinner-border spinner-border-lg text-primary" role="status" aria-hidden="true"></div>
-      <span class="my-3">
-        <span class="h3 font-weight-bold ">Đang tải</sp>
-        <div class="spinner-grow spinner-grow-xs text-primary mx-1" role="status"></div>
-        <div class="spinner-grow spinner-grow-xs text-red mx-1" role="status"></div>
-        <div class="spinner-grow spinner-grow-xs text-green mx-1" role="status"></div>
-      </span>
-
-    </div>
+  <div class="loading text-center">
+    <div class="spinner-border spinner-border-lg text-primary" role="status" aria-hidden="true"></div>
+    <span class="my-5">
+      <span class="h3 font-weight-bold">Đang tải</sp>
+      <div class="spinner-grow spinner-grow-xs text-primary mx-1 my-1" role="status"></div>
+      <div class="spinner-grow spinner-grow-xs text-red mx-1 my-1" role="status"></div>
+      <div class="spinner-grow spinner-grow-xs text-green mx-1 my-1" role="status"></div>
+    </span>
+  </div>
     <div class="app-container container-fluid bg-plum-plate d-flex">
       {{{body}}}
     </div>
 
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/all.min.js"></script>
-    <script src="../js/validator.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/all.min.js"></script>
+    <script src="/js/validator.js"></script>
     <script>
       $(function () {
         Validator('form');
