@@ -6,13 +6,14 @@ const router = express.Router();
 // Login to access
 router.use(authCtrl.protect);
 
-// Manager access
-router.use(authCtrl.restrictTo(2));
+// 0: Admin, 1:User, 2: Manager. Admin creates Manager. User signs up.
 
-router.route("/").get(qlCtrl.getAllQL);
-//.post(qlCtrl.createQL);
+router.use(authCtrl.restrictTo(0));
+
+router.route("/").get(qlCtrl.getAllQL).post(qlCtrl.createQL);
 
 router.get("/create", qlCtrl.getCreateForm);
-//router.route("/:id").get(accountCtrl.getAccount).put(qlCtrl.editQL).delete(qlCtrl.deleteQL); //.put(userCtrl.editUser);
+router.get("/:id/edit", qlCtrl.getEditForm);
+router.route("/:id").get(qlCtrl.getQL).put(qlCtrl.editQL).delete(qlCtrl.deleteQL);
 
 module.exports = router;

@@ -34,7 +34,7 @@ exports.createProduct = async (req, res) => {
     const product = { ...req.body, images: files };
     await productModel.createProduct(product);
     res.redirect("products/product_success", {
-      messages: "Thêm sản phẩm vào cơ sở dữ liệu thành công"
+      messages: "Thêm sản phẩm vào cơ sở dữ liệu thành công",
     });
   }
   res.render("products/add");
@@ -47,7 +47,7 @@ exports.editProduct = async (req, res) => {
     const product = { ...req.body, images: files };
     await productModel.editProduct(req.params.id, product);
     res.redirect("products/product_success", {
-      messages: "Chỉnh sửa sản phẩm thành công"
+      messages: "Chỉnh sửa sản phẩm thành công",
     });
   }
   res.render("products/edit", {
@@ -65,6 +65,6 @@ exports.deleteProduct = async (req, res) => {
   }
   await productModel.deleteProduct(req.params.id);
   res.redirect("products/product_success", {
-    messages: "Xóa sản phẩm thành công"
+    messages: "Xóa sản phẩm thành công",
   });
 };
