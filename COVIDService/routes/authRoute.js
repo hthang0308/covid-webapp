@@ -8,4 +8,12 @@ const router = express.Router();
 router.route("/login").get(authCtrl.getSignIn).post(authCtrl.signin);
 router.route("/signup").get(authCtrl.getSignUp).post(authCtrl.signup);
 router.route("/signout").get(authCtrl.getSignOut);
+
+// Forgot Password
+router.route('/forget-password').get(authCtrl.getForgotPassword).put(authCtrl.forgotPassword);
+
+// Change password inside user, means login
+router.use(authCtrl.protect);
+router.route('/change-password').get(authCtrl.getChangePassword).put(authCtrl.changePassword);
+
 module.exports = router;

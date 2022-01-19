@@ -80,7 +80,7 @@ exports.getSignOut = async (req, res) => {
 
 exports.signin = async (req, res) => {
   let user = await userModel.getUserByName(req.body.username);
-  console.log(user);
+  // console.log(user);
   if (user === null || user === undefined) {
     return res.render("auth/login", {
       layout: "authBG",
@@ -88,7 +88,7 @@ exports.signin = async (req, res) => {
       msg: "Không tồn tại username",
     });
   }
-  console.log(user);
+  // console.log(user);
   if (user.f_Permission < 0) {
     return res.render("auth/login", {
       layout: "authBG",
@@ -142,3 +142,54 @@ exports.signup = async (req, res) => {
   await accountM.addAccount(tmpUser);
   res.redirect("./login");
 };
+
+exports.getChangePassword = async (req, res) => {
+
+}
+
+exports.changePassword = async (req, res) => {
+  const tmpUser = await accountM.getAccountByID(req.params.id);
+  if (tmpUser === undefined) return;
+  // const passwordOld = req.body.oldPassword;
+
+  // Step1: Check the new password and compare to old password
+  const checkOld = bcrypt.compare(req.body.newPassword, tmpUser.f_Password);
+  if (checkOld) {
+    res.render('user/form_change_password', {
+      msg: 'Mật khẩu mới không được trùng với mật khẩu trước đó'
+    })
+  }
+
+  // Step 2: Check for the similarities between the new Password and confirm password 
+  const checkConfirm = bcrypt.compare(req.body.confirmPassword, req.body.newPassword);
+  if (!checkConfirm) {
+    res.render('user/form_change_password', {
+      msg: 'Vui lòng xác nhận lại mật khẩu'
+    });
+  }
+
+  // Step 3: Hash password
+  const passwordHashed = bcrypt.hash(req.body.password, saltRounds);
+  var currentdate = new Date();
+  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
+
+  const tmpUser = {
+    f_Username: username,
+    f_Password: passwordHashed,
+    f_Permission: 1,
+    f_History: [`${currentTime} Change password`],
+  };
+
+  // Step 4: Delete token, Update and redirect to login
+  await accountM.editAccount(req.params.id, tmpUser);
+  res.clearCookie("jwt");
+  res.redirect('./login')
+}
+
+exports.getForgotPassword = async (req, res) => {
+
+}
+
+exports.forgotPassword = async (req, res) => {
+
+}
