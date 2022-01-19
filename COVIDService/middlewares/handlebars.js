@@ -44,12 +44,13 @@ module.exports = (app) => {
         a = a.slice(0, -1) + "}";
         return a;
       },
-      section: hbs_section(),
+      // section: hbs_section(),
       sum: function (a, b) {
         return a + b;
       }
     },
   });
+  hbs_section(hbs);
   app.engine("hbs", hbs.engine);
   app.set("view engine", "hbs");
   app.set("views", "./views");

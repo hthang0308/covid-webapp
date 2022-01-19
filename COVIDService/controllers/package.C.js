@@ -9,7 +9,8 @@ exports.getAllPackages = async (req, res) => {
     if (req.query.sort === "price") sort.sortByPrice(arr);
     res.render('packages/all', {
         packages: arr,
-        layout: 'manager'
+        layout: 'manager',
+        title: 'Gói nhu yếu phẩm'
     })
 }
 

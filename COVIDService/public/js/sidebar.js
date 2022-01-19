@@ -1,15 +1,14 @@
-$(document).ready(function(){ 
-    // Begin: Sidebar
-    $(".sidebar .card-link").click(function(){
-        if(!$(this).hasClass("active")) {
-            $(".sidebar .card-link").removeClass("active");
-            $(this).addClass("active");
-        }
+$(document).ready(function () {
+    $(window).resize(function () {
+        $('#sidebar').css('top', $('#main-navbar').height());
     })
 
-    $('#toggle-collapse-btn').click(function(){
-        $(".sidebar").toggleClass("is-collapsed");
-        $(".sidebar-wrapper").toggleClass("col-3");
-        $(".sidebar-wrapper").toggleClass("col-1");
-    })
+    $('#sidebar .nav-link').hover(
+        function () {
+            $(this).addClass('rounded-pill');
+        },
+        function () {
+            $(this).removeClass('rounded-pill');
+        }
+    )
 });
