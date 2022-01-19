@@ -8,7 +8,8 @@ exports.getAllPackages = async (req, res) => {
     if (req.query.sort === "id") sort.sortByID(arr);
     if (req.query.sort === "price") sort.sortByPrice(arr);
     res.render('packages/all', {
-        packages: arr
+        packages: arr,
+        layout: 'manager'
     })
 }
 

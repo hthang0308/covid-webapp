@@ -10,25 +10,25 @@ module.exports = (app) => {
     helpers: {
       calculate(op1, op2, opt, choice) {
         var opts = {
-            eq: function (l, r) {
-              return l == r;
-            },
-            noteq: function (l, r) {
-              return l != r;
-            },
-            gt: function (l, r) {
-              return Number(l) > Number(r);
-            },
-            or: function (l, r) {
-              return l || r;
-            },
-            and: function (l, r) {
-              return l & r;
-            },
-            "%": function (l, r) {
-              return l % r === 0;
-            },
+          eq: function (l, r) {
+            return l == r;
           },
+          noteq: function (l, r) {
+            return l != r;
+          },
+          gt: function (l, r) {
+            return Number(l) > Number(r);
+          },
+          or: function (l, r) {
+            return l || r;
+          },
+          and: function (l, r) {
+            return l & r;
+          },
+          "%": function (l, r) {
+            return l % r === 0;
+          },
+        },
           result = opts[opt](op1, op2);
 
         if (result) return choice.fn(this);
@@ -45,6 +45,9 @@ module.exports = (app) => {
         return a;
       },
       section: hbs_section(),
+      sum: (op1, op2) => {
+        return Number(op1) + Number(op2);
+      }
     },
   });
   app.engine("hbs", hbs.engine);
