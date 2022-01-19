@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Mã giao dịch</th>
+            <th scope="col">Số tiền</th>
+            <th scope="col">Ngày</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each tra}}
+        <tr>
+            <th scope="row">{{this.TraID}}</th>
+            <td>{{this.Money}}</td>
+            <td>{{this.Date}}</td>
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
+  <a href="/" class="btn btn-success">Quay lại trang chính</a>

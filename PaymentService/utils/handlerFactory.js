@@ -1,9 +1,14 @@
 const db = require("./db");
 
-exports.getAll = async (TableName) => {
-  const res = await db.load(TableName);
+exports.getAll = async (TableName, orderField) => {
+  const res = await db.load(TableName, orderField);
   return res;
 };
+
+exports.getAllByFieldName = async(TableName, fieldName, value, orderField) => {
+  const res = await db.getAll(TableName, fieldName, value, orderField);
+  return res;
+}
 
 exports.getOne = async (TableName, entity, value) => {
   const res = await db.get(TableName, entity, value);

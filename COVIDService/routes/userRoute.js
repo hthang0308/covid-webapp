@@ -1,11 +1,17 @@
 const express = require("express");
 const userCtrl = require("../controllers/user.C");
 const authCtrl = require("../controllers/auth.C");
-
 const router = express.Router();
 
 // Login to access
 router.use(authCtrl.protect);
+
+// 0: Admin, 1:User, 2: Manager. Admin creates Manager. User signs up.
+
+// User roles
+router.use(authCtrl.restrictTo(1))
+router.route('/').get(userCtrl.getHome);
+
 
 // Manager roles
 router.use(authCtrl.restrictTo(2));

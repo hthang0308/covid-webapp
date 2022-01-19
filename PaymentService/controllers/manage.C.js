@@ -1,4 +1,5 @@
 const accountModel = require('../models/account.M');
+const transactionModel = require('../models/transaction.M');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const adminId = 1000;
@@ -133,23 +134,34 @@ exports.transfer = async (req, res, next) => {
             return;
         }
         const accId = req.body.accid;
-        const money = req.body.money;
+        const money = parseFloat(req.body.money);
         try {
             var acc = await accountModel.getAccountById(accId);
             var accAdmin = await accountModel.getAccountById(adminId);
-            acc.Balance = acc.Balance - money;
+            acc.Balance = parseFloat(acc.Balance) - money;
             if (acc.Balance < 0) {
                 response.Error = "Not enough money";
-                res.json(response);
-                return;
+                return res.json(response);
             }
-            accAdmin.Balance = accAdmin.Balance + money;
+            accAdmin.Balance = parseFloat(accAdmin.Balance) + money;
+            console.log("Admin bal: ",accAdmin.Balance);
             await accountModel.updateAccount(adminId, accAdmin);
             await accountModel.updateAccount(acc.AccID, acc);
             response.Response = 'true';
             response.newBalance = acc.Balance;
-            res.json(response);
-            return;
+
+            const tra = await transactionModel.getAllTransactions();
+            const d = new Date();
+            var month = d.getMonth() + 1;
+            const date = d.getFullYear() + "-" + month + "-" + d.getDate();
+            var newTra = {
+                TraID: tra.length + 1000001,
+                Money: money,
+                Date: date,
+                AccID: accId
+            }
+            await transactionModel.addTransaction(newTra);
+            return res.json(response);
 
         } catch (error) {
             console.log('Error transfer money');
@@ -157,4 +169,29 @@ exports.transfer = async (req, res, next) => {
             res.json(response);
         }
     }
+}
+
+exports.showHistory = async(req, res, next) => {
+    var response = {
+        Response: 'False'
+    }    
+    if (req.user) {
+        const tras = await transactionModel.getTransactionByAccId(req.user.AccID);
+        response.Response = 'True'
+        if (!tras) {
+            return res.render('message',{
+                msg: 'Chưa có giao dịch nào',
+                link: '/',
+                text: 'Quay lại trang chính'
+            })
+        }
+        tras.forEach((tra) => {
+            tra.Date = tra.Date.toLocaleDateString('en-GB');
+        })
+        return res.render('history', {
+            tra: tras
+        })
+        //return res.json(response);
+    }
+    res.json(response);
 }

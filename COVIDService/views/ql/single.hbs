@@ -1,0 +1,11 @@
+{{ql.f_Address}}
+<br />
+{{ql.f_Capacity}}
+<br />
+{{ql.f_CurrentCapacity}}
+{{#if msg}}
+  <h6><span class="badge badge-danger">{{msg}}</span></h6>
+{{/if}}
+<form method="get" action="/ql/{{ql.f_ID}}/edit">
+  <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">EDIT THIS Q.LOCATION</button>
+</form>

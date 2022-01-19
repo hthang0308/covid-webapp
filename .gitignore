@@ -128,3 +128,4 @@ dist
 
 # Some other files gitignore
 covid-webapp-224c8-firebase-adminsdk-e2tgu-56344d9fbf.json
+certs/

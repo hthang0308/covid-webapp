@@ -45,7 +45,12 @@ exports.get = async (tableName, fieldName, value) => {
 // READING (ALL)
 exports.getAll = async (tableName, fieldName, value, orderField) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"='${value}' ORDER BY ${orderField} ASC`, table);
+  const queryStr = pgp.as.format('SELECT * from ${table} where ${fieldName~}=${value} ORDER BY ${orderField~} ASC', {
+    table,
+    fieldName,
+    value,
+    orderField
+  });  
   try {
     const res = await db.any(queryStr);
     if (res.length > 0) {

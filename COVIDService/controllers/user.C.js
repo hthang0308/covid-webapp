@@ -1,10 +1,20 @@
 const userModel = require("../models/user.M");
-const sort = require('../utils/sort');
-const { isNumber, isValidFx, isValidName } = require('../utils/validate');
+const sort = require("../utils/sort");
+const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 
 // Route
+// GetHomePage for Users
+exports.getHome = (req, res) => {
+  res.render('users/dashboard', {
+    title: 'Trang chủ',
+  })
+}
+
+
+// For managers
 exports.getAllUsers = async (req, res) => {
   arr = await userModel.getAllUsers();
+  arr = arr.filter((user) => user.f_Fullname !== null);
   if (req.query.sort === "date") sort.sortByDate(arr);
   if (req.query.sort === "id") sort.sortByID(arr);
   if (req.query.sort === "name") sort.sortByName(arr);

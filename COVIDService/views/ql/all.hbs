@@ -1,11 +1,13 @@
-<select class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-  <option selected>Select a quarantine location</option>
-  {{#each qls}}
-    {{this.f_Address}}
-    <option value="{{this.f_ID}}">{{this.f_Address}}
-      <br /></option>
-  {{/each}}
-</select>
+<form action="/ql" method="get">
+  <select name="id" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="this.form.submit()">
+    <option selected>Select a quarantine location...</option>
+    {{#each qls}}
+      {{this.f_Address}}
+      <option value="{{this.f_ID}}">{{this.f_Address}}
+        <br /></option>
+    {{/each}}
+  </select>
+</form>
 {{!-- TODO <form class="form" action="/ql/{{}}" method="get" style="width:40vw">
   <button type="submit" class="btn btn-default btn-success">
     See Detail
