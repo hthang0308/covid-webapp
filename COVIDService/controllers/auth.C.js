@@ -3,7 +3,7 @@ const AppError = require("../utils/appError");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const sendResponse = require("../utils/sendResponse");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 const accountM = require("../models/account.M");
 
@@ -33,12 +33,12 @@ exports.protect = async (req, res, next) => {
 
 exports.restrictTo =
   (...roles) =>
-    (req, res, next) => {
-      if (!roles.includes(req.user.f_Permission)) {
-        return next(new AppError("You do not have permission to perform this action", 403));
-      }
-      return next();
-    };
+  (req, res, next) => {
+    if (!roles.includes(req.user.f_Permission)) {
+      return next(new AppError("You do not have permission to perform this action", 403));
+    }
+    return next();
+  };
 
 exports.createAndSendToken = (user, statusCode, res) => {
   const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {

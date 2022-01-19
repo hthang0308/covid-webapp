@@ -1,5 +1,5 @@
 const accountModel = require("../models/account.M");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 // Route
 exports.getAllAccounts = async (req, res) => {
@@ -15,7 +15,7 @@ exports.createAccount = async (req, res) => {
   }
   var currentdate = new Date();
   var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
-  const f_Password = await bcrypt.hash(req.body.password, saltRounds);
+  const f_Password = await bcrypt.hashSync(req.body.password, saltRounds);
   const tmpUser = {
     f_Username: req.body.username,
     f_Password,
