@@ -10,14 +10,13 @@ router.use(authCtrl.protect);
 
 // User roles
 // router.use(authCtrl.restrictTo(1))
-router.route('/').get(userCtrl.getHome);
-
+router.route("/").get(userCtrl.getHome);
 
 // Manager roles
-router.use(authCtrl.restrictTo(2));
-router.route("/all").get(userCtrl.getAllUsers).post(userCtrl.createUser);
+router.use(authCtrl.restrictTo(0, 2));
+router.route("/all").get(userCtrl.getAllUsers);
 router.get("/search", userCtrl.searchUser); //user/search?id=2333
-router.get("/create", userCtrl.getCreateForm);
+router.route("/create").get(userCtrl.getCreateForm).post(userCtrl.createUser);
 router.get("/:id/change_covid_address", userCtrl.getChangeCovidAddressForm);
 router.route("/:id").get(userCtrl.getUser).put(userCtrl.editUser);
 

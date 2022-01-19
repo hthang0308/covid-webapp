@@ -1,35 +1,80 @@
-<form class="form" action="/user" method="post" style="width:40vw">
-  <h1 class="display-5">ADD NEW USER</h1>
-  <div class="form-group">
-    <label for="f_Name">Name</label>
-    <input type="text" class="form-control" id="f_Name" placeholder="Name" name="f_Name" />
-  </div>
-  <div class="form-group">
-    <label for="f_ID">ID</label>
-    <input type="text" class="form-control" id="f_ID" placeholder="ID" name="f_ID" />
-  </div>
-  <div class="form-group">
-    <label for="f_Birthday">Birthday</label>
-    <input type="date" id="f_Birthday" name="f_Birthday" value="2000-07-22" min="1950-01-01" max="2018-12-31" />
-  </div>
-  <div class="form-group">
-    <label for="f_Address">Address</label>
-    <input type="text" class="form-control" id="f_Address" placeholder="Address" name="f_Address" />
-  </div>
-  <div class="form-group">
-    <label for="f_Fx">Fx</label>
-    <input type="text" class="form-control" id="f_Fx" placeholder="x" name="f_Fx" />
-  </div>
-  <div class="form-group">
-    <label for="f_CovidAddress">CovidAddress</label>
-    <input type="text" class="form-control" id="f_CovidAddress" placeholder="CovidAddress" name="f_CovidAddress" />
-  </div>
-  {{#if err}}
-    <div class="alert alert-danger" role="alert">
-      {{err}}
+{{! DEFINE A 'content' SECTION }}
+{{#section "content"}}
+  <form class="form" action="/user/create" method="post" style="width:40vw">
+    <h1 class="display-5">ADD NEW USER</h1>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" placeholder="Username" name="username" value="{{data.username}}" />
     </div>
-  {{/if}}
-  <button type="submit" class="btn btn-default btn-success">
-    Create
-  </button>
-</form>
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" class="form-control" id="fullname" placeholder="Full Name" name="fullname" value="{{data.fullname}}" />
+    </div>
+    <div class="form-group">
+      <label for="natid">National ID</label>
+      <input type="number" class="form-control" id="natid" placeholder="234567890" name="natid" value="{{data.natid}}" />
+    </div>
+    <div class="form-group">
+      <label for="sourcenatid">National ID Of Covid Source</label>
+      <input type="number" class="form-control" id="sourcenatid" placeholder="234567890" name="sourcenatid" value="{{data.sourcenatid}}" />
+    </div>
+    <div class="form-group">
+      <label for="birthday">Birthday</label>
+      <input type="date" id="birthday" name="birthday" value="2000-07-22" min="1950-01-01" max="2018-12-31" value="{{data.birthday}}" />
+    </div>
+    <select id="city" name="city" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Select City...</option>
+      {{#each cities}}
+        <option value="{{this.f_ID}}">{{this.f_Name}}</option>
+      {{/each}}
+    </select>
+    <select id="district" name="district" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Select District...</option>
+      {{#each districts}}
+        <option value="{{this.f_ID}}" class="{{this.f_City}}">{{this.f_Name}}</option>
+      {{/each}}
+    </select>
+    <select id="ward" name="ward" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Select Ward...</option>
+      {{#each wards}}
+        <option value="{{this.f_ID}}" class="{{this.f_District}}">{{this.f_Name}}</option>
+      {{/each}}
+    </select>
+    <select id="ql" name="ql" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Select Quantine Location...</option>
+      {{#each qls}}
+        <option value="{{this.f_ID}}">{{this.f_Address}}
+          <br /></option>
+      {{/each}}
+    </select>
+    <select id="fx" name="fx" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Select Covid State...</option>
+      <option value="0">F0</option>
+      <option value="1">F1</option>
+      <option value="2">F2</option>
+      <option value="3">F3</option>
+    </select>
+    {{#if err}}
+      <div class="alert alert-danger" role="alert">
+        {{err}}
+      </div>
+    {{/if}}
+    <button type="submit" class="btn btn-default btn-success">
+      Create
+    </button>
+  </form>
+{{/section}}
+{{#section "script"}}
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $("#city").change(function () { let cityID = $("#city").val(); $.get("https://localhost:3000/user/create?city=" + cityID, function (data, status)
+    { $("#district").empty(); $.each(data, function (i, item) { $("#district").append( $("<option>", { value: item.f_ID, text: item.f_Name, }) ); });
+    }); }); $("#district").change(function () { let districtID = $("#district").val(); $.get("https://localhost:3000/user/create?district=" +
+    districtID, function (data, status) { $("#ward").empty(); $.each(data, function (i, item) { $("#ward").append( $("<option>", { value: item.f_ID,
+    text: item.f_Name, }) ); }); }); });
+  </script>
+{{/section}}

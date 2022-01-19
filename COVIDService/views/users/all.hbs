@@ -1,10 +1,26 @@
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline" action="/user/search" method="get">
+    <input class="form-control mr-sm-2" type="search" placeholder="Enter user national id" aria-label="Search" name="natid" />
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+<form action="/user/all" method="get">
+  <select name="sort" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="this.form.submit()">
+    <option selected>Sort by...</option>
+    <option value="id">Sort by id</option>
+    <option value="date">Sort by date</option>
+    <option value="name">Sort by name</option>
+  </select>
+</form>
 {{#each users}}
   <p>
     <a href="/user/{{this.f_ID}}">{{this.f_ID}}</a>
     <br />
-    {{this.f_Name}}
+    {{this.f_Fullname}}
     <br />
     F{{this.f_Fx}}
+    <br />
+    {{this.f_NatID}}
     <br />
     {{#each this.f_RelatedID}}
       RelatedID:

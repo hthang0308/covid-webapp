@@ -6,7 +6,7 @@ const router = express.Router();
 // Login to access
 router.use(authCtrl.protect);
 
-// 0: Admin, 1:User, 2: Manager. Admin creates Manager. User signs up.
+// 0: Admin, 1:User, 2: Manager. Admin creates Manager. Manager creates User.
 
 // This route is for manager (PID 2) only
 router.use(authCtrl.restrictTo(2));
