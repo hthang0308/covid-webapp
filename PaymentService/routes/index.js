@@ -14,7 +14,7 @@ router.route('/firstSignIn').get(signinController.getFirstSignIn).post(signinCon
 
 router.route('/changePass').get(manageController.getChangePass).post(manageController.handleChangePass);
 router.post('/balance', manageController.getBalance);
-
+router.get('/history', manageController.showHistory);
 router.post('/addBalance', manageController.addBalance);
 router.post('/transfer', manageController.transfer);
 router.post('/addAccount',signupController.addAccount);

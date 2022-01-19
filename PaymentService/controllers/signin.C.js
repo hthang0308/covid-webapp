@@ -87,7 +87,7 @@ class SignInController {
                     id: user.AccID
                 }
                 const token = jwt.sign(userToken, process.env.JWT_SECRET);
-                res.cookie('access_token', token);
+                res.cookie('access_token', token);                
                 return res.redirect('/');
             });
         })(req, res, next);
@@ -125,7 +125,11 @@ class SignInController {
             const colName = "Password";
             // TODO: FIX THIS
             const data = await accountModel.updateAccount(acc.AccID, acc);
-            return res.render('message');
+            return res.render('message', {
+                msg: 'Tạo mât khẩu thành công',
+                link: '/signin',
+                text:'Quay lại trang đăng nhập'
+            });
         }
         res.redirect('/')
     }
