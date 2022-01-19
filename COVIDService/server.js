@@ -1,15 +1,24 @@
-const https = require("https");
+// To use HTTPS, please cmt HTTP only and uncomment HTTPS
+
+// HTTPS
+// const https = require("https");
 const port = 3000;
-const { app, credentials } = require('./app');
 
-// const server = app.listen(port, () => {
-// console.log(`Server started on port ${port}`);
-// });
+// HTTP only
+const app = require('./app');
 
-// Change to HTTPS;
-https.createServer(credentials, app).listen(port, () => {
+// HTTPS
+// const { app, credentials } = require('./app');
+
+// HTTP only
+const server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
+
+// Change to HTTPS;
+// https.createServer(credentials, app).listen(port, () => {
+//     console.log(`Server started on port ${port}`);
+// });
 
 process.on('uncaughtException', (error) => {
     console.log('UNCAUGHT EXCEPTION - Shutting down...');
