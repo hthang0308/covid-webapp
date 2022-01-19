@@ -173,7 +173,7 @@ exports.changePassword = async (req, res) => {
   var currentdate = new Date();
   var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
 
-  const tmpUser = {
+  const newUser = {
     f_Username: username,
     f_Password: passwordHashed,
     f_Permission: 1,
@@ -181,7 +181,7 @@ exports.changePassword = async (req, res) => {
   };
 
   // Step 4: Delete token, Update and redirect to login
-  await accountM.editAccount(req.params.id, tmpUser);
+  await accountM.editAccount(req.params.id, newUser);
   res.clearCookie("jwt");
   res.redirect('./login')
 }

@@ -55,10 +55,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Change to https, uncomment when certs are ready
-// const credentials = {
-//   key: fs.readFileSync(path.join(__dirname, 'certs', ''), { encoding: 'utf-8' }),
-//   cert: fs.readFileSync(path.join(__dirname, 'certs', ''), { encoding: 'utf-8' })
-// };
+const credentials = {
+  key: fs.readFileSync(path.join(__dirname, 'certs', 'localhost-key.pem'), { encoding: 'utf-8' }),
+  cert: fs.readFileSync(path.join(__dirname, 'certs', 'localhost.pem'), { encoding: 'utf-8' })
+};
 
 app.get("/", function (req, res) {
   res.render("home", {
@@ -76,7 +76,7 @@ app.all("*", (req, res, next) => {
 });
 
 // HTTP (for Development), comment when certs are ready
-module.exports = app;
+// module.exports = app;
 
 // HTTPS (for Production), uncomment when certs are ready
-// module.exports = { app, credentials };
+module.exports = { app, credentials };
