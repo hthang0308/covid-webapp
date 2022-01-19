@@ -35,21 +35,22 @@
 </form> --}}
 {{! DEFINE A 'content' SECTION }}
 {{#section "content"}}
+{{#if package}}
   <div id="content-1" class="content shadow border rounded p-2 py-3">
     <div class="container-fluid pt-3 pb-5">
       <div class="row">
         <div class="col-12">
           <p
             class="title text-blue text-center text-md-left font-weight-bold text-uppercase border-bottom"
-            style="font-size: 1.8rem"
-          >Chỉnh sửa Gói lương thực, thực phẩm
+            style="font-size: 1.8rem">
+            Chỉnh sửa {{this.f_Name}}
           </p>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <!-- Begin: FORM TẠO GÓI -->
-          <form id="add-form" action="/manager/packages/edit/:id" method="POST">
+          <form id="add-form" action="/manager/packages/edit/{{this.f_ID}}" method="POST">
             <div class="form-row">
               <div class="form-group col-12">
                 <label for="name-input" class="font-weight-bold">Tên gói</label>
@@ -57,8 +58,8 @@
                   id="name-input"
                   type="text"
                   class="form-control"
-                  name="name"
-                  value="Gói lương thực, thực phẩm"
+                  name="this.f_Name"
+                  value="{{this.f_Name}}"
                   rules="required"
                   title="Tên gói"
                 />
@@ -67,15 +68,14 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-4">
-                <label for="package-limit-input" class="font-weight-bold">Mức
-                  giới hạn gói cho mỗi người</label>
+                <label for="package-limit-input" class="font-weight-bold">Mức giới hạn gói cho mỗi người</label>
                 <div class="input-group">
                   <input
                     type="text"
                     class="form-control"
                     id="package-limit-input"
-                    name="package_limit"
-                    value="1"
+                    name="f_MaxPerPerson"
+                    value="{{this.f_MaxPerPerson}}"
                     rules="required|number"
                     title="Mức giới hạn"
                   />
@@ -89,8 +89,8 @@
                   type="text"
                   class="form-control"
                   id="unit-input"
-                  name="unit"
-                  value="1"
+                  name="f_Time"
+                  value="{{this.f_Time}}"
                   rules="required|number"
                   title="Thời gian giới hạn cho gói"
                 />
@@ -106,7 +106,7 @@
                   type="text"
                   class="form-control"
                   id="time-unit-input"
-                  name="time-unit"
+                  name="time_unit"
                   rules="required"
                   title="Đơn vị thời gian"
                 >
@@ -140,15 +140,16 @@
                       </tr>
                     </thead>
                     <tbody>
+                    {{#each this.f_Products}}
                       <tr class="section">
                         <th class="align-middle" scope="row">1</th>
                         <td colspan="5" class="align-middle name" title="name">
                           <select
                             class="form-control productOptions is-valid"
-                            name="products[]"
+                            name="f_Products"
                             title="Sản phẩm"
                             rules="required"
-                            id="productOptions-1"
+                            id="productOptions-{{@index}}"
                           >
                             <option value="1">Gạo</option>
                             <option value="2">Rau củ</option>
@@ -164,11 +165,11 @@
                             type="text"
                             class="form-control mx-auto"
                             style="max-width: 100px;"
-                            name="product_limits[]"
-                            value="1"
+                            name="f_MaxPerProducts"
+                            value="{{lookup ../f_MaxPerProducts @index}}"
                             rules="required|number"
                             title="Số lượng giới hạn"
-                            id="product_limits-1"
+                            id="product_limits-{{@index}}"
                           />
                           <span class="invalid-feedback"></span>
                         </td>
@@ -187,6 +188,7 @@
                           </ul>
                         </td>
                       </tr>
+                    {{#each}}
                     </tbody>
                   </table>
                   <a
@@ -210,6 +212,9 @@
       </div>
     </div>
   </div>
+{{else}}
+  <h3>Không có dữ liệu {{this.f_Name}}</h3>
+{{/if}}
 {{/section}}
 
 {{! DEFINE A 'script' SECTION }}
@@ -219,12 +224,8 @@
     var removeSection = null;
     $(document).ready(function () {
       Validator('#add-form');
-
       const products = {
-        "Gạo": 1,
-        "Rau củ": 2,
-        "Cá": 3,
-        "Muối": 4,
+
       };
 
       var createOptions = function (options) {
@@ -248,13 +249,13 @@
             <tr class="section">
               <th class="align-middle" scope="row">${$("tr.section").length + 1}</th>
               <td colspan="5" class="align-middle name" title="name">
-                <select class="form-control productOptions" name="products[]" title='Sản phẩm' rules="required" id="productOptions-${$("tr.section").length + 1}">
+                <select class="form-control productOptions" name="f_Products" title='Sản phẩm' rules="required" id="productOptions-${$("tr.section").length + 1}">
                   ${options}
                 </select>
               </td>
               <td class="align-middle text-center product-limit-number" title="product-limit-number">
                 <input type="text" class="form-control mx-auto" style="max-width: 100px;"
-                  name="product_limits[]" rules="required|number" title="Số lượng giới hạn" id="product_limits-${$("tr.section").length + 1}">
+                  name="f_MaxPerProducts" rules="required|number" title="Số lượng giới hạn" id="product_limits-${$("tr.section").length + 1}">
                 <span class="invalid-feedback"></span>
               </td>
               <td colspan="4" class="text-center align-middle">

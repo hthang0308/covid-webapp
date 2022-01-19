@@ -68,171 +68,41 @@
                 <th scope="col">&nbsp;</th>
             </tr>
             </thead>
+            {{#if empty}}
+                <p style="font-size: 1.6rem;">Không có dữ liệu</p>
+            {{else}}    
             <tbody>
-            <tr class="section">
-                <th class="align-middle" scope="row">1</th>
-                <td class="align-middle name" title="name">
-                <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                    Gói lương thực, thực phẩm
-                </a>
-                </td>
-                <td class="align-middle products" title="products">Gạo, Mì gói</td>
-                <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
-                <td colspan="6" class="align-middle text-center">
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item mb-1">
-                    <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    </li>
-                    <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
-                        data-target="#delete-modal">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-            <tr class="section">
-                <th class="align-middle" scope="row">2</th>
-                <td class="align-middle name" title="name">
-                <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                    Gói vệ sinh cá nhân
-                </a>
-                </td>
-                <td class="align-middle products" title="products">Gạo, Mì gói</td>
-                <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
-                <td colspan="6" class="align-middle text-center">
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item mb-1">
-                    <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    </li>
-                    <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
-                        data-target="#delete-modal">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-            <tr class="section">
-                <th class="align-middle" scope="row">3</th>
-                <td class="align-middle name" title="name">
-                <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                    Gói thuốc men
-                </a>
-                </td>
-                <td class="align-middle products" title="products">Gạo, Mì gói</td>
-                <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
-                <td colspan="6" class="align-middle text-center">
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item mb-1">
-                    <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    </li>
-                    <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
-                        data-target="#delete-modal">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-            <tr class="section">
-                <th class="align-middle" scope="row">4</th>
-                <td class="align-middle name" title="name">
-                <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                    Gói vệ sinh nhà cửa
-                </a>
-                </td>
-                <td class="align-middle products" title="products">Gạo, Mì gói</td>
-                <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
-                <td colspan="6" class="align-middle text-center">
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item mb-1">
-                    <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    </li>
-                    <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
-                        data-target="#delete-modal">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-            <tr class="section">
-                <th class="align-middle" scope="row">5</th>
-                <td class="align-middle name" title="name">
-                <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                    Gói lương thực
-                </a>
-                </td>
-                <td class="align-middle products" title="products">Gạo, Mì gói</td>
-                <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
-                <td colspan="6" class="align-middle text-center">
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item mb-1">
-                    <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    </li>
-                    <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
-                        data-target="#delete-modal">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-            <tr class="section">
-                <th class="align-middle" scope="row">6</th>
-                <td class="align-middle name" title="name">
-                <a class="nav-link p-0 details-link text-default" href="/packages/:id">
-                    Gói lương thực
-                </a>
-                </td>
-                <td class="align-middle products" title="products">Gạo, Mì gói</td>
-                <td class="align-middle limit-package text-center" title="limit-package">2</td>
-                <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
-                <td colspan="6" class="align-middle text-center">
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item mb-1">
-                    <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/:id">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    </li>
-                    <li class="list-inline-item mb-1">
-                    <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
-                        data-target="#delete-modal">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-
+                {{#each packages}}
+                    <tr class="section">
+                        <th class="align-middle" scope="row">{{sum @index + 1}}</th>
+                        <td class="align-middle name" title="name">
+                        <a class="nav-link p-0 details-link text-default" href="/packages/{{this.f_ID}}">
+                            {{this.f_Name}}
+                        </a>
+                        </td>
+                        <td class="align-middle products" title="products">{{this.f_Products}}</td>
+                        <td class="align-middle limit-package text-center" title="limit-package">{{this.f_MaxPerPerson}}</td>
+                        <td class="align-middle limit-time text-center" title="limit-time">{{this.f_Time}}</td>
+                        <td colspan="6" class="align-middle text-center">
+                        <!-- Call to action buttons -->
+                        <ul class="list-inline m-0">
+                            <li class="list-inline-item mb-1">
+                            <a role="button" class="btn btn-success btn-sm rounded" href="/packages/edit/{{this.f_ID}}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            </li>
+                            <li class="list-inline-item mb-1">
+                            <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal"
+                                data-target="#delete-modal">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            </li>
+                        </ul>
+                        </td>
+                    </tr>
+                {{/each}}
             </tbody>
+            {{/if}}
         </table>
         <a href="/manager/packages/add"
             class="add d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none"

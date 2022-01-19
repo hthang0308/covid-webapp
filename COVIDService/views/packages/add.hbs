@@ -130,52 +130,116 @@
   <script src="/js/jquery.twbsPagination.js"></script>
   <script src="/js/validator.js"></script>
   <script>
-    var removeSection = null; $(document).ready(function () {
-    Validator('#add-form'); const products = { "Gạo": 1, "Rau củ": 2, "Cá": 3,
-    "Muối": 4, }; var createOptions = function (options) { const keys =
-    Object.keys(options); if ($(".section").length >= keys.length) { return; }
-    var result = ""; for (const key of keys) { result += `<option
-    value="${options[key]}">${key}</option>` } return result; }
-    $(".add-section-btn").click(function () { $("#product-list-input
-    span.invalid-feedback").text("") if ($(this).hasClass("disable")) return;
-    const options = createOptions(products); if (options) {
-    $("#product-list-input").find('tbody').append(` <tr class="section"> <th
-    class="align-middle" scope="row">${$("tr.section").length + 1}</th> <td
-    colspan="5" class="align-middle name" title="name"> <select
-    class="form-control productOptions" name="products[]" title='Sản phẩm'
-    rules="required" id="productOptions-${$("tr.section").length + 1}">
-    ${options} </select> </td> <td class="align-middle text-center
-    product-limit-number" title="product-limit-number"> <input type="text"
-    class="form-control mx-auto" style="max-width: 100px;"
-    name="product_limits[]" rules="required|number" title="Số lượng giới hạn"
-    id="product_limits-${$("tr.section").length + 1}"> <span
-    class="invalid-feedback"></span> </td> <td colspan="4" class="text-center
-    align-middle"> <!-- Call to action buttons --> <ul class="list-inline m-0">
-    <li class="list-inline-item mb-1"> <button type="button" class="btn
-    btn-danger btn-sm rounded delete-section-btn" onclick="removeSection(this)">
-    <i class="fa fa-trash"></i> </button> </li> </ul> </td> </tr>`)
-    Validator('#add-form'); if ($(".section").length >=
-    Object.keys(products).length) { $(this).addClass("disabled"); } } })
-    removeSection = function (object) { console.log($(object).parents('tr'));
-    $(object).parents('tr.section').remove(); if ($("tr.section").length > 0) {
-    let i = 1; $("tr.section").each(function () {
-    $(this).find("th[scope=row]").text(i); i++; }) } if
-    ($(".add-section-btn").hasClass("disabled")) {
-    $(".add-section-btn").removeClass("disabled"); } }
-    $("#add-form").one('submit', function (event) { event.preventDefault(); var
-    products = $(this).find("tr.section select.productOptions option:selected");
-    let pIds = []; let isValid = true; if (products.length <= 0) {
-    $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng
-    thêm sản phẩm`); $(this).find('[type=submit]').addClass('disabled');
-    $(this).find('[type=submit]').attr('type', 'button'); return false; } else {
-    for (const product of products) { if (pIds.includes($(product).val())) {
-    isValid = false; break; } else { pIds.push($(product).val()); } } if
-    (isValid) { $(this).find("#product-list-input
-    span.invalid-feedback").text("") $(this).submit(); return; } else {
-    $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng
-    chọn 2 sản phẩm khác nhau`)
-    $(this).find('[type=submit]').addClass('disabled');
-    $(this).find('[type=submit]').attr('type', 'button'); return false; } } })
+    var removeSection = null;
+    $(document).ready(function () {
+      Validator('#add-form');
+
+      const products = {
+        "Gạo": 1,
+        "Rau củ": 2,
+        "Cá": 3,
+        "Muối": 4,
+      };
+
+      var createOptions = function (options) {
+        const keys = Object.keys(options);
+        if ($(".section").length >= keys.length) {
+          return;
+        }
+        var result = "";
+        for (const key of keys) {
+          result += `<option value="${options[key]}">${key}</option>`
+        }
+        return result;
+      }
+
+      $(".add-section-btn").click(function () {
+        $("#product-list-input span.invalid-feedback").text("")
+        if ($(this).hasClass("disable")) return;
+        const options = createOptions(products);
+        if (options) {
+          $("#product-list-input").find('tbody').append(`
+            <tr class="section">
+              <th class="align-middle" scope="row">${$("tr.section").length + 1}</th>
+              <td colspan="5" class="align-middle name" title="name">
+                <select class="form-control productOptions" name="products[]" title='Sản phẩm' rules="required" id="productOptions-${$("tr.section").length + 1}">
+                  ${options}
+                </select>
+              </td>
+              <td class="align-middle text-center product-limit-number" title="product-limit-number">
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;"
+                  name="product_limits[]" rules="required|number" title="Số lượng giới hạn" id="product_limits-${$("tr.section").length + 1}">
+                <span class="invalid-feedback"></span>
+              </td>
+              <td colspan="4" class="text-center align-middle">
+                <!-- Call to action buttons -->
+                <ul class="list-inline m-0">
+                  <li class="list-inline-item mb-1">
+                    <button type="button" class="btn btn-danger btn-sm rounded delete-section-btn" onclick="removeSection(this)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>`)
+
+          Validator('#add-form');
+
+          if ($(".section").length >= Object.keys(products).length) {
+            $(this).addClass("disabled");
+          }
+        }
+      })
+
+      removeSection = function (object) {
+        console.log($(object).parents('tr'));
+        $(object).parents('tr.section').remove();
+        if ($("tr.section").length > 0) {
+          let i = 1;
+          $("tr.section").each(function () {
+            $(this).find("th[scope=row]").text(i);
+            i++;
+          })
+        }
+
+        if ($(".add-section-btn").hasClass("disabled")) {
+          $(".add-section-btn").removeClass("disabled");
+        }
+      }
+
+      $("#add-form").one('submit', function (event) {
+        event.preventDefault();
+        var products = $(this).find("tr.section select.productOptions option:selected");
+        let pIds = [];
+        let isValid = true;
+        if (products.length <= 0) {
+          $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng thêm sản phẩm`);
+          $(this).find('[type=submit]').addClass('disabled');
+          $(this).find('[type=submit]').attr('type', 'button');
+          return false;
+        } else {
+          for (const product of products) {
+            if (pIds.includes($(product).val())) {
+              isValid = false;
+              break;
+            } else {
+              pIds.push($(product).val());
+            }
+          }
+
+          if (isValid) {
+            $(this).find("#product-list-input span.invalid-feedback").text("")
+            $(this).submit();
+            return;
+          } else {
+            $(this).find("#product-list-input span.invalid-feedback").text(`Vui lòng chọn 2 sản phẩm khác nhau`)
+            $(this).find('[type=submit]').addClass('disabled');
+            $(this).find('[type=submit]').attr('type', 'button');
+            return false;
+          }
+        }
+      })
+
     })
   </script>
 {{/section}}
