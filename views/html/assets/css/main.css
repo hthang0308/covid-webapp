@@ -60,6 +60,17 @@
     cursor: not-allowed !important;
   }
 
+.buy-btn {
+  background-color: #F7462E!important;
+  color: white !important;
+  border-color: #F7462E !important;
+  opacity: 0.8;
+}
+
+.buy-btn:hover {
+  opacity: 1;
+}
+
   .carousel-inner > .carousel-item {
     text-align: center;
     align-items: center;
@@ -95,6 +106,7 @@
   .bg-red,
   .warning {
     background: var(--salmon);
+    border-color: var(--salmon)!important;
     opacity: .85;
   }
 
@@ -358,4 +370,13 @@
     background: white;  
   }
 
+.plus-button,
+.minus-btton {
+  color: var(--salmon);
+  opacity: .8;
+}
 
+.plus-button:hover, .minus-btn:hover {
+  color: var(--salmon);
+  opacity: 1;
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping</title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/css/all.min.css" />
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/all.min.js"></script>
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+</head>
+
+<body>
+    <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
+        <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
+        <form
+            class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
+            <div class="input-group flex-grow-1">
+                <input class="form-control border-0  shadow-none" type="text" placeholder="Tìm kiếm" aria-label="Search"
+                    name='search'>
+                <div class="input-group-prepend">
+                    <button class="btn text-center" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <button class="order-n1 navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#sidebar"
+            aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <button class="navbar-toggler  border-0" type="button" data-toggle="collapse" data-target="#account-menu"
+            aria-controls="account-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
+            <div class="btn-group nav-item dropdown ml-auto">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
+                    <a class="dropdown-item nav-link" href="#">
+                        <i class="fas fa-user mr-1 "></i>
+                        Tài khoản của tôi
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Lịch sử thanh toán
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Lịch sử điều trị
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
+            <div class="btn-group nav-item dropdown ml-auto">
+                <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button"
+                    data-toggle="dropdown" aria-expanded="false">
+                    <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
+                    <a class="dropdown-item nav-link" href="#">
+                        <i class="fas fa-user mr-1 "></i>
+                        Tài khoản của tôi
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-history mr-1"></i>
+                        Lịch sử thanh toán
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-history mr-1"></i>
+                        Lịch sử điều trị
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">
+                        <div class="">
+                            <i class="fas fa-bell mr-1"></i>
+                            Thông báo
+                        </div>
+                        <span class="badge badge-primary">4</span>
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+            </ul>
+        </div>
+    </header>
+    <div class="main-content container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2 "
+                                href="#" aria-current="page">
+                                <i class="fas fa-home"></i>
+                                <span class="ml-2">Thông tin cá nhân</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2 active"
+                                href="#">
+                                <i class="fas fa-users"></i>
+                                <span class="ml-2">Shopping</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                                href="#">
+                                <i class="fas fa-fish"></i>
+                                <span class="ml-2">Liên kết hệ thống thanh toán</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main class=" pt-4 ml-sm-auto col-lg-10">
+                <!-- Danh sách người covid 19 -->
+                <div id="content-1" class="content shadow border rounded p-2">
+                    <div class="container-fluid min-vh-100">
+                        <form id="buy-form" action="/" method="POST">
+                            <div class="row pt-3">
+                                <div class="col-12 h-100">
+                                    <p id="product-name"
+                                        class="title text-blue text-center text-md-left border-bottom text-uppercase"
+                                        style="font-size: 1.8rem; font-weight: bold;">
+                                        Gói lương thực, thực phẩm
+                                    </p>
+                                    <input type="text" class="form-control" id="packageID" name="packageID" value="1"
+                                        hidden>
+                                </div>
+                            </div>
+                            <!-- LIST OF PRODUCTS -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="" style="font-size: 1.1rem; font-weight: bold;">
+                                        Mức gới hạn: 1 gói/1 người/2 tuần
+                                    </p>
+                                    <div class="text-sm-center package-quantity d-flex text-center justify-content-center"
+                                        title="package-quantity">
+                                        <a role="button" class="btn plus-button text-red" type="button"
+                                            onclick="decrease(this)">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                        <div class="form-group-input">
+                                            <input type="text" class="form-control text-center quantity-input"
+                                                id="package-quantity" name="package-quantity" value="1"
+                                                rules="required|min_value:1|max_value:2|number" style="max-width: 100px"
+                                                title="Số gói">
+                                            <span class="invalid-feedback"></span>
+                                        </div>
+                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                            onclick="increase(this)">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <h5 class="text-muted" style="font-size: 1.1rem;">Danh sách các sản phẩm</h5>
+                                    <div class="table-responsive-xl table-hover">
+                                        <table class="table table-content border mb-0 menu">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col" colspan="5">Sản phẩm</th>
+                                                    <th class="text-center" scope="col">Đơn giá</th>
+                                                    <th class="text-center" scope="col">Số lượng sản phẩm tối đa</th>
+                                                    <th class="text-center" scope="col">Số lượng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="section">
+                                                    <th class="align-middle" scope="row">1</th>
+                                                    <td class="align-middle name" title="name" colspan="5">
+                                                        <a class="nav-link p-0 details-link text-default"
+                                                            href="/products/:id">
+                                                            Gạo
+                                                        </a>
+                                                    </td>
+                                                    <td class="align-middle text-center product-price"
+                                                        title="product-price">10000đ</td>
+                                                    <td class="align-middle text-center product-limit-quantity"
+                                                        title="product-limit-quantity">1</td>
+                                                    <td class="align-middle text-center product-quantity d-flex text-center justify-content-center"
+                                                        title="product-quantity">
+                                                        <a role="button" class="btn plus-button text-red" type="button"
+                                                            onclick="decrease(this)">
+                                                            <i class="fas fa-minus-circle"></i>
+                                                        </a>
+                                                        <div class="form-group-input">
+                                                            <input type="text" class="form-control text-center quantity-input"
+                                                                id="product-quantity-3" name="product-quantity"
+                                                                value="1"
+                                                                rules="required|min_value:1|max_value:1|number"
+                                                                style="max-width: 100px" title="Số lượng">
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                                            onclick="increase(this)">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="section">
+                                                    <th class="align-middle" scope="row">2</th>
+                                                    <td class="align-middle name" title="name" colspan="5">
+                                                        <a class="nav-link p-0 details-link text-default"
+                                                            href="/products/:id">
+                                                            Mì
+                                                        </a>
+                                                    </td>
+                                                    <td class="align-middle text-center product-price"
+                                                        title="product-price">10000đ</td>
+                                                    <td class="align-middle text-center product-limit-quantity"
+                                                        title="product-limit-quantity">2</td>
+                                                    <td class="align-middle text-center product-quantity d-flex text-center justify-content-center quantity-input"
+                                                        title="product-quantity">
+                                                        <a role="button" class="btn plus-button text-red" type="button"
+                                                            onclick="decrease(this)">
+                                                            <i class="fas fa-minus-circle"></i>
+                                                        </a>
+                                                        <div class="form-group-input">
+                                                            <input type="text" class="form-control text-center quantity-input"
+                                                                id="product-quantity-3" name="product-quantity"
+                                                                value="1"
+                                                                rules="required|min_value:1|max_value:1|number"
+                                                                style="max-width: 100px" title="Số lượng">
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                                            onclick="increase(this)">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="section">
+                                                    <th class="align-middle" scope="row">1</th>
+                                                    <td class="align-middle name" title="name" colspan="5">
+                                                        <a class="nav-link p-0 details-link text-default"
+                                                            href="/products/:id">
+                                                            Gạo
+                                                        </a>
+                                                    </td>
+                                                    <td class="align-middle text-center product-price"
+                                                        title="product-price">10000đ</td>
+                                                    <td class="align-middle text-center product-limit-quantity"
+                                                        title="product-limit-quantity">2</td>
+                                                    <td class="align-middle text-center product-quantity d-flex text-center justify-content-center"
+                                                        title="product-quantity">
+                                                        <a role="button" class="btn plus-button text-red" type="button"
+                                                            onclick="decrease(this)">
+                                                            <i class="fas fa-minus-circle"></i>
+                                                        </a>
+                                                        <div class="form-group-input">
+                                                            <input type="text" class="form-control text-center"
+                                                                id="product-quantity-3" name="product-quantity"
+                                                                value="1"
+                                                                rules="required|min_value:1|max_value:1|number"
+                                                                style="max-width: 100px" title="Số lượng">
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                                            onclick="increase(this)">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div
+                                            class="my-3 d-flex flex-column flex-sm-row justify-content-sm-between align-sm-items-center w-100">
+                                            <div class="total d-flex align-items-center mb-3 mr-3">
+                                                <h5 class='px-1 m-0'>Tổng thanh toán:</h5>
+                                                <h5 class="px-1 m-0 text-red"><span id="total" class="mr-1">0</span>đ
+                                                </h5>
+                                            </div>
+                                            <button class="btn btn-primary btn-red mb-3" style="min-width: 200px"
+                                                type="submit">
+                                                <i class="fas fa-money-bill mr-1"></i>
+                                                Mua Hàng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <footer class="container-fluid py-3 my-4 border-top">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="text-muted">© 2021 Company, Inc</span>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/validator.js"></script>
+    <script>
+        var increase, decrease;
+        $(document).ready(function () {
+
+            var totalCalculate = function () {
+                var total = 0;
+                $(".quantity-input").each(function () {
+                    var unit_price = parseInt($(this).parents(".product-quantity").siblings(".product-price").text());
+                    total = total + parseInt($(this).val()) * unit_price;
+                    console.log(unit_price);
+                })
+                console.log($(".quantity-input").parents(".package-quantity"));
+                if(total) {
+                    $("#total").text(total);
+                } else {
+                    $("#total").text(0);
+                }
+                return total;
+            }
+
+            totalCalculate();
+
+            increase = function (object) {
+                var currentVal = $(object).siblings().find(".quantity-input").val();
+                if (currentVal) {
+                    $(object).siblings().find(".quantity-input").val(parseInt(currentVal) + 1).removeClass('is-invalid');
+                } else {
+                    $(object).siblings().find(".quantity-input").val(1).removeClass('is-invalid');
+                }
+                totalCalculate();
+            }
+
+            decrease = function (object) {
+                var currentVal = $(object).siblings().find(".quantity-input").val();
+                if (currentVal) {
+                    $(object).siblings().find(".quantity-input").val(parseInt(currentVal) - 1).removeClass('is-invalid');
+                } else {
+                    $(object).siblings().find(".quantity-input").val(1).removeClass('is-invalid');
+                }
+                totalCalculate();
+            }
+            Validator('#buy-form');
+
+            $(".quantity-input").on('change input', function () {
+                totalCalculate();
+            })
+        })
+    </script>
+</body>
+
+</html>

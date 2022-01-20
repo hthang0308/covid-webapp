@@ -1,95 +1,81 @@
 {{! DEFINE A 'content' SECTION }}
 {{#section "content"}}
-<form class="form" action="/user/create" method="post" style="width:40vw">
-  <h1 class="display-5">Thêm người liên quan</h1>
-  <div class="form-group">
-    <label for="username">Tên đăng nhập</label>
-    <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" name="username"
-      value="{{data.username}}" />
-  </div>
-  <div class="form-group">
-    <label for="fullname">Họ tên</label>
-    <input type="text" class="form-control" id="fullname" placeholder="Nguyễn Văn A" name="fullname"
-      value="{{data.fullname}}" />
-  </div>
-  <div class="form-group">
-    <label for="natid">Số CMND/CCCD</label>
-    <input type="number" class="form-control" id="natid" placeholder="234567890" name="natid" value="{{data.natid}}" />
-  </div>
-  <div class="form-group">
-    <label for="sourcenatid">Số CMND/CCCD của người liên quan</label>
-    <input type="number" class="form-control" id="sourcenatid" placeholder="234567890" name="sourcenatid"
-      value="{{data.sourcenatid}}" />
-  </div>
-  <div class="form-group">
-    <label for="birthday">Ngày tháng năm sinh</label>
-    <input type="date" id="birthday" name="birthday" value="2000-07-22" min="1950-01-01" max="2099-12-31"
-      value="{{data.birthday}}" />
-  </div>
-  <select id="city" name="city" class="form-control form-select form-select-lg mb-3"
-    aria-label=".form-select-lg example">
-    <option selected>Chọn tỉnh thành</option>
-    {{#each cities}}
-    <option value="{{this.f_ID}}">{{this.f_Name}}</option>
-    {{/each}}
-  </select>
-  <select id="district" name="district" class="form-control form-select form-select-lg mb-3"
-    aria-label=".form-select-lg example">
-    <option selected>Chọn quận/huyện/thị xã/thành phố</option>
-    {{#each districts}}
-    <option value="{{this.f_ID}}" class="{{this.f_City}}">{{this.f_Name}}</option>
-    {{/each}}
-  </select>
-  <select id="ward" name="ward" class="form-control form-select form-select-lg mb-3"
-    aria-label=".form-select-lg example">
-    <option selected>Chọn xã/phường/thị trấn</option>
-    {{#each wards}}
-    <option value="{{this.f_ID}}" class="{{this.f_District}}">{{this.f_Name}}</option>
-    {{/each}}
-  </select>
-  <select id="ql" name="ql" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-    <option selected>Chọn khu cách ly</option>
-    {{#each qls}}
-    <option value="{{this.f_ID}}">{{this.f_Address}}
-      <br />
-    </option>
-    {{/each}}
-  </select>
-  <select id="fx" name="fx" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-    <option selected>Chọn trạng thái</option>
-    <option value="0">F0</option>
-    <option value="1">F1</option>
-    <option value="2">F2</option>
-    <option value="3">F3</option>
-  </select>
-  {{#if err}}
-  <div class="alert alert-danger" role="alert">
-    {{err}}
-  </div>
-  {{/if}}
-  <button type="submit" class="btn btn-default btn-success">
-    Thêm người
-  </button>
-</form>
+  <form class="form" action="/user/create" method="post" style="width:40vw">
+    <h1 class="display-5">Thêm người liên quan</h1>
+    <div class="form-group">
+      <label for="username">Tên đăng nhập</label>
+      <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" name="username" value="{{data.username}}" />
+    </div>
+    <div class="form-group">
+      <label for="fullname">Họ tên</label>
+      <input type="text" class="form-control" id="fullname" placeholder="Nguyễn Văn A" name="fullname" value="{{data.fullname}}" />
+    </div>
+    <div class="form-group">
+      <label for="natid">Số CMND/CCCD</label>
+      <input type="number" class="form-control" id="natid" placeholder="234567890" name="natid" value="{{data.natid}}" />
+    </div>
+    <div class="form-group">
+      <label for="sourcenatid">Số CMND/CCCD của người liên quan</label>
+      <input type="number" class="form-control" id="sourcenatid" placeholder="234567890" name="sourcenatid" value="{{data.sourcenatid}}" />
+    </div>
+    <div class="form-group">
+      <label for="birthday">Ngày tháng năm sinh</label>
+      <input type="date" id="birthday" name="birthday" value="2000-07-22" min="1950-01-01" max="2099-12-31" value="{{data.birthday}}" />
+    </div>
+    <select id="city" name="city" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Chọn tỉnh thành</option>
+      {{#each cities}}
+        <option value="{{this.f_ID}}">{{this.f_Name}}</option>
+      {{/each}}
+    </select>
+    <select id="district" name="district" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Chọn quận/huyện/thị xã/thành phố</option>
+      {{#each districts}}
+        <option value="{{this.f_ID}}" class="{{this.f_City}}">{{this.f_Name}}</option>
+      {{/each}}
+    </select>
+    <select id="ward" name="ward" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Chọn xã/phường/thị trấn</option>
+      {{#each wards}}
+        <option value="{{this.f_ID}}" class="{{this.f_District}}">{{this.f_Name}}</option>
+      {{/each}}
+    </select>
+    <select id="ql" name="ql" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Chọn khu cách ly</option>
+      {{#each qls}}
+        <option value="{{this.f_ID}}">{{this.f_Address}}
+          <br />
+        </option>
+      {{/each}}
+    </select>
+    <select id="fx" name="fx" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>Chọn trạng thái</option>
+      <option value="0">F0</option>
+      <option value="1">F1</option>
+      <option value="2">F2</option>
+      <option value="3">F3</option>
+    </select>
+    {{#if err}}
+      <div class="alert alert-danger" role="alert">
+        {{err}}
+      </div>
+    {{/if}}
+    <button type="submit" class="btn btn-default btn-success">
+      Thêm người
+    </button>
+  </form>
 {{/section}}
 {{#section "script"}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script>
-  $("#city").change(function () {
-    let cityID = $("#city").val(); $.get("https://localhost:3000/user/create?city=" + cityID, function (data, status) {
-      $("#district").empty(); $.each(data, function (i, item) { $("#district").append($("<option>", { value: item.f_ID, text: item.f_Name, })); });
-    });
-  }); $("#district").change(function () {
-    let districtID = $("#district").val(); $.get("https://localhost:3000/user/create?district=" +
-      districtID, function (data, status) {
-        $("#ward").empty(); $.each(data, function (i, item) {
-          $("#ward").append($("<option>", {
-            value: item.f_ID,
-            text: item.f_Name,
-          }));
-        });
-      });
-  });
-</script>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $("#city").change(function () { let cityID = $("#city").val(); $.get("https://localhost:3000/user/create?city=" + cityID, function (data, status)
+    { $("#district").empty(); $.each(data, function (i, item) { $("#district").append($("<option>", { value: item.f_ID, text: item.f_Name, })); });
+    }); }); $("#district").change(function () { let districtID = $("#district").val(); $.get("https://localhost:3000/user/create?district=" +
+    districtID, function (data, status) { $("#ward").empty(); $.each(data, function (i, item) { $("#ward").append($("<option>", { value: item.f_ID,
+    text: item.f_Name, })); }); }); });
+  </script>
 {{/section}}

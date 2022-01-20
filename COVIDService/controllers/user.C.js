@@ -1,40 +1,42 @@
 const userModel = require("../models/user.M");
 const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
+const jwt = require('jsonwebtoken');
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 
 // Route
 // GetHomePage for Users
 exports.getHome = async (req, res) => {
   user = await userModel.getUserByID(req.user.f_ID);
-  console.log(user)
+  console.log(user);
 };
 
 exports.getHistory = async (req, res) => {
   user = await userModel.getUserByID(req.user.f_ID);
-  var result = await user.f_History.filter(item => item.includes("Manage User"));
+  var result = await user.f_History.filter((item) => item.includes("Manage User"));
   console.log(result);
-}
+};
 
 exports.getOrder = async (req, res) => {
   // user = await userModel.getUserByID(req.user.f_ID);
   var result = await orderModel.getOrderByAccountID(req.user.f_ID);
   console.log(result);
-}
+};
 
 exports.getBalance = async (req, res) => {
-  // const id = req.params;
-  const user = await userModel.getUserByID(req.user.f_ID);
-  const userID = user.f_ID;
-  const token = req.cookies.jwt;
-
+  const id = req.params.id;
+  console.log('ID: ', id);
+  //const { data: user } = await userModel.getUserByID(id);
+  const user = await userModel.getUserByID(id);
+  console.log("User: ", user);
+  // const { banking_token: token } = user;
+  const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
   let data = {};
   if (token) {
-    data = await userModel.getPayment(userID, token);
-    console.log(data);
+    data = await userModel.getPayment(id, token);
+    console.log("data:", data);
   }
-
-  console.log(data || null);
+  return res.json(data)
 }
 
 // For managers
@@ -44,6 +46,7 @@ exports.getAllUsers = async (req, res) => {
   if (req.query.sort === "date") sort.sortByDate(arr);
   if (req.query.sort === "id") sort.sortByID(arr);
   if (req.query.sort === "name") sort.sortByFullName(arr);
+  console.log(arr);
   res.render("users/all", {
     users: arr,
     title: "Danh sách người liên quan COVID-19",

@@ -130,10 +130,9 @@ exports.transfer = async (req, res, next) => {
         var decoded = await jwt.verify(req.body.access_token, process.env.JWT_SECRET)
         if (!decoded) {
             response.Error = 'Verify failed'
-            res.json(response);
-            return;
+            return res.json(response);
         }
-        const accId = req.body.accid;
+        const accId = decoded.id;
         const money = parseFloat(req.body.money);
         try {
             var acc = await accountModel.getAccountById(accId);
@@ -144,7 +143,6 @@ exports.transfer = async (req, res, next) => {
                 return res.json(response);
             }
             accAdmin.Balance = parseFloat(accAdmin.Balance) + money;
-            console.log("Admin bal: ", accAdmin.Balance);
             await accountModel.updateAccount(adminId, accAdmin);
             await accountModel.updateAccount(acc.AccID, acc);
             response.Response = 'true';

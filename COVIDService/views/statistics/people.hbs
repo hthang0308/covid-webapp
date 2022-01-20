@@ -41,14 +41,14 @@
                                 <td class="status">
                                     {{this.trangthai}}
                                 </td>
-                                <td class="number text-center">
+                                <td class="quantity text-center">
                                     {{this.soluong}}
                                 </td>
                             </tr>
                         {{/each}}
                         <tr class="section total-row font-weight-bold">
                             <th scope="row" colspan="2">Tổng</th>
-                            <td class="number-total text-center"></td>
+                            <td id="total" class="number-total text-center"></td>
                         </tr>
                         {{else}}
                             <h3 class="text-uppercase">Không có dữ liệu</h3>
@@ -65,11 +65,24 @@
     </div>
 </div>
 
+{{#section css}}
+    
+{{/section}}
+
 {{#section 'script'}}
     {{#if status}}
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script>
+            
+            $(document).ready(function() {
+                let total = 0;
+                $(".quantity").each(function() {
+                    total = total + parseInt($(this).text());
+                    $("#total").text(total);
+                })
+            })
+
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
 
@@ -77,7 +90,7 @@
                 var peopleData = google.visualization.arrayToDataTable([
                     ['Status', 'Amount'],
                     {{#each status}}
-                        [{{this.trangthai}}, {{this.soluong}}]
+                        [{{this.trangthai}}, {{this.soluong}}],
                     {{/each}}
                 ]);
 
