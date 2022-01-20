@@ -10,6 +10,7 @@ require('dotenv').config({ path: './.env' });
 // Router
 const paymentRouter = require('./routes/index');
 
+// const app = require('https-localhost')();
 const app = express();
 
 app.use(session({
@@ -51,7 +52,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use('/', paymentRouter);
 
-app.use(express.static(path.join(__dirname + "../public")));
+app.use(express.static(path.join(__dirname + "/public")));
 app.all("*", (req, res, next) => {
     next(console.log(`Can't find ${req.originalUrl} on this server`, 404));
 });

@@ -1,14 +1,41 @@
 const userModel = require("../models/user.M");
+const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 
 // Route
 // GetHomePage for Users
-exports.getHome = (req, res) => {
-  res.render("users/dashboard", {
-    title: "Trang chủ",
-  });
+exports.getHome = async (req, res) => {
+  user = await userModel.getUserByID(req.user.f_ID);
+  console.log(user)
 };
+
+exports.getHistory = async (req, res) => {
+  user = await userModel.getUserByID(req.user.f_ID);
+  var result = await user.f_History.filter(item => item.includes("Manage User"));
+  console.log(result);
+}
+
+exports.getOrder = async (req, res) => {
+  // user = await userModel.getUserByID(req.user.f_ID);
+  var result = await orderModel.getOrderByAccountID(req.user.f_ID);
+  console.log(result);
+}
+
+exports.getBalance = async (req, res) => {
+  const id = req.params;
+  const { data: user } = await userModel.getUserByID(id);
+  const { banking_token: token } = user;
+
+  let data = {};
+  // let userBankingDetail = {};
+
+  if (token) {
+    data = (await userModel.getPayment(id, token)).data;
+  }
+
+  console.log(data || null);
+}
 
 // For managers
 exports.getAllUsers = async (req, res) => {
