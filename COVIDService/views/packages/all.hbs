@@ -17,7 +17,7 @@
     </h3>
     <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4" style="font-size:.9rem">
         <!-- Search-form -->
-        <form id='sub-nav__search-form' class="form-inline" action="/manager/people" method="GET">
+        <form id='sub-nav__search-form' class="form-inline" action="/package" method="GET">
             <div class="form-group mb-2">
                 <label for="sub-nav__search-input">Tìm kiếm</label>
                 <input type="text" class="form-control shadow-none mx-sm-2" id="sub-nav__search-input"
@@ -26,29 +26,15 @@
         </form>
 
         <!-- Sort -->
-        <form id='sortby-form' class="form-inline" action="/manager/people" method="GET">
+        <form id='sortby-form' class="form-inline" action="/package" method="GET">
             <div class="form-group mb-2">
                 <label for="sub-nav__sort-by">Sắp xếp theo</label>
                 <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by"
-                    aria-label="sort-by" name="sort_by">
-                    <option class="py-1" value="name-ascending" data-filter="&sortby=(name:asc)">Tên: A &rarr; Z
+                    aria-label="sort-by" name="sort">
+                    <option class="py-1" value="name" data-filter="&sort=name">Tên
                     </option>
-                    <option class="py-1" value="name-descending" data-filter="&sortby=(name:desc)">Tên: Z &rarr; A
+                    <option class="py-1" value="time" data-filter="&sort=time">Ngày
                     </option>
-                    <option class="py-1" value="price-ascending" data-filter="&sortby=(price:asc)">Giá: Tăng dần
-                    </option>
-                    <option class="py-1" value="price-descending" data-filter="&sortby=(price:desc)">Giá: Giảm dần
-                    </option>
-                    <option class="py-1" value="limitPackage-ascending" data-filter="&sortby=(limitPackage:asc)">Mức gói
-                        giới hạn: Tăng dần</option>
-                    <option class="py-1" value="limitPackage-descending" data-filter="&sortby=(limitPackage:desc)">Mức
-                        gói
-                        giới hạn: Giảm dần</option>
-                    <option class="py-1" value="limitTime-ascending" data-filter="&sortby=(limitTime:asc)">Thời gian
-                        giới
-                        hạn: Tăng dần</option>
-                    <option class="py-1" value="limitTime-descending" data-filter="&sortby=(limitTime:desc)">Thời gian
-                        giới hạn: Giảm dần</option>
                 </select>
             </div>
         </form>

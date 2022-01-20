@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light">
+{{!-- <nav class="navbar navbar-light bg-light">
   <form class="form-inline" action="/user/search" method="get">
     <input class="form-control mr-sm-2" type="search" placeholder="Nhập CMND/CCCD" aria-label="Search" name="natid" />
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
@@ -32,4 +32,97 @@
 {{/each}}
 <form action="/user/create" method="get">
   <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">Thêm người liên quan</button>
-</form>
+</form> --}}
+<div id="content-1" class="content shadow border rounded p-2" value="people">
+    <h3 class="text-lg-left text-center pt-3">Danh sách người liên quan Covid-19</h3>
+    <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4"
+    style="font-size:.9rem">
+        <!-- Search-form -->
+        <form id='sub-nav__search-form' class="form-inline" action="/user/search" method="GET">
+        <div class="form-group mb-2">
+            <label for="sub-nav__search-input">Tìm kiếm</label>
+            <input type="text" class="form-control shadow-none mx-sm-2" id="sub-nav__search-input" name="search"></input>
+        </div>
+        </form>
+    
+    <!-- Sort -->
+    <form id='sortby-form'  class="form-inline" action="/user/all">
+        <div class="form-group mb-2">
+        <label for="sub-nav__sort-by">Sắp xếp theo</label>
+        <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by" aria-label="sort-by" name="sort">
+            <option class="py-1" value="name" >Name</option>
+            <option class="py-1" value="id" >ID</option>
+            <option class="py-1" value="date" >Date</option>
+        </select>
+        </div>
+    </form>
+    </div>
+    <div class="table-responsive-xl table-hover">
+    <table class="table table-content border mb-0 menu">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col d-flex align-items-center">#</th>
+                <th scope="col">Họ tên</th>
+                <th scope="col">CMND/CCCD</th>
+                <th scope="col">Năm sinh</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Nơi đang điều trị/cách ly</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        {{#if users}}
+            {{#each users}}
+                <tbody>
+                    <tr class="section">
+                        <th scope="row">{{this.f_Id}}</th>
+                        <td class="Name">{{this.f_Fullname}}</td>
+                        <td class="CMND">{{this.f_NatID}}</td>
+                        <td class="birth-year">{{this.f_DOB}}</td>
+                        <td class="address">{{this.f_Ward}}</td>
+                        <td class="status">{{this.f_Fx}}</td>
+                        <td class="treatment-place">
+                            {{#each this.f_History}}
+                                {{this}}<br/>
+                            {{/each}}
+                        </td>
+                        <td>
+                        <!-- Call to action buttons -->
+                        <ul class="list-inline m-0">
+                            <li class="list-inline-item mb-1">
+                            <a  href="/user/{{this.f_ID}}" class="btn btn-success btn-sm rounded">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            </li>
+                            {{!-- <li class="list-inline-item mb-1">
+                            <button type="button" class="btn btn-danger btn-sm rounded" data-toggle="modal" data-target="#delete-modal">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            </li> --}}
+                        </ul>
+                    </td>
+                    </tr>
+
+                </tbody>
+
+            {{/each}}
+        {{else}}
+            <h3 class="text-uppercase">Không có dữ liệu</h3>
+        {{/if}}
+    </table>
+    <a href="/user/create" class="add d-md-flex align-items-md-center d-block text-black-50 text-sm-center mr-3 border-bottom text-decoration-none" style="width: 100%">
+        <i class="fas fa-plus"></i>
+        <span class="px-2">Thêm người</span>
+    </a>
+    </div>
+    <nav id="main-pagination" class="mt-3" aria-label="Search results pages"></nav>
+</div>
+
+{{#section 'script'}}
+  <script>
+    var perPage = 4;
+  </script>
+  <script src="../../assets/js/jquery.twbsPagination.js"></script>
+  <script src="../../assets/js/paging.js"></script>
+
+{{/section}}
