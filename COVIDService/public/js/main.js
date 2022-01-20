@@ -17,7 +17,7 @@ $(function() {
     $('button[data-target="#delete-modal"]').click(function () {
         let target_modal = $(this).attr('data-target');
         let name = $(this).parents('td').siblings(".name").text();
-        $(`${target_modal} .message`).text(`Bạn muốn xóa ${name.trim()}?`);
+        $(`${target_modal} .message`).text(`Bạn chắc chắn muốn xóa ${name.trim()}?`);
     })
 
     $("form").each(function () {

@@ -51,6 +51,10 @@ module.exports = (app) => {
       _toInt: function (str) {
         return parseInt(str, 10);
       },
+
+      _indexOf: function (arr, i) {
+        return arr[i];
+      }
     },
   });
   hbs_section(hbs);

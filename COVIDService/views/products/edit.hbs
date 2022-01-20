@@ -1,43 +1,8 @@
-{{!-- <form class="form" action="/user" method="post" style="width:40vw">
-    <h1 class="display-5">Edit PRODUCT</h1>
-    <div class="form-group">
-        <label for="f_Name">Name</label>
-        <input type="text" class="form-control" id="f_Name" placeholder="Name" name="f_Name" />
-    </div>
-    <div class="form-group">
-        <label for="f_ID">ID</label>
-        <input type="text" class="form-control" id="f_ID" placeholder="ID" name="f_ID" />
-    </div>
-    {{!-- <div class="form-group">
-        <label for="f_Time">Time</label>
-        <input type="date" id="f_Time" name="f_Time" value="2000-07-22" min="1950-01-01" max="2018-12-31" />
-    </div> --}}
-    <div class="form-group">
-        <label for="f_Price">Price</label>
-        <input type="number" class="form-control" id="f_Price" placeholder="100000" name="f_Price" />
-    </div>
-    <div class="form-group">
-        <label for="f_Unit">Unit</label>
-        <input type="text" class="form-control" id="f_Unit" placeholder="Cái" name="f_Unit" />
-    </div>
-    <div class="form-group">
-        <label for="f_Images">Images</label>
-        {{!-- <input type="text" class="form-control" id="f_Products" placeholder="Products" name="f_Products" /> --}}
-    </div>
-    {{#if err}}
-    <div class="alert alert-danger" role="alert">
-        {{err}}
-    </div>
-    {{/if}}
-    <button type="submit" class="btn btn-default btn-success">
-        Edit
-    </button>
-</form> --}}
-
 <div id="content-1" class="content shadow border rounded p-2">
     <div class="container-fluid">
         <!-- IMAGES -->
         <div class="row min-vh-100 py-3">
+            {{#with product}}
             <div class="col-md-5 col-12 h-100">
                 <div id="necessity-images" class="carousel slide carousel-fade border mx-1 mb-5" data-ride="carousel"
                     style="min-height: 100%; width: 100%;">
@@ -47,18 +12,17 @@
                         <li data-target="#necessity-images" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner" style="height: 100%;">
-                        <div class="carousel-item" data-interval="3000">
-                            <img class="img-fluid necessity-image" src="../../assets/img/necessities/muoi_bien.webp"
-                                alt="Muối biển VISAchef gói 1kg" />
-                        </div>
-                        <div class="carousel-item" data-interval="3000">
-                            <img class="img-fluid necessity-image" src="../../assets/img/necessities/muoi_bien_1.webp"
-                                alt="Muối biển VISAchef gói 1kg" />
-                        </div>
+                        {{#each this.f_Images}}
+                        {{#if @first}}
                         <div class="carousel-item active" data-interval="3000">
-                            <img class="img-fluid necessity-image" src="../../assets/img/necessities/muoi_bien_2.webp"
-                                alt="Muối biển VISAchef gói 1kg" />
+                            <img class="img-fluid necessity-image" src="{{this}}" alt="{{this.f_Name}}" />
                         </div>
+                        {{else}}
+                        <div class="carousel-item" data-interval="3000">
+                            <img class="img-fluid necessity-image" src="{{this}}" alt="{{this.f_Name}}" />
+                        </div>
+                        {{/if}}
+                        {{/each}}
                     </div>
                     <a class="carousel-control-prev" href="#necessity-images" role="button" data-slide="prev">
                         <i class="fas fa-angle-left text-black-50" style="font-size: 2.2rem"></i>
@@ -71,11 +35,11 @@
                 </div>
             </div>
             <div class="col-md-7 col-12 h-100">
-                <form id="edit-form" action="/products/edit/{{this.f_ID}}" method="post">
+                <form id="edit-form" action="/product/{{this.f_ID}}?_method=PATCH" method="POST">
                     <div class="form-row">
                         <div class="form-group col-12">
                             <label for="name-input" class="font-weight-bold">Tên</label>
-                            <input id="name-input" type="text" class="form-control" value="Muối biển VISAchef gói 1kg"
+                            <input id="name-input" type="text" class="form-control" value="{{this.f_Name}}"
                                 name="f_Name" title="Tên" readonly />
                             <span class="invalid-feedback"></span>
                         </div>
@@ -84,8 +48,8 @@
                         <div class="form-group col-md-6">
                             <label for="price-input" class="font-weight-bold">Đơn giá</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="price-input" value="11,000" name="f_Price"
-                                    rules="required" title="Đơn giá" />
+                                <input type="text" class="form-control" id="price-input" value="{{this.f_Price}}"
+                                    name="f_Price" rules="required" title="Đơn giá" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">đ</span>
                                 </div>
@@ -95,21 +59,31 @@
                         <div class="form-group col-md-6">
                             <label for="unit-input" class="font-weight-bold">Đơn vị định
                                 lượng</label>
-                            <input type="text" class="form-control" id="unit-input" value="f_Unit" name="unit"
-                                rules="required" title="Đơn vị định lượng" />
+                            <input type="text" class="form-control" id="unit-input" name="f_Unit" value="{{this.f_Unit}}"
+                                rules="required|alpha" title="Đơn vị định lượng" />
                             <span class="invalid-feedback"></span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-12 text-truncate">
-                            <label for="images-input" class="font-weight-bold">Thêm ảnh
-                                (.png hoặc jpg)</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="images-input">Chọn ảnh</label>
-                                    <input type="file" class="custom-file-input" id="images-input"
-                                        aria-describedby="inputGroupFileAddon01" name="f_Images"
-                                        accept="image/png, image/jpeg" multiple />
+                            <label for="images-input" class="font-weight-bold">Thêm ảnh</label>
+                            <div class="input-group mb-3 w-100">
+                                <a id='add-input-btn' role="button" class="btn plus-button text-red" type="button">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
+                                <div class="form-group flex-grow-1 image-input-group">
+                                    {{#each this.f_Images}}
+                                    <div class="d-flex image-input">
+                                        <input type="text" class="form-control mb-2" name="f_Images" value="{{this}}">
+                                        <a role="button" class="btn minus-button text-red"
+                                            type="button" onclick="decrease(this)">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                    </div>
+                                    {{/each}}
+                                    {{#unless this.f_Images}}
+                                    <input type="text" class="form-control mb-2" name="f_Images">
+                                    {{/unless}}
                                 </div>
                             </div>
                         </div>
@@ -121,6 +95,7 @@
                 </form>
 
             </div>
+            {{/with}}
         </div>
     </div>
 </div>
@@ -129,9 +104,26 @@
 <script src="	https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 <script src="/js/validator.js"></script>
 <script>
+    var decrease;
     $(document).ready(function () {
         bsCustomFileInput.init();
-        Validator('#edit-form');
+        $("#add-input-btn").click(function () {
+            $(".image-input-group").append(`
+                <div class="d-flex image-input">
+                    <input type="text" class="form-control mb-2" name="f_Images" value="">
+                    <a role="button" class="btn minus-button text-red"
+                        type="button" onclick="decrease(this)">
+                        <i class="fas fa-minus-circle"></i>
+                    </a>
+                </div>
+            `)
+            console.log($("#edit-form").find('input').length)
+            Validator('#edit-form');
+        })
+
+        decrease = function(object) {
+            $(object).parents(".image-input").remove();
+        }
     })
 </script>
 {{/section}}
