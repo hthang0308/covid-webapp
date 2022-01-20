@@ -1,7 +1,7 @@
 const userModel = require("../models/user.M");
 const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 const { API_URL } = require("../utils/constant");
 
@@ -37,8 +37,8 @@ exports.getBalance = async (req, res) => {
     data = await userModel.getPayment(id, token);
     // console.log("data:", data);
   }
-  return res.json(data)
-}
+  return res.json(data);
+};
 
 exports.deposit = async (req, res) => {
   //Step 1: Check user
@@ -47,9 +47,9 @@ exports.deposit = async (req, res) => {
   //Step 2: Pass id to payment
   const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
   if (token) {
-    return res.redirect(`${API_URL}/`)
+    return res.redirect(`${API_URL}/`);
   }
-}
+};
 
 // For managers
 exports.getAllUsers = async (req, res) => {
@@ -58,7 +58,15 @@ exports.getAllUsers = async (req, res) => {
   if (req.query.sort === "date") sort.sortByDate(arr);
   if (req.query.sort === "id") sort.sortByID(arr);
   if (req.query.sort === "name") sort.sortByFullName(arr);
-  console.log(arr);
+  arr.forEach(async (element) => {
+    const day = ("0" + element.f_DOB.getDay()).slice(-2);
+    const month = ("0" + element.f_DOB.getMonth()).slice(-2);
+    const year = element.f_DOB.getFullYear();
+    element.f_DOB = day + "/" + month + "/" + year;
+    const tmpWard = await userModel.getWardByID(element.f_Ward);
+    console.log(tmpWard);
+    element.f_Ward = tmpWard.f_Name;
+  });
   res.render("users/all", {
     users: arr,
     title: "Danh sách người liên quan COVID-19",
@@ -124,8 +132,9 @@ exports.createUser = async (req, res) => {
   const qls = await userModel.getAllQL();
   if (err !== "") return res.render("users/form_adduser", { layout: "manager", data: req.body, cities, qls, err });
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentTime = `${currentDate.getDay()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const newUser = {
     f_Username: req.body.username,
     f_Password: "",
@@ -160,34 +169,35 @@ exports.createUser = async (req, res) => {
     await userModel.editUser(source.f_ID, source);
   }
   return res.render("users/form_adduser", { layout: "manager", cities, data: req.body, qls, err: "Successfully" });
-  //done 
+  //done
 };
 
 exports.getUser = async (req, res) => {
   tmpUser = await userModel.getUserByID(req.params.id);
-  console.log("user", tmpUser);
-  if (tmpUser === null || tmpUser === undefined) {
+  if (!tmpUser) {
     return res.redirect("/user/all");
   }
   const ward = await userModel.getWardByID(tmpUser.f_Ward);
   console.log("ward", ward);
-  if (ward === null || ward === undefined) {
+  if (!ward) {
     return res.redirect("/user/all");
   }
   const district = await userModel.getDistrictByID(ward.f_District);
   console.log("district", district);
-  if (district === null || district === undefined) {
+  if (!district) {
     return res.redirect("/user/all");
   }
   const city = await userModel.getCityByID(district.f_City);
   console.log("city", city);
-  if (city === null || city === undefined) {
+  if (!city) {
     return res.redirect("/user/all");
   }
   const fulladdress = ward.f_Name + ", " + district.f_Name + ", " + city.f_Name;
+  const qlocation = await userModel.getQLByID(tmpUser.f_QuarantineID);
   res.render("users/single", {
     user: tmpUser,
     address: fulladdress,
+    qlocation: qlocation.f_Address,
   });
 };
 
@@ -207,8 +217,9 @@ exports.editUser = async (req, res) => {
   const tmpUser = await userModel.getUserByID(req.params.id);
   if (tmpUser === undefined) return;
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `; //If in form has covid address
+  var currentTime = `${currentDate.getDay()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `; //If in form has covid address
   if (req.body.ql !== undefined) {
     tmpUser.f_QuarantineID = req.body.ql;
     const tmpNewCovidAddress = await userModel.getQLByID(tmpUser.f_QuarantineID);
