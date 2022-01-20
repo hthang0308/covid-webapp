@@ -34,14 +34,14 @@ module.exports = {
 
   getPayment: async (_f_ID, token) => {
     let { data } = await axios({
-      method: "GET",
-      url: `${API_URL}/balance/${_f_ID}`,
+      method: "POST",
+      url: `${API_URL}/balance`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
       data: {
         access_token: token,
-        accID: _f_ID
+        accid: _f_ID
       }
     })
       .then((res) => res.data)
