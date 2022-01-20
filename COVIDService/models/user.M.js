@@ -35,6 +35,8 @@ module.exports = {
   },
 
   getPayment: async (_f_ID, token) => {
+    console.log("f_ID", _f_ID);
+    console.log("tokjen", token);
     var response = await axios.post(`https://localhost:5000/balance`, {
       access_token: token,
       accid: _f_ID,

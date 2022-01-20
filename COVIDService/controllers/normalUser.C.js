@@ -86,7 +86,7 @@ exports.getBalance = async (req, res) => {
     }
     res.render("normaluser/balance", {
       title: "Số dư hiện tại",
-      data: data.balance,
+      data: data.Balance,
     });
   } catch (error) {
     res.render("normaluser/balance", {
