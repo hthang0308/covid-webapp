@@ -11,6 +11,7 @@ module.exports = {
   getUserByUsername: async (_f_Username) => factory.getOne(TableName, "f_Username", _f_Username),
   getUserByID: async (_f_ID) => factory.getOne(TableName, "f_ID", _f_ID),
   searchUserByID: async (_f_ID) => factory.search(TableName, "f_ID", _f_ID),
+  searchUserByName: async (_f_ID) => factory.search(TableName, "f_Fullname", _f_ID),
   searchUserByNationalID: async (_f_ID) => factory.search(TableName, "f_NatID", _f_ID),
   addUser: async (_user) => factory.createOne(TableName, _user),
   editUser: async (_f_ID, _user) => factory.updateOne(TableName, "f_ID", _f_ID, _user),

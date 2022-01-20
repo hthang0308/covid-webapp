@@ -1,91 +1,62 @@
-{{!-- {{#each packages}}
-{{this.f_ID}}
-{{this.f_Name}}
-{{this.f_Products}}
-{{this.f_MaxPerProducts}}
-{{this.f_MaxPerPerson}}
-{{this.f_Time}}
-<br />
-{{/each}} --}}
-
-{{! DEFINE A 'content' SECTION }}
-{{!-- {{#section "content"}} --}}
 <div id="content-1" class="content shadow border rounded container-fluid">
-    <h3 class="text-lg-left text-center pt-3 text-uppercase text-blue border-bottom font-weight-bold"
-        style="font-size: 1.8rem;">
-        Lịch sử quản lý
-    </h3>
-    <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4" style="font-size:.9rem">
-        <!-- Search-form -->
-        <form id='sub-nav__search-form' class="form-inline" action="/package" method="GET">
+  <h3 class="text-lg-left text-center pt-3 text-uppercase text-blue border-bottom font-weight-bold" style="font-size: 1.8rem;">
+    Lịch sử quản lý
+  </h3>
+  <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4" style="font-size:.9rem">
+    <!-- Search-form -->
+    {{! <form id='sub-nav__search-form' class="form-inline" action="/package" method="GET">
             <div class="form-group mb-2">
                 <label for="sub-nav__search-input">Tìm kiếm</label>
                 <input type="text" class="form-control shadow-none mx-sm-2" id="sub-nav__search-input"
                     name="search"></input>
             </div>
-        </form>
+        </form> }}
 
-        {{!--
-        <!-- Sort --> --}}
-        {{!-- <form id='sortby-form' class="form-inline" action="/package" method="GET"> --}}
-            {{!-- <div class="form-group mb-2"> --}}
-                {{!-- <label for="sub-nav__sort-by">Sắp xếp theo</label> --}}
-                {{!-- <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by" --}} {{!--
-                    aria-label="sort-by" name="sort"> --}}
-                    {{!-- <option class="py-1" value="name" data-filter="&sort=name">Hành động --}}
-                        {{!-- </option> --}}
-                    {{!-- <option class="py-1" value="time" data-filter="&sort=time">Ngày --}}
-                        {{!-- </option> --}}
-                    {{!-- </select> --}}
-                {{!-- </div> --}}
-            {{!-- </form> --}}
-    </div>
-    <!-- LIST OF PACKAGES -->
-    <div class="table-responsive-xl table-hover">
-        <table class="table table-content border mb-0 menu">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Ngày</th>
-                    <th scope="col">Giờ</th>
-                    <th class="text-center" scope="col">Hành động</th>
-                    {{!-- <th class="text-center" scope="col">Thời gian giới hạn</th> --}}
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">&nbsp;</th>
-                </tr>
-            </thead>
-            {{#if empty}}
-            <p style="font-size: 1.6rem;">Không có dữ liệu</p>
-            {{else}}
-            <tbody>
-                {{#each history}}
-                <tr class="section">
-                    <th class="align-middle" scope="row">{{sum @index 1}}</th>
-                    <td class="align-middle name" title="name">{{this.f_Name}}
-                    </td>
-                    <td class="align-middle products" title="products">{{this.f_Products}}</td>
-                    <td class="align-middle limit-package text-center" title="limit-package">{{this.f_MaxPerPerson}}
-                    </td>
-                    <td class="align-middle limit-time text-center" title="limit-time">{{this.f_Time}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-            {{/if}}
-        </table>
-    </div>
-    <!-- PAGINATION -->
-    <nav id="main-pagination" class="mt-3" aria-label="Search results pages"></nav>
+  </div>
+  <!-- LIST OF PACKAGES -->
+  <div class="table-responsive-xl table-hover">
+    <table class="table table-content border mb-0 menu">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Ngày</th>
+          <th scope="col">Giờ</th>
+          <th class="text-center" scope="col">Hành động</th>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      {{#if empty}}
+        <p style="font-size: 1.6rem;">Không có dữ liệu</p>
+      {{else}}
+        <tbody>
+          {{#each histories}}
+            <tr class="section">
+              <th class="align-middle" scope="row">{{sum @index 1}}</th>
+              <td class="align-middle name" title="name">{{this.date}}
+              </td>
+              <td class="align-middle products" title="products">{{this.time}}</td>
+              <td class="align-middle limit-package text-center" title="limit-package">{{this.action}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      {{/if}}
+    </table>
+  </div>
+  <!-- PAGINATION -->
+  <nav id="main-pagination" class="mt-3" aria-label="Search results pages"></nav>
 </div>
 {{!-- {{/section}} --}}
 
 {{! DEFINE A 'script' SECTION }}
 {{#section "script"}}
-<script> var perPage = 4; </script>
-<script src="/js/jquery.twbsPagination.js"></script>
-<script src="/js/paging.js"></script>
+  <script> var perPage = 4; </script>
+  <script src="/js/jquery.twbsPagination.js"></script>
+  <script src="/js/paging.js"></script>
 
 {{/section}}

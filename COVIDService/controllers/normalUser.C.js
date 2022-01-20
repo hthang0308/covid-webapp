@@ -41,21 +41,23 @@ exports.getHome = async (req, res) => {
 
 exports.getHistory = async (req, res) => {
   user = await userModel.getUserByID(req.user.f_ID);
-  var result = await user.f_History.filter((item) => item.includes("Manage User"));
+  var result = await user.f_History.filter((item) => item.includes("Manager"));
   console.log(result);
-  let date = [];
-  let time = [];
-  let action = [];
-  result.forEach((result) => {
-    date.push(result.split("")[0]);
-    time.push(result.split("")[1]);
-    action.push(result.split("")[2]);
-  });
-
+  var histories = [];
+  try {
+    result.forEach((result) => {
+      let stringleft = result.replace(result.split(" ")[0], "").replace(result.split(" ")[1], "").trim();
+      histories.push({
+        date: result.split(" ")[0],
+        time: result.split(" ")[1],
+        action: stringleft,
+      });
+    });
+  } catch (err) {
+    console.log(err);
+  }
   res.render("normaluser/history", {
-    date: date,
-    time: time,
-    action: action,
+    histories,
     title: "Lịch sử quản lý người dùng",
   });
 };

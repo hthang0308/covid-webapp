@@ -33,7 +33,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.searchUser = async (req, res) => {
-  tmpUser = await userModel.searchUserByNationalID(req.query.natid);
+  tmpUser = await userModel.searchUserByName(req.query.search);
   if (tmpUser === undefined) return;
   res.render("users/all", {
     users: tmpUser,
