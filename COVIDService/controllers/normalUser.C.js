@@ -15,7 +15,7 @@ exports.getHome = async (req, res) => {
 exports.getHistory = async (req, res) => {
     user = await userModel.getUserByID(req.user.f_ID);
     var result = await user.f_History.filter((item) => item.includes("Manage User"));
-
+    console.log(result);
     let date = [];
     let time = [];
     let action = [];
@@ -36,7 +36,7 @@ exports.getHistory = async (req, res) => {
 exports.getOrder = async (req, res) => {
     // user = await userModel.getUserByID(req.user.f_ID);
     var result = await orderModel.getOrderByAccountID(req.user.f_ID);
-    // console.log(result);
+    console.log(result);
     res.render('normaluser/order', {
         history: result,
         title: 'Lịch sử tiêu thụ nhu yếu phẩm'
@@ -44,16 +44,24 @@ exports.getOrder = async (req, res) => {
 };
 
 exports.getBalance = async (req, res) => {
-    const id = req.user.f_ID;
-    const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
-    let data = {};
-    if (token) {
-        data = await userModel.getPayment(id, token);
+    try {
+        const id = req.user.f_ID;
+        const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
+        let data = {};
+        if (token) {
+            data = await userModel.getPayment(id, token);
+        }
+        res.render('normaluser/balance', {
+            title: 'Số dư hiện tại',
+            data: data.balance
+        })
+    } catch (error) {
+        res.render('normaluser/balance', {
+            title: 'Số dư hiện tại',
+            data: 0
+        })
     }
-    res.render('normaluser/balance', {
-        title: 'Số dư hiện tại',
-        data: data.balance
-    })
+
 };
 
 exports.deposit = async (req, res) => {
