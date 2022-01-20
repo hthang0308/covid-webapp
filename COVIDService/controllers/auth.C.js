@@ -79,7 +79,7 @@ exports.getSignOut = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
-  let user = await userModel.getUserByName(req.body.username);
+  let user = await userModel.getUserByUsername(req.body.username);
   // console.log(user);
   if (user === null || user === undefined) {
     return res.render("auth/login", {
@@ -108,6 +108,7 @@ exports.signin = async (req, res) => {
     // Send the response with 200 status code (ok) and the user object + the token
     // The client will send the token with every future request
     // against secured API endpoints.
+    // TODO: Return to dashboard after login
     return res.status(200).send({
       user: user,
       token: token,
@@ -130,22 +131,20 @@ exports.signup = async (req, res) => {
   }
   const passwordHashed = await bcrypt.hash(password, saltRounds);
   var currentdate = new Date();
-  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
-
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const tmpUser = {
     f_Username: username,
     f_Password: passwordHashed,
     f_Permission: 1,
-    f_History: [`${currentTime} Create User`],
+    f_History: [`${currentTime} Manager Create User`],
   };
 
   await accountM.addAccount(tmpUser);
   res.redirect("./login");
 };
 
-exports.getChangePassword = async (req, res) => {
-
-}
+exports.getChangePassword = async (req, res) => { };
 
 exports.changePassword = async (req, res) => {
   const tmpUser = await accountM.getAccountByID(req.params.id);
@@ -155,24 +154,24 @@ exports.changePassword = async (req, res) => {
   // Step1: Check the new password and compare to old password
   const checkOld = bcrypt.compare(req.body.newPassword, tmpUser.f_Password);
   if (checkOld) {
-    res.render('user/form_change_password', {
-      msg: 'Mật khẩu mới không được trùng với mật khẩu trước đó'
-    })
+    res.render("user/form_change_password", {
+      msg: "Mật khẩu mới không được trùng với mật khẩu trước đó",
+    });
   }
 
-  // Step 2: Check for the similarities between the new Password and confirm password 
+  // Step 2: Check for the similarities between the new Password and confirm password
   const checkConfirm = bcrypt.compare(req.body.confirmPassword, req.body.newPassword);
   if (!checkConfirm) {
-    res.render('user/form_change_password', {
-      msg: 'Vui lòng xác nhận lại mật khẩu'
+    res.render("user/form_change_password", {
+      msg: "Vui lòng xác nhận lại mật khẩu",
     });
   }
 
   // Step 3: Hash password
   const passwordHashed = bcrypt.hash(req.body.password, saltRounds);
   var currentdate = new Date();
-  var currentTime = `${currentdate.getMonth() + 1}/${currentdate.getFullYear()} ${currentdate.getHours()}:${currentdate.getMinutes()} `;
-
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const newUser = {
     f_Username: username,
     f_Password: passwordHashed,
@@ -183,13 +182,9 @@ exports.changePassword = async (req, res) => {
   // Step 4: Delete token, Update and redirect to login
   await accountM.editAccount(req.params.id, newUser);
   res.clearCookie("jwt");
-  res.redirect('./login')
-}
+  res.redirect("./login");
+};
 
-exports.getForgotPassword = async (req, res) => {
+exports.getForgotPassword = async (req, res) => { };
 
-}
-
-exports.forgotPassword = async (req, res) => {
-
-}
+exports.forgotPassword = async (req, res) => { };

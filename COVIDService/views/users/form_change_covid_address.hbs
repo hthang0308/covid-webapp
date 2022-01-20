@@ -7,10 +7,16 @@
 >
   <h1 class="display-5">CHANGE COVID ADDRESS</h1>
   Old Covid Address:
-  {{user.f_CovidAddress}}
-  <div class="form-group mt-3">
-    <label for="f_CovidAddress">New Covid Address</label>
-    <input type="text" class="form-control" id="f_CovidAddress" placeholder="New Covid Address" name="f_CovidAddress" />
-  </div>
+  {{oldql.f_Address}}
+  <br />
+  New Covid Address:
+  <select id="ql" name="ql" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+    <option selected>Select Address...</option>
+    {{#each qls}}
+      <option value="{{this.f_ID}}">{{this.f_Address}}
+        <br /></option>
+    {{/each}}
+  </select>
+  <input type="hidden" name="oldql" value="{{oldql.f_ID}}" />
   <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">CONFIRM CHANGE</button>
 </form>

@@ -1,24 +1,24 @@
-Name:
-{{user.f_Name}}
+Username:
+{{user.f_Username}}
+<br />
+Fullname:
+{{user.f_Fullname}}
 <br />
 ID:
-{{user.f_ID}}
+{{user.f_NatID}}
 <br />
 Birthday:
-{{user.f_Birthday}}
+{{user.f_DOB}}
 <br />
 Address:
-{{user.f_Address}}
+{{address}}
 <br />
-F{{user.f_Fx}}
-<br />
-CovidAddress:
-{{user.f_CovidAddress}}
+Covid State: F{{user.f_Fx}}
 <br />
 RelatedID:
 <br />
 {{#each user.f_RelatedID}}
-  <a href="/user/{{this}}/edit">{{this}}</a>
+  <a href="/user/{{this}}">{{this}}</a>
   <br />
 {{/each}}
 History:
