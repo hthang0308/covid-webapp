@@ -130,7 +130,7 @@ exports.signup = async (req, res) => {
     return;
   }
   const passwordHashed = await bcrypt.hash(password, saltRounds);
-  var currentdate = new Date();
+  var currentDate = new Date();
   var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
     }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const tmpUser = {
