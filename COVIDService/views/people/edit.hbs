@@ -1,0 +1,76 @@
+<div id="content-1" class="content shadow border rounded p-2 py-3" value="people">
+    <div class="container-fluid pt-3 pb-5">
+        <div class="row">
+        {{#if user}}
+                    <div class="col-12 col-sm-3">
+                <img src="../../assets/img/avt.jpg" alt="Ảnh đại diện" srcset="" class="img-thumbnail img-fluid"
+                    style="width: 100%;" />
+            </div>
+            <div class="col-12 col-sm-9">
+                <form action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="f_Fullname" class="font-weight-bold">Họ tên</label>
+                            <input id="f_Fullname" type="text" class="form-control" value="{{this.f_Fullname}}"
+                                name="f_Fullname" readonly />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="f_DOB-input" class="font-weight-bold">Ngày sinh</label>
+                            <input type="text" class="form-control" id="f_DOB-input" value="{{this.f_DOB}}"
+                                name="f_DOB" readonly />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="f_NatID-input" class="font-weight-bold">CMND/CCCD</label>
+                            <input type="text" class="form-control" id="f_NatID-input" value="{{this.f_NatID}}" name="idcard"
+                                readonly />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                        <label for="f_RelatedID-input" class="font-weight-bold">Trạng thái</label>
+                        <input type="text" class="form-control" id="f_RelatedID-input"
+                            value="{{this.f_Fx}}" name="f_RelatedID"  readonly />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="treatment-place-input" class="font-weight-bold">Nơi
+                                điều trị/cách ly</label>
+                            <input type="text" class="form-control" id="treatment-place-input" value="Bình Phước"
+                                name="treatment_place" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="f_RelatedID-input" class="font-weight-bold">Những
+                            người liên đới</label>
+                        <input type="text" class="form-control" id="f_RelatedID-input"
+                            value="
+                            {{#each this.f_RelatedID}}{{this}},{{/each}}
+                            " name="f_RelatedID"
+                            readonly />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <form method="post" action="/user/{{this.f_ID}}?_method=PUT" onsubmit="setTimeout(function(){window.location.reload();},100);">
+                            <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">INCREASE COVID STATUS</button>
+                            </form>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <form action="/user/{{this.f_ID}}/change_covid_address" method="get" onsubmit="setTimeout(function(){window.location.reload();},100);">
+                                <button class="btn btn-block btn-outline-danger my-3 my-sm-0" type="submit">CHANGE COVID ADDRESS</button>
+                            </form>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check mr-1"></i>
+                        Lưu
+                    </button>
+                </form>
+            </div>
+        {{else}}
+            <h3 class="text-uppercase">Không có dữ liệu</h3>
+        {{/if}}
+        </div>
+    </div>
+</div>
