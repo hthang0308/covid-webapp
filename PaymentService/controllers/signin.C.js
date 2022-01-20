@@ -27,17 +27,16 @@ class SignInController {
                     });
                     return;
                 }
-                res.render('firstSignIn', {
+                return res.render('firstSignIn', {
                     accid: acc.AccID
                 });
-                return;
             }
-            res.render('signin', {
+            return res.render('signin', {
                 msg: 'ID tài khoản không tồn tại',
                 color: 'danger',
             })
         }
-        res.render('signin', {
+        return res.render('signin', {
             msg: 'ID tài khoản trống',
             color: 'danger'
         })
