@@ -22,7 +22,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 require('./middlewares/handlebars')(app);
 require('./middlewares/passport')(app);
 app.use(express.json());

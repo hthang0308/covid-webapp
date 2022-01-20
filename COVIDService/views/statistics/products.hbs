@@ -1,13 +1,15 @@
 <div id="content-1" class="content shadow border rounded container-fluid mb-5">
   <div class="row pt-3 border-bottom">
     <div class="col-12 col-lg-8 h-100">
-      <p id="product-name" class="title text-blue text-center text-md-left text-uppercase" style="font-size: 1.8rem; font-weight: bold;">Thống kê số người nhiễm Covid</p>
+      <p id="product-name" class="title text-blue text-center text-md-left text-uppercase"
+        style="font-size: 1.8rem; font-weight: bold;">Thống kê gói nhu yếu phẩm</p>
     </div>
-    <div class="col-12 col-lg-4">
+    <div class="col-12 col-lg-4" style="display:none">
       <form id="filterby-form" class="form-inline" action="/statistic/sta" method="post">
         <div class="form-group mb-2">
           <label for="filter-by"><i class="fas fa-calendar-alt"></i></label>
-          <select class="form-control shadow-none custom-select filterby mx-sm-2" id="filter-by" aria-label="filter-by" name="filter_by">
+          <select class="form-control shadow-none custom-select filterby mx-sm-2" id="filter-by" aria-label="filter-by"
+            name="filter_by">
             <option value="1/2022">1/2022</option>
             <option value="12/2021">12/2021</option>
             <option value="11/2021">11/2021</option>
@@ -25,82 +27,104 @@
         <table class="table table-content border mb-0 menu">
           <thead class="thead-light">
             <tr>
-              <th scope="col">Trạng thái (F)</th>
-              <th scope="col" class="text-center">Tổng số người</th>
+              <th scope="col">Mã Gói</th>
+              <th scope="col" class="text-center">Tổng số đã bán</th>
             </tr>
           </thead>
+          {{#if status}}
           <tbody>
             {{#each status}}
             <tr class="section">
               <td class="status">
-                {{this.f_Fx}}
+                {{this.f_PackageID}}
               </td>
               <td class="quantity text-center">
-                {{this.soluong}}
+                {{this.sum}}
               </td>
             </tr>
             {{/each}}
             <tr class="section total-row font-weight-bold">
-              <th scope="row" colspan="2">Tổng</th>
+              <th scope="row" colspan="1">Tổng</th>
               <td id="total" class="number-total text-center"></td>
             </tr>
           </tbody>
+          {{else}}
+          <h3 class="text-uppercase">Không có dữ liệu</h3>
+          {{/if}}
         </table>
       </div>
     </div>
     {{#if status}}
-      <div class="col-md-7 col-12 d-flex justify-content-center">
-        <div id="people-chart" style="min-height: 350px;"></div>
-        <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="col-md-7 col-12 d-flex justify-content-center">
+      <div id="people-chart" style="min-height: 350px;"></div>
+      <canvas id="myChart" width="400" height="400"></canvas>
 
-      </div>
+    </div>
     {{/if}}
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['F0', 'F1', 'F2', 'F3'],
-        datasets: [{
-            label: '#F',
-            data: [{{data}}],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-            ],
-            borderWidth: 1
-        }]
+      labels: [{{ label }}],
+    datasets: [{
+      label: '#ID',
+      data: [{{ data }}],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(255, 206, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+    ],
+    borderColor: [
+      'rgba(255, 99, 132, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(255, 206, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+    ],
+    borderWidth: 1
+  }]
     },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
     }
+  }
 });
 </script>
 {{#section "script"}}
-  {{#if status}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script>
-      $(document).ready(function() { let total = 0; var xValues=[], yValues=[]; $(".status").each(function() {console.log($(this));
-      xValues.push($(this).text()) }) $(".quantity").each(function() { yValues.push(parseInt($(this).text())); total = total +
-      parseInt($(this).text()); $("#total").text(total); }) var barColors = ['#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf']; new
-      Chart("product-chart", { type: "bar", data: { labels: xValues, datasets: [{ backgroundColor: barColors, data: yValues }] }, options: { legend: {
-      display: false }, title: { display: true, text: "Doanh số bán nhu yếu phẩm" } } }); })
-    </script>
-  {{/if}}
+{{#section css}}
+    
+{{/section}}
+{{#if status}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+  $(document).ready(function () {
+    let total = 0;
+    $(".quantity").each(function () {
+      total = total + parseInt($(this).text());
+      console.log(total);
+      if (total) {
+        $("#total").text(total);
+      } else {
+        $("#total").text(0);
+      }
+    })
+    var barColors = ['#f57a75', '#BDD5EA', '#8be4ba', '#49c6c5', '#3a59bf']; new
+      Chart("product-chart", {
+        type: "bar", data: { labels: xValues, datasets: [{ backgroundColor: barColors, data: yValues }] }, options: {
+          legend: {
+            display: false
+          }, title: { display: true, text: "Doanh số bán nhu yếu phẩm" }
+        }
+      });
+  })
+</script>
+{{/if}}
 {{/section}}

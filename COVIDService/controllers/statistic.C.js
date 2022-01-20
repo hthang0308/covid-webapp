@@ -5,8 +5,8 @@ exports.statistic = async (req, res) => {
   let tableName = "Users";
   let fieldName = "f_Fx";
   // Ngày thống kê sẽ lấy từ req
-  let value = "3/1/2022";
-  if (req.body) {
+  let value = "1/2022";
+  if (req.body && req.body.filter_by) {
     value = req.body.filter_by
   }
   const data = await db.newStatistic(tableName, fieldName, value);
@@ -31,14 +31,17 @@ exports.simpleStatistic = async (req, res) => {
   let fieldName = "f_PackageID";
   // let staField = "Sold";
   let data = await db.simpleStatistic(tableName, fieldName, "f_Quantity");
-  const chart_data = [];
+  var chart_data = [];
+  var label = [];
   data.forEach(element => {
     chart_data.push(parseInt(element.sum));
+    label.push(element.f_PackageID)
   })
   console.log("chart: ", chart_data);
   res.render("statistics/products", {
     layout: "manager",
     status: data,
+    label: label,
     data: chart_data,
   });
 };

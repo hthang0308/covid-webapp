@@ -10,6 +10,7 @@
     {{balance}}
   </div>
 </div>
+{{#if notadmin}}
 <p>
   <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false"
     aria-controls="collapseExample" style="width: 200px;">
@@ -26,6 +27,22 @@
 
   </form>
 </div>
+<p>
+  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false"
+    aria-controls="collapseExample" style="width: 200px;">
+    Thanh toán
+  </button>
+</p>
+<div id="collapse3" class="collapse">
+  <form class="form-inline" action="/transfer" method="POST">
+    <div class="form-group mb-2">
+      <label for="money" class="mr-4">Nhập số tiền cần chuyển (VNĐ): </label>
+      <input type="text" class="form-control shadow-sm rounded" placeholder="Số tiền" name="money">
+    </div>
+    <button type='submit' class="btn btn-info mb-2 ml-2">Chuyển tiền</button>
+
+  </form>
+</div>
 <div class='mt-2'>
   <a href="/history" class="btn btn-dark" style="width: 200px;">Lịch sử thanh toán</a>
 </div>
@@ -35,6 +52,14 @@
 <div class='mt-3'>
   <a href="/signout" class="btn btn-secondary" style="width: 200px;">Đăng xuất</a>
 </div>
+{{else}}
+<div class='mt-3'>
+  <a href="/changePass" class="btn btn-dark" style="width: 200px;">Thay đổi mật khẩu</a>
+</div>
+<div class='mt-3'>
+  <a href="/signout" class="btn btn-secondary" style="width: 200px;">Đăng xuất</a>
+</div>
+{{/if}}
 {{#if msg}}
 <div class="alert alert-info text-center mt-4 font-weight-bold" style="width:400px;">{{msg}}</div>
 {{/if}}

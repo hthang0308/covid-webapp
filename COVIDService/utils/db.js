@@ -137,7 +137,7 @@ exports.newStatistic = async (tbName, fieldName, value) => {
 // SIMPLE STATISTICS
 exports.simpleStatistic = async (tbName, fieldName, staField) => {
   const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
-  const qStr = pgp.as.format(`select "${fieldName}",sum("${staField}") from ${table} group by "${fieldName}"`, table);
+  const qStr = pgp.as.format(`SELECT "${fieldName}",SUM("${staField}") FROM ${table} GROUP BY "${fieldName}" ORDER BY "${fieldName}" ASC`, table);
   console.log(qStr);
   try {
     const res = await db.any(qStr);

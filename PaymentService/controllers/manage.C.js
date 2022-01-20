@@ -52,7 +52,8 @@ exports.addBalance = async (req, res, next) => {
             res.render('home', {
                 balance: formatedBal,
                 accid: req.user.AccID,
-                msg: 'Nạp tiền thất bại'
+                msg: 'Nạp tiền thất bại',
+                notadmin: 'true'
             });
             return;
         }
@@ -75,6 +76,7 @@ exports.addBalance = async (req, res, next) => {
         res.render('home', {
             balance: formatedBal,
             accid: req.user.AccID,
+            notadmin: 'true',
             msg: `Nạp ${formatedAddBal} vào tài khoản thành công`
         });
         return;
@@ -126,11 +128,13 @@ exports.transfer = async (req, res, next) => {
     var response = {
         Response: 'false'
     }
-    if (req.body && req.body.access_token) {
-        var decoded = await jwt.verify(req.body.access_token, process.env.JWT_SECRET)
+    var access_token = req.cookies.access_token;
+    if (req.body && access_token) {
+        var decoded = await jwt.verify(access_token, process.env.JWT_SECRET)
         if (!decoded) {
             response.Error = 'Verify failed'
-            return res.json(response);
+            // return res.json(response);
+            return res.redirect('/');
         }
         const accId = decoded.id;
         const money = parseFloat(req.body.money);
@@ -140,7 +144,8 @@ exports.transfer = async (req, res, next) => {
             acc.Balance = parseFloat(acc.Balance) - money;
             if (acc.Balance < 0) {
                 response.Error = "Not enough money";
-                return res.json(response);
+                //return res.json(response);
+                return res.redirect('/');
             }
             accAdmin.Balance = parseFloat(accAdmin.Balance) + money;
             await accountModel.updateAccount(adminId, accAdmin);
@@ -159,7 +164,8 @@ exports.transfer = async (req, res, next) => {
                 AccID: accId
             }
             await transactionModel.addTransaction(newTra);
-            return res.json(response);
+            //return res.json(response);
+            return res.redirect('/');
 
         } catch (error) {
             console.log('Error transfer money');

@@ -8,11 +8,18 @@ exports.getHome = (req, res) => {
             style: 'currency',
             currency: 'VND'
         }).format(req.user.Balance);
-        res.render('home', {
+        if (req.user.AccID === 1000) {
+            return res.render('home', {
+                balance: formatedBal,
+                accid: req.user.AccID
+            });
+        }
+        return res.render('home', {
             balance: formatedBal,
-            accid: req.user.AccID
+            accid: req.user.AccID,
+            notadmin: 'true'
         });
-        return;
+
     }
     res.redirect('/signin')
 }
