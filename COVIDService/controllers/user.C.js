@@ -8,20 +8,20 @@ const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 // GetHomePage for Users
 exports.getHome = async (req, res) => {
   user = await userModel.getUserByID(req.user.f_ID);
-  console.log(user)
+  console.log(user);
 };
 
 exports.getHistory = async (req, res) => {
   user = await userModel.getUserByID(req.user.f_ID);
-  var result = await user.f_History.filter(item => item.includes("Manage User"));
+  var result = await user.f_History.filter((item) => item.includes("Manage User"));
   console.log(result);
-}
+};
 
 exports.getOrder = async (req, res) => {
   // user = await userModel.getUserByID(req.user.f_ID);
   var result = await orderModel.getOrderByAccountID(req.user.f_ID);
   console.log(result);
-}
+};
 
 exports.getBalance = async (req, res) => {
   const id = req.params.id;
@@ -48,6 +48,7 @@ exports.getAllUsers = async (req, res) => {
   if (req.query.sort === "date") sort.sortByDate(arr);
   if (req.query.sort === "id") sort.sortByID(arr);
   if (req.query.sort === "name") sort.sortByFullName(arr);
+  console.log(arr);
   res.render("users/all", {
     users: arr,
     title: "Danh sách người liên quan COVID-19",

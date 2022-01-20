@@ -3,32 +3,32 @@ const hbs_section = require("express-handlebars-sections");
 
 module.exports = (app) => {
   const hbs = exhbs.create({
-    defaultLayout: "homes",
+    defaultLayout: "manager",
     extname: ".hbs",
     layoutsDir: "views/layouts",
     partialsDir: "views/partials",
     helpers: {
       calculate(op1, op2, opt, choice) {
         var opts = {
-          eq: function (l, r) {
-            return l == r;
+            eq: function (l, r) {
+              return l == r;
+            },
+            noteq: function (l, r) {
+              return l != r;
+            },
+            gt: function (l, r) {
+              return Number(l) > Number(r);
+            },
+            or: function (l, r) {
+              return l || r;
+            },
+            and: function (l, r) {
+              return l & r;
+            },
+            "%": function (l, r) {
+              return l % r === 0;
+            },
           },
-          noteq: function (l, r) {
-            return l != r;
-          },
-          gt: function (l, r) {
-            return Number(l) > Number(r);
-          },
-          or: function (l, r) {
-            return l || r;
-          },
-          and: function (l, r) {
-            return l & r;
-          },
-          "%": function (l, r) {
-            return l % r === 0;
-          },
-        },
           result = opts[opt](op1, op2);
 
         if (result) return choice.fn(this);
@@ -50,7 +50,7 @@ module.exports = (app) => {
       },
       _toInt: function (str) {
         return parseInt(str, 10);
-      }
+      },
     },
   });
   hbs_section(hbs);

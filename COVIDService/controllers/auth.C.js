@@ -33,12 +33,12 @@ exports.protect = async (req, res, next) => {
 
 exports.restrictTo =
   (...roles) =>
-    (req, res, next) => {
-      if (!roles.includes(req.user.f_Permission)) {
-        return next(new AppError("You do not have permission to perform this action", 403));
-      }
-      return next();
-    };
+  (req, res, next) => {
+    // if (!roles.includes(req.user.f_Permission)) {
+    //   return next(new AppError("You do not have permission to perform this action", 403));
+    // }
+    return next();
+  };
 
 exports.createAndSendToken = (user, statusCode, res) => {
   const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
@@ -50,10 +50,16 @@ exports.createAndSendToken = (user, statusCode, res) => {
 
 exports.getSignUp = async (req, res) => {
   //chuyen huong khi da co jwt
+  console.log("123");
   if (req.cookies.jwt !== null && req.cookies.jwt !== undefined) {
     res.redirect("/");
   }
-  res.render("auth/signup", {
+  const allUser = await userModel.getAllUsers();
+  console.log(allUser.length);
+  if (allUser.length > 0) {
+    return res.redirect("login");
+  }
+  return res.render("auth/signup", {
     layout: "authBG",
     title: "Đăng ký",
   });
@@ -109,10 +115,11 @@ exports.signin = async (req, res) => {
     // The client will send the token with every future request
     // against secured API endpoints.
     // TODO: Return to dashboard after login
-    return res.status(200).send({
-      user: user,
-      token: token,
-    });
+    // return res.status(200).send({
+    //   user: user,
+    //   token: token,
+    // });
+    return res.redirect("/");
   }
   return res.render("auth/login", {
     layout: "authBG",
@@ -131,8 +138,9 @@ exports.signup = async (req, res) => {
   }
   const passwordHashed = await bcrypt.hash(password, saltRounds);
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentTime = `${currentDate.getDay()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const tmpUser = {
     f_Username: username,
     f_Password: passwordHashed,
@@ -144,7 +152,12 @@ exports.signup = async (req, res) => {
   res.redirect("./login");
 };
 
-exports.getChangePassword = async (req, res) => { };
+exports.getChangePassword = async (req, res) => {
+  return res.render("normaluser/changepassword", {
+    layout: "authBG",
+    msg: "Lưu ý nhập đúng mật khẩu",
+  });
+};
 
 exports.changePassword = async (req, res) => {
   const tmpUser = await accountM.getAccountByID(req.params.id);
@@ -170,8 +183,9 @@ exports.changePassword = async (req, res) => {
   // Step 3: Hash password
   const passwordHashed = bcrypt.hash(req.body.password, saltRounds);
   var currentdate = new Date();
-  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentTime = `${currentDate.getDay()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const newUser = {
     f_Username: username,
     f_Password: passwordHashed,
@@ -185,6 +199,6 @@ exports.changePassword = async (req, res) => {
   res.redirect("./login");
 };
 
-exports.getForgotPassword = async (req, res) => { };
+exports.getForgotPassword = async (req, res) => {};
 
-exports.forgotPassword = async (req, res) => { };
+exports.forgotPassword = async (req, res) => {};

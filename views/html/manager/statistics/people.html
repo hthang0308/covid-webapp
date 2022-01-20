@@ -15,10 +15,20 @@
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../../assets/js/all.min.js"></script>
     <link rel="stylesheet" href="../../assets/css/main.css" />
+    <script src="../../assets/js/loading.js"></script>
 
 </head>
 
 <body>
+    <div class="loading text-center">
+        <div class="spinner-border spinner-border-lg text-primary" role="status" aria-hidden="true"></div>
+        <span class="my-5">
+          <span class="h3 font-weight-bold">Đang tải</sp>
+          <div class="spinner-grow spinner-grow-xs text-primary mx-1 my-1" role="status"></div>
+          <div class="spinner-grow spinner-grow-xs text-red mx-1 my-1" role="status"></div>
+          <div class="spinner-grow spinner-grow-xs text-green mx-1 my-1" role="status"></div>
+        </span>
+      </div>
     <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
         <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
         <form

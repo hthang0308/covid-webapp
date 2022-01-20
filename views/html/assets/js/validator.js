@@ -21,13 +21,26 @@ function Validator(selector) {
 
         min: function (minimum) {
             return function(value, title) {
-                value.length <= minimum ? undefined : `Sử dụng ${minimum} ký tự trở lên cho ${title} của bạn.`;
+               return value.length <= minimum ? undefined : `Sử dụng ${minimum} ký tự trở lên cho ${title} của bạn.`;
             };
         },
 
         max: function (maximum) {
             return function(value, title) {
-                value.length <= maximum ? undefined : `Sử dụng tối đa ${maximum} ký tự cho ${title} của bạn.`;
+               return value.length <= maximum ? undefined : `Sử dụng tối đa ${maximum} ký tự cho ${title} của bạn.`;
+            };
+        },
+
+        min_value: function (minimum) {
+            return function(value, title) {
+                return parseInt(value) >= parseInt(minimum) ? undefined : `Giá trị tối thiếu là ${minimum}.`;
+            };
+
+        },
+        max_value: function (maximum) {
+            console.log(maximum);
+            return function(value, title) {
+                return parseInt(value) <= parseInt(maximum) ? undefined : `Giá trị tối đa là ${maximum}`;
             };
         },
 
