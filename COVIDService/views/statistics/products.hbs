@@ -41,14 +41,14 @@
                                 <td class="status">
                                     {{this.trangthai}}
                                 </td>
-                                <td class="number text-center">
+                                <td class="quantity text-center">
                                     {{this.soluong}}
                                 </td>
                             </tr>
                         {{/each}}
                         <tr class="section total-row font-weight-bold">
                             <th scope="row" colspan="2">Tổng</th>
-                            <td class="number-total text-center"></td>
+                            <td id="total" class="number-total text-center"></td>
                         </tr>
                         {{else}}
                             <h3 class="text-uppercase">Không có dữ liệu</h3>
@@ -67,38 +67,42 @@
 
 {{#section 'script'}}
     {{#if status}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let total = 0;
+            var xValues=[], yValues=[];
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <script>
-            google.charts.load('current', { 'packages': ['corechart'] });
-            google.charts.setOnLoadCallback(drawChart);
+            $(".status").each(function() {
+                xValues.push($(this).text())
+            })
 
-            function drawChart() {
-                var peopleData = google.visualization.arrayToDataTable([
-                    ['Status', 'Amount'],
-                    {{#each status}}
-                        [{{this.trangthai}}, {{this.soluong}}]
-                    {{/each}}
-                ]);
+            $(".quantity").each(function() {
+                yValues.push(parseInt($(this).text()));
+                total = total + parseInt($(this).text());
+                $("#total").text(total);
+            })
+            
+            var barColors = ['#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf'];
 
-                var options = {
-                    title: 'Nhu yếu phẩm',
-                    chartArea: {
-                        // leave room for y-axis labels
-                        width: '94%',
-                    },
-                    width: '100%',
-                    height: '100%',
-                    colors: ['#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf'],
-                    animation: {
-                        duration: 1000,
-                        easing: 'out',
+            new Chart("product-chart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "Doanh số bán nhu yếu phẩm"
                     }
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('people-chart'));
-                chart.draw(peopleData, options);
-            }    
-        </script>
+                }
+            });
+        })
+    </script>
     {{/if}}
 {{/section}}

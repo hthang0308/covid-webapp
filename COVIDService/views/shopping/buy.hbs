@@ -1,0 +1,188 @@
+<div id="content-1" class="content shadow border rounded p-2">
+    <div class="container-fluid min-vh-100">
+        {{#if package}}
+        <form id="buy-form" action="/" method="POST">
+            <div class="row pt-3">
+                <div class="col-12 h-100">
+                    <p id="product-name" class="title text-blue text-center text-md-left border-bottom text-uppercase"
+                        style="font-size: 1.8rem; font-weight: bold;">
+                        Gói lương thực, thực phẩm
+                    </p>
+                    <input type="text" class="form-control" id="packageID" name="packageID" value="1" hidden />
+                </div>
+            </div>
+            <!-- LIST OF PRODUCTS -->
+            <div class="row">
+                <div class="col-12">
+                    <p class="" style="font-size: 1.1rem; font-weight: bold;">
+                        Mức gới hạn: 1 gói/1 người/2 tuần
+                    </p>
+                </div>
+                <div class="col-12">
+                    <h5 class="text-muted" style="font-size: 1.1rem;">Danh sách các sản
+                        phẩm</h5>
+                    <div class="table-responsive-xl table-hover">
+                        <table class="table table-content border mb-0 menu">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col" colspan="5">Sản phẩm</th>
+                                    <th class="text-center" scope="col">Đơn giá</th>
+                                    <th class="text-center" scope="col">Số lượng sản phẩm tối đa</th>
+                                    <th class="text-center" scope="col">Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="section">
+                                    <th class="align-middle" scope="row">1</th>
+                                    <td class="align-middle name" title="name" colspan="5">
+                                        <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                            Gạo
+                                        </a>
+                                    </td>
+                                    <td class="align-middle text-center product-price" title="product-price">10000đ</td>
+                                    <td class="align-middle text-center product-limit-quantity"
+                                        title="product-limit-quantity">1</td>
+                                    <td class="align-middle text-center product-quantity d-flex text-center justify-content-center"
+                                        title="product-quantity">
+                                        <a role="button" class="btn plus-button text-red" type="button"
+                                            onclick="decrease(this)">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                        <div class="form-group-input">
+                                            <input type="text" class="form-control text-center" id="product-quantity-3"
+                                                name="product-quantity" value="1"
+                                                rules="required|min_value:1|max_value:1|number" style="max-width: 100px"
+                                                title="Số lượng" />
+                                            <span class="invalid-feedback"></span>
+                                        </div>
+                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                            onclick="increase(this)">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr class="section">
+                                    <th class="align-middle" scope="row">2</th>
+                                    <td class="align-middle name" title="name" colspan="5">
+                                        <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                            Mì
+                                        </a>
+                                    </td>
+                                    <td class="align-middle text-center product-price" title="product-price">10000đ</td>
+                                    <td class="align-middle text-center product-limit-quantity"
+                                        title="product-limit-quantity">2</td>
+                                    <td class="align-middle text-center product-quantity d-flex text-center justify-content-center"
+                                        title="product-quantity">
+                                        <a role="button" class="btn plus-button text-red" type="button"
+                                            onclick="decrease(this)">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                        <div class="form-group-input">
+                                            <input type="text" class="form-control text-center" id="product-quantity-3"
+                                                name="product-quantity" value="1"
+                                                rules="required|min_value:1|max_value:1|number" style="max-width: 100px"
+                                                title="Số lượng" />
+                                            <span class="invalid-feedback"></span>
+                                        </div>
+                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                            onclick="increase(this)">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr class="section">
+                                    <th class="align-middle" scope="row">1</th>
+                                    <td class="align-middle name" title="name" colspan="5">
+                                        <a class="nav-link p-0 details-link text-default" href="/products/:id">
+                                            Gạo
+                                        </a>
+                                    </td>
+                                    <td class="align-middle text-center product-price" title="product-price">10000đ</td>
+                                    <td class="align-middle text-center product-limit-quantity"
+                                        title="product-limit-quantity">2</td>
+                                    <td class="align-middle text-center product-quantity d-flex text-center justify-content-center"
+                                        title="product-quantity">
+                                        <a role="button" class="btn plus-button text-red" type="button"
+                                            onclick="decrease(this)">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                        <div class="form-group-input">
+                                            <input type="text" class="form-control text-center" id="product-quantity-3"
+                                                name="product-quantity" value="1"
+                                                rules="required|min_value:1|max_value:1|number" style="max-width: 100px"
+                                                title="Số lượng" />
+                                            <span class="invalid-feedback"></span>
+                                        </div>
+                                        <a tole="button" class="btn plus-button text-red" type="button"
+                                            onclick="increase(this)">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div
+                            class="my-3 d-flex flex-column flex-sm-row justify-content-sm-between align-sm-items-center w-100">
+                            <div class="total d-flex align-items-center mb-3 mr-3">
+                                <h5 class="px-1 m-0">Tổng thanh toán:</h5>
+                                <h5 class="px-1 m-0 text-red"><span id="total" class="mr-1">0</span>đ</h5>
+                            </div>
+                            <button class="btn btn-primary btn-red mb-3" style="min-width: 200px" type="submit">
+                                <i class="fas fa-money-bill mr-1"></i>
+                                Mua Hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {{/if}}
+    </div>
+</div>
+
+{{#section 'script'}}
+    <script src="/js/validator.js"></script>
+    <script>
+        var increase, decrease;
+        $(document).ready(function () {
+
+            var totalCalculate = function () {
+                var total = 0;
+                $("[name=product-quantity]").each(function () {
+                    var unit_price = parseInt($(this).parents(".product-quantity").siblings(".product-price").text());
+                    total = total + parseInt($(this).val()) * unit_price;
+                })
+                $("#total").text(total);
+                return total;
+            }
+
+            totalCalculate();
+
+            increase = function (object) {
+                var currentVal = $(object).siblings().find("[name=product-quantity]").val();
+                if (currentVal) {
+                    $(object).siblings().find("[name=product-quantity]").val(parseInt(currentVal) + 1).removeClass('is-invalid');
+                } else {
+                    $(object).siblings().find("[name=product-quantity]").val(1).removeClass('is-invalid');
+                }
+                totalCalculate();
+            }
+
+            decrease = function (object) {
+                var currentVal = $(object).siblings().find("[name=product-quantity]").val();
+                if (currentVal) {
+                    $(object).siblings().find("[name=product-quantity]").val(parseInt(currentVal) - 1).removeClass('is-invalid');
+                } else {
+                    $(object).siblings().find("[name=product-quantity]").val(1).removeClass('is-invalid');
+                }
+                totalCalculate();
+            }
+            Validator('#buy-form');
+
+            $("[name=product-quantity]").on('change input', function () {
+                totalCalculate();
+            })
+        })
+    </script>
+{{/section}}

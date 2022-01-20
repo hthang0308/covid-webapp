@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping</title>
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../assets/css/all.min.css" />
+  <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+  <script src="../../assets/js/popper.min.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/all.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+</head>
+
+<body>
+  <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
+    <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
+    <form
+      class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
+      <div class="input-group flex-grow-1">
+        <input class="form-control border-0  shadow-none" type="text" placeholder="Tìm kiếm" aria-label="Search"
+          name='search'>
+        <div class="input-group-prepend">
+          <button class="btn text-center" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+    <button class="order-n1 navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#sidebar"
+      aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button class="navbar-toggler  border-0" type="button" data-toggle="collapse" data-target="#account-menu"
+      aria-controls="account-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-v"></i>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
+      <div class="btn-group nav-item dropdown ml-auto">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
+          <a class="dropdown-item nav-link" href="#">
+            <i class="fas fa-user mr-1 "></i>
+            Tài khoản của tôi
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-sign-out-alt mr-1"></i>
+            Lịch sử thanh toán
+          </a>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-sign-out-alt mr-1"></i>
+            Lịch sử điều trị
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-sign-out-alt mr-1"></i>
+            Đăng xuất
+          </a>
+        </div>
+      </div>
+      </ul>
+    </div>
+
+    <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
+      <div class="btn-group nav-item dropdown ml-auto">
+        <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button"
+          data-toggle="dropdown" aria-expanded="false">
+          <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
+          <a class="dropdown-item nav-link" href="#">
+            <i class="fas fa-user mr-1 "></i>
+            Tài khoản của tôi
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-history mr-1"></i>
+            Lịch sử thanh toán
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-history mr-1"></i>
+            Lịch sử điều trị
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">
+            <div class="">
+              <i class="fas fa-bell mr-1"></i>
+              Thông báo  
+            </div>
+            <span class="badge badge-primary">4</span>
+          </a>
+          <div class="dropdown-divider m-0"></div>
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-sign-out-alt mr-1"></i>
+            Đăng xuất
+          </a>
+        </div>
+      </div>
+      </ul>
+    </div>
+  </header>
+  <div class="main-content container-fluid">
+    <div class="row">
+      <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#" aria-current="page">
+                <i class="fas fa-home"></i>
+                <span class="ml-2">Thông tin cá nhân</span>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2 active"
+                href="#">
+                <i class="fas fa-users"></i>
+                <span class="ml-2">Shopping</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                href="#">
+                <i class="fas fa-fish"></i>
+                <span class="ml-2">Liên kết hệ thống thanh toán</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class=" pt-4 ml-sm-auto col-lg-10">
+        <!-- Danh sách gói -->
+        <div id="content-1" class="content shadow border rounded container-fluid">
+            <h3 class="text-lg-left text-center pt-3 text-uppercase text-blue border-bottom font-weight-bold"
+              style="font-size: 1.8rem;">
+              Danh sách các gói nhu yếu phẩm
+            </h3>
+            <div class="sub-navbar d-flex justify-content-md-between flex-md-row flex-column my-4"
+              style="font-size:.9rem">
+              <!-- Search-form -->
+              <form id='sub-nav__search-form' class="form-inline" action="/manager/people" method="GET">
+                <div class="form-group mb-2">
+                  <label for="sub-nav__search-input">Tìm kiếm</label>
+                  <input type="text" class="form-control shadow-none mx-sm-2" id="sub-nav__search-input"
+                    name="search"></input>
+                </div>
+              </form>
+  
+              <!-- Sort -->
+              <form id='sortby-form' class="form-inline" action="/manager/people" method="GET">
+                <div class="form-group mb-2">
+                  <label for="sub-nav__sort-by">Sắp xếp theo</label>
+                  <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by"
+                    aria-label="sort-by" name="sort_by">
+                    <option class="py-1" value="name-ascending" data-filter="&sortby=(name:asc)">Tên: A &rarr; Z</option>
+                    <option class="py-1" value="name-descending" data-filter="&sortby=(name:desc)">Tên: Z &rarr; A
+                    </option>
+                    <option class="py-1" value="price-ascending" data-filter="&sortby=(price:asc)">Giá: Tăng dần</option>
+                    <option class="py-1" value="price-descending" data-filter="&sortby=(price:desc)">Giá: Giảm dần
+                    </option>
+                    <option class="py-1" value="limitPackage-ascending" data-filter="&sortby=(limitPackage:asc)">Mức gói
+                      giới hạn: Tăng dần</option>
+                    <option class="py-1" value="limitPackage-descending" data-filter="&sortby=(limitPackage:desc)">Mức gói
+                      giới hạn: Giảm dần</option>
+                    <option class="py-1" value="limitTime-ascending" data-filter="&sortby=(limitTime:asc)">Thời gian giới
+                      hạn: Tăng dần</option>
+                    <option class="py-1" value="limitTime-descending" data-filter="&sortby=(limitTime:desc)">Thời gian
+                      giới hạn: Giảm dần</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <!-- LIST OF PACKAGES -->
+            <div class="table-responsive-xl table-hover">
+              <table class="table table-content border mb-0 menu">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên gói</th>
+                    <th scope="col">Các sản phẩm trong gói</th>
+                    <th class="text-center" scope="col">Mức giới hạn gói/người</th>
+                    <th class="text-center" scope="col">Thời gian giới hạn</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="section">
+                    <th class="align-middle" scope="row">1</th>
+                    <td class="align-middle name" title="name">
+                      <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                        Gói lương thực, thực phẩm
+                      </a>
+                    </td>
+                    <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                    <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                    <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                    <td colspan="6" class="align-middle text-center">
+                      <!-- Call to action buttons -->
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item mb-1">
+                          <a role="button" class="btn btn-success btn-sm rounded buy-btn" href="#">
+                            <i class="fas fa-cart-plus"></i>
+                            <span class="d-none d-md-inline">Mua ngay</sp>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="section">
+                    <th class="align-middle" scope="row">2</th>
+                    <td class="align-middle name" title="name">
+                      <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                        Gói vệ sinh cá nhân
+                      </a>
+                    </td>
+                    <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                    <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                    <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                    <td colspan="6" class="align-middle text-center">
+                      <!-- Call to action buttons -->
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item mb-1">
+                          <a role="button" class="btn btn-success btn-sm rounded buy-btn" href="#">
+                            <i class="fas fa-cart-plus"></i>
+                            <span class="d-none d-md-inline">Mua ngay</sp>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="section">
+                    <th class="align-middle" scope="row">3</th>
+                    <td class="align-middle name" title="name">
+                      <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                        Gói thuốc men
+                      </a>
+                    </td>
+                    <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                    <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                    <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                    <td colspan="6" class="align-middle text-center">
+                      <!-- Call to action buttons -->
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item mb-1">
+                          <a role="button" class="btn btn-success btn-sm rounded buy-btn" href="#">
+                            <i class="fas fa-cart-plus"></i>
+                            <span class="d-none d-md-inline">Mua ngay</sp>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="section">
+                    <th class="align-middle" scope="row">4</th>
+                    <td class="align-middle name" title="name">
+                      <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                        Gói vệ sinh nhà cửa
+                      </a>
+                    </td>
+                    <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                    <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                    <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                    <td colspan="6" class="align-middle text-center">
+                      <!-- Call to action buttons -->
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item mb-1">
+                          <a role="button" class="btn btn-success btn-sm rounded buy-btn" href="#">
+                            <i class="fas fa-cart-plus"></i>
+                            <span class="d-none d-md-inline">Mua ngay</sp>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="section">
+                    <th class="align-middle" scope="row">5</th>
+                    <td class="align-middle name" title="name">
+                      <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                        Gói lương thực
+                      </a>
+                    </td>
+                    <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                    <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                    <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                    <td colspan="6" class="align-middle text-center">
+                      <!-- Call to action buttons -->
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item mb-1">
+                          <a role="button" class="btn btn-success btn-sm rounded buy-btn" href="#">
+                            <i class="fas fa-cart-plus"></i>
+                            <span class="d-none d-md-inline">Mua ngay</sp>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="section">
+                    <th class="align-middle" scope="row">6</th>
+                    <td class="align-middle name" title="name">
+                      <a class="nav-link p-0 details-link text-default" href="/packages/:id">
+                        Gói lương thực
+                      </a>
+                    </td>
+                    <td class="align-middle products" title="products">Gạo, Mì gói</td>
+                    <td class="align-middle limit-package text-center" title="limit-package">2</td>
+                    <td class="align-middle limit-time text-center" title="limit-time">2 Tuần</td>
+                    <td colspan="6" class="align-middle text-center">
+                      <!-- Call to action buttons -->
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item mb-1">
+                          <a role="button" class="btn btn-success btn-sm rounded buy-btn" href="#">
+                            <i class="fas fa-cart-plus"></i>
+                            <span class="d-none d-md-inline">Mua ngay</sp>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+            <!-- PAGINATION -->
+            <nav id="main-pagination" class="mt-3" aria-label="Search results pages"></nav>
+          </div>
+          <footer class="container-fluid py-3 my-4 border-top">
+          <div class="d-flex align-items-center justify-content-center">
+            <span class="text-muted">© 2021 Company, Inc</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+  <script src="../../assets/js/sidebar.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+
+</html>
