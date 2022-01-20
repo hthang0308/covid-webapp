@@ -15,5 +15,5 @@ router.route("/forget-password").get(authCtrl.getForgotPassword).put(authCtrl.fo
 
 // Change password inside user, means login
 router.use(authCtrl.protect);
-router.route("/changepassword").get(authCtrl.getChangePassword).put(authCtrl.changePassword);
+router.route("/changepassword").get(authCtrl.getChangePassword).post(authCtrl.changePassword);
 module.exports = router;

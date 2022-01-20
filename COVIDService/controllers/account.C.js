@@ -4,8 +4,10 @@ const saltRounds = 10;
 // Route
 exports.getAllAccounts = async (req, res) => {
   arr = await accountModel.getAllAccounts();
+  arr = arr.filter((item) => item.f_Permission === 2);
   res.render("accounts/all", {
     accounts: arr,
+    length: arr.length,
   });
 };
 exports.createAccount = async (req, res) => {
@@ -13,7 +15,7 @@ exports.createAccount = async (req, res) => {
   if (tmp !== null && tmp !== undefined) {
     return res.render("accounts/form_add", { msg: "Username already exist!", color: "danger" });
   }
-  var currentdate = new Date();
+  var currentDate = new Date();
   var currentTime = `${currentDate.getDay()}/${
     currentDate.getMonth() + 1
   }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;

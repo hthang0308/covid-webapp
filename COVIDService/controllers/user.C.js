@@ -1,8 +1,9 @@
 const userModel = require("../models/user.M");
 const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
+const { API_URL } = require("../utils/constant");
 
 // Route
 // GetHomePage for Users
@@ -24,22 +25,31 @@ exports.getOrder = async (req, res) => {
 };
 
 exports.getBalance = async (req, res) => {
-  const id = req.params.id;
-  console.log('ID: ',id);
+  const id = req.user.f_ID;
+  // console.log('ID: ', id);
   //const { data: user } = await userModel.getUserByID(id);
   const user = await userModel.getUserByID(id);
-  console.log("User: ",user);
+  // console.log("User: ", user);
   // const { banking_token: token } = user;
-  const token = jwt.sign({id: id}, process.env.JWT_SECRET);
+  const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
   let data = {};
-  // let userBankingDetail = {};
-
   if (token) {
     data = await userModel.getPayment(id, token);
-    console.log("data:", data);
+    // console.log("data:", data);
   }
-  return res.json(data)
-}
+  return res.json(data);
+};
+
+exports.deposit = async (req, res) => {
+  //Step 1: Check user
+  const id = req.user.f_ID;
+
+  //Step 2: Pass id to payment
+  const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
+  if (token) {
+    return res.redirect(`${API_URL}/`);
+  }
+};
 
 // For managers
 exports.getAllUsers = async (req, res) => {
@@ -48,7 +58,15 @@ exports.getAllUsers = async (req, res) => {
   if (req.query.sort === "date") sort.sortByDate(arr);
   if (req.query.sort === "id") sort.sortByID(arr);
   if (req.query.sort === "name") sort.sortByFullName(arr);
-  console.log(arr);
+  arr.forEach(async (element) => {
+    const day = ("0" + element.f_DOB.getDay()).slice(-2);
+    const month = ("0" + element.f_DOB.getMonth()).slice(-2);
+    const year = element.f_DOB.getFullYear();
+    element.f_DOB = day + "/" + month + "/" + year;
+    const tmpWard = await userModel.getWardByID(element.f_Ward);
+    console.log(tmpWard);
+    element.f_Ward = tmpWard.f_Name;
+  });
   res.render("users/all", {
     users: arr,
     title: "Danh sách người liên quan COVID-19",
@@ -156,29 +174,30 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   tmpUser = await userModel.getUserByID(req.params.id);
-  console.log("user", tmpUser);
-  if (tmpUser === null || tmpUser === undefined) {
+  if (!tmpUser) {
     return res.redirect("/user/all");
   }
   const ward = await userModel.getWardByID(tmpUser.f_Ward);
   console.log("ward", ward);
-  if (ward === null || ward === undefined) {
+  if (!ward) {
     return res.redirect("/user/all");
   }
   const district = await userModel.getDistrictByID(ward.f_District);
   console.log("district", district);
-  if (district === null || district === undefined) {
+  if (!district) {
     return res.redirect("/user/all");
   }
   const city = await userModel.getCityByID(district.f_City);
   console.log("city", city);
-  if (city === null || city === undefined) {
+  if (!city) {
     return res.redirect("/user/all");
   }
   const fulladdress = ward.f_Name + ", " + district.f_Name + ", " + city.f_Name;
+  const qlocation = await userModel.getQLByID(tmpUser.f_QuarantineID);
   res.render("users/single", {
     user: tmpUser,
     address: fulladdress,
+    qlocation: qlocation.f_Address,
   });
 };
 

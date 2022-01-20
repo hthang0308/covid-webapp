@@ -11,9 +11,10 @@ router.use(authCtrl.protect);
 // User roles
 // router.use(authCtrl.restrictTo(1))
 router.route("/").get(userCtrl.getHome);
-router.route('/getBalance/:id').get(userCtrl.getBalance);
+router.route('/balance').get(userCtrl.getBalance);
 router.route("/history").get(userCtrl.getHistory);
 router.route("/packages").get(userCtrl.getOrder);
+router.route("/deposit").get(userCtrl.deposit);
 
 // Manager roles
 router.use(authCtrl.restrictTo(0, 2));

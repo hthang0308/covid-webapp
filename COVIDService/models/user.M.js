@@ -56,18 +56,18 @@ module.exports = {
       accid: _f_ID
     })
     return response.data;
-      // .then((res) => {
-      //   console.log("Res: ", res.data);
-      //   if (res.data.Response === 'true') {
-      //     console.log("true");
-      //     return res.data;
-      //   }
-      // })
-      // .catch((err) => {
-      //   console.log("Error Balance: ", err)
-      //   return err;
-      // }
-      //   );
+    // .then((res) => {
+    //   console.log("Res: ", res.data);
+    //   if (res.data.Response === 'true') {
+    //     console.log("true");
+    //     return res.data;
+    //   }
+    // })
+    // .catch((err) => {
+    //   console.log("Error Balance: ", err)
+    //   return err;
+    // }
+    //   );
 
     // data = data.map((item) => ({
     // ...item,
@@ -77,15 +77,6 @@ module.exports = {
   },
 
   deposit: async (_f_ID, token) => {
-    let { data } = await axios({
-      method: "POST",
-      url: `${API_URL}/addBalance/${_f_ID}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
-    return { data };
+
   },
 };
