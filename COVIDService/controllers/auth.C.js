@@ -86,7 +86,7 @@ exports.getSignOut = async (req, res) => {
 exports.signin = async (req, res) => {
   let user = await userModel.getUserByUsername(req.body.username);
   // console.log(user);
-  if (user === null || user === undefined) {
+  if (!user) {
     return res.render("auth/login", {
       layout: "authBG",
       title: "Đăng nhập",
@@ -101,30 +101,26 @@ exports.signin = async (req, res) => {
       msg: "Tài khoản đã bị khóa",
     });
   }
-  // console.log(user);
-  const challengeResult = await bcrypt.compare(req.body.password, user.f_Password);
-  if (challengeResult) {
+  if (user.f_Password !== "") {
+    const challengeResult = await bcrypt.compare(req.body.password, user.f_Password);
+    if (!challengeResult) {
+      return res.render("auth/login", {
+        layout: "authBG",
+        title: "Đăng nhập",
+        msg: "Tài khoản hoặc mật khẩu sai",
+      });
+    }
     const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
-    //res.cookie("token", token, { httpOnly: true });
-    // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
     res.cookie("jwt", token);
-    // Send the response with 200 status code (ok) and the user object + the token
-    // The client will send the token with every future request
-    // against secured API endpoints.
-    // TODO: Return to dashboard after login
-    // return res.status(200).send({
-    //   user: user,
-    //   token: token,
-    // });
     return res.redirect("/");
   }
-  return res.render("auth/login", {
-    layout: "authBG",
-    title: "Đăng nhập",
-    msg: "Tài khoản hoặc mật khẩu sai",
+  const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
+  res.cookie("jwt", token);
+  return res.redirect("/auth/changepassword");
 };
 
 exports.signup = async (req, res) => {
