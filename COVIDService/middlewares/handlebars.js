@@ -47,6 +47,9 @@ module.exports = (app) => {
       // section: hbs_section(),
       sum: function (a, b) {
         return a + b;
+      },
+      _toInt: function (str) {
+        return parseInt(str, 10);
       }
     },
   });

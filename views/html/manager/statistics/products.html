@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê</title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/css/all.min.css" />
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="../../assets/js/all.min.js"></script>
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+
+</head>
+
+<body>
+    <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
+        <h3 class="my-0 flex-md-grow-1 text-center text-md-left text-default" href="#">COVID-WEBAPP</h3>
+        <form
+            class="form-inline my-2 mx-3 border border-dark rounded-pill overflow-hidden flex-grow-1 flex-md-grow-0 flex-lg-grow-1 bg-white order-1 order-sm-0">
+            <div class="input-group flex-grow-1">
+                <input class="form-control border-0  shadow-none" type="text" placeholder="Tìm kiếm" aria-label="Search"
+                    name='search'>
+                <div class="input-group-prepend">
+                    <button class="btn text-center" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <button class="order-n1 navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#sidebar"
+            aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <button class="navbar-toggler  border-0" type="button" data-toggle="collapse" data-target="#account-menu"
+            aria-controls="account-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0 text-right" id="account-menu">
+            <div class="btn-group nav-item dropdown ml-auto">
+                <a class="nav-link dropdown-toggle text-default" href="#" id="account-menu__sections" role="button"
+                    data-toggle="dropdown" aria-expanded="false">
+                    <img src="../../assets/img/avt.jpg" alt="" srcset="" class="rounded-circle" style="width:42px">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu__sections">
+                    <a class="dropdown-item nav-link" href="#">
+                        <i class="fas fa-user mr-1 "></i>
+                        Tài khoản của tôi
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+            </ul>
+        </div>
+    </header>
+    <div class="main-content container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                                href="#" aria-current="page">
+                                <i class="fas fa-home"></i>
+                                <span class="ml-2">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                                href="#">
+                                <i class="fas fa-users"></i>
+                                <span class="ml-2">Nguời liên quan Covid-19</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                                href="#">
+                                <i class="fas fa-fish"></i>
+                                <span class="ml-2"> Nhu yếu phẩm</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center"
+                                href="#">
+                                <i class="fas fa-box"></i>
+                                <span class="ml-2">Gói nhu yếu phẩm</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-md-start justify-content-center"
+                                href="#" id="statistics-nav" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-chart-line"></i>
+                                <span class="ml-2">Thống kê</span>
+                            </a>
+                            <div class="dropdown-menu text-center text-md-left" aria-labelledby="statistics-nav"
+                                style="right: 0; ">
+                                <a class="dropdown-item " href="#">Người liên quan Covid-19</a>
+                                <a class="dropdown-item active" href="#">Nhu yếu phẩm</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main class=" pt-4 ml-sm-auto col-lg-10">
+                <!-- Thống kê người liên quan -->
+                <div id="content-1" class="content shadow border rounded container-fluid mb-5">
+                    <div class="row pt-3 border-bottom">
+                        <div class="col-12 col-lg-8 h-100">
+                            <p id="product-name" class="title text-blue text-center text-md-left  text-uppercase"
+                                style="font-size: 1.8rem; font-weight: bold;">Thống kê người nhu yếu phẩm</p>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <form id='filterby-form' class="form-inline" action="/manager/products/statistic">
+                                <div class="form-group mb-2">
+                                    <label for="filter-by"><i class="fas fa-calendar-alt"></i></label>
+                                    <select class="form-control shadow-none custom-select filterby mx-sm-2"
+                                        id="filter-by" aria-label="filter-by" name="filter_by">
+                                        <option class="py-1" value="day-current" data-filter="&filterby=(day:current)">
+                                            Hôm nay</option>
+                                        <option class="py-1" value="week-current"
+                                            data-filter="&filterby=(week:current)">Tuần này</option>
+                                        <option class="py-1" value="month-current"
+                                            data-filter="&filterby=(month:current)">Tháng này</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- STATISTICS -->
+                    <!-- THỐNG KÊ NGƯỜI LIÊN QUAN -->
+                    <div class="row my-3 justify-content-between align-items-center flex-column-reverse flex-md-row">
+                        <div class="col-md-5 col-12">
+                            <div class="table-responsive-xl table-hover">
+                                <table class="table table-content border mb-0 menu">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col d-flex align-items-center">#</th>
+                                            <th scope="col">Tên sản phẩm</th>
+                                            <th scope="col" class="text-center">Tổng số bán ra</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="section">
+                                            <th scope="row">1</th>
+                                            <td class="status">
+                                                Gạo
+                                            </td>
+                                            <td class="number text-center">10</td>
+                                        </tr>
+                                        <tr class="section">
+                                            <th scope="row">1</th>
+                                            <td class="status">
+                                                Muối
+                                            </td>
+                                            <td class="number text-center">10</td>
+                                        </tr>
+                                        <tr class="section">
+                                            <th scope="row">1</th>
+                                            <td class="status">
+                                                Cá
+                                            </td>
+                                            <td class="number text-center">10</td>
+                                        </tr>
+                                        <tr class="section total-row font-weight-bold">
+                                            <th scope="row" colspan="2">Tổng</th>
+                                            <td class="number-total text-center">30</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-12 d-flex justify-content-center">
+                            <!-- <div id="product-chart" style="min-height: 350px;"></div> -->
+                            <canvas id="product-chart" class="mb-3" style="width:100%;max-width:600px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <footer class="container-fluid py-3 my-4 border-top">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="text-muted">© 2021 Company, Inc</span>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+        var xValues = ["Gạo", "Muối", "Cá", "Khác"];
+        var yValues = [10, 10, 10, 10];
+        var barColors = ['#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf'];
+
+        new Chart("product-chart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "Doanh số bán nhu yếu phẩm"
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

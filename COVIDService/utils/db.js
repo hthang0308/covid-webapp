@@ -56,7 +56,7 @@ exports.get = async (tableName, fieldName, value) => {
 // SEARCHING
 exports.search = async (tableName, fieldName, value) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"::text like '${value}%'`, table);
+  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"::text like '%${value}%'`, table);
   try {
     const res = await db.any(queryStr);
     return res;

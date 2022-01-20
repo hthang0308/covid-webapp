@@ -34,8 +34,6 @@
     </button>
 </form> --}}
 
-{{! DEFINE A 'content' SECTION }}
-{{#section "content"}}
 <div id="content-1" class="content shadow border rounded p-2">
     <div class="container-fluid">
         <!-- IMAGES -->
@@ -73,12 +71,12 @@
                 </div>
             </div>
             <div class="col-md-7 col-12 h-100">
-                <form id="edit-form" action="#" method="post">
+                <form id="edit-form" action="/products/edit/{{this.f_ID}}" method="post">
                     <div class="form-row">
                         <div class="form-group col-12">
                             <label for="name-input" class="font-weight-bold">Tên</label>
                             <input id="name-input" type="text" class="form-control" value="Muối biển VISAchef gói 1kg"
-                                name="name" title="Tên" readonly />
+                                name="f_Name" title="Tên" readonly />
                             <span class="invalid-feedback"></span>
                         </div>
                     </div>
@@ -86,7 +84,7 @@
                         <div class="form-group col-md-6">
                             <label for="price-input" class="font-weight-bold">Đơn giá</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="price-input" value="11,000" name="price"
+                                <input type="text" class="form-control" id="price-input" value="11,000" name="f_Price"
                                     rules="required" title="Đơn giá" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">đ</span>
@@ -97,7 +95,7 @@
                         <div class="form-group col-md-6">
                             <label for="unit-input" class="font-weight-bold">Đơn vị định
                                 lượng</label>
-                            <input type="text" class="form-control" id="unit-input" value="Gói" name="unit"
+                            <input type="text" class="form-control" id="unit-input" value="f_Unit" name="unit"
                                 rules="required" title="Đơn vị định lượng" />
                             <span class="invalid-feedback"></span>
                         </div>
@@ -110,7 +108,7 @@
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="images-input">Chọn ảnh</label>
                                     <input type="file" class="custom-file-input" id="images-input"
-                                        aria-describedby="inputGroupFileAddon01" name="images"
+                                        aria-describedby="inputGroupFileAddon01" name="f_Images"
                                         accept="image/png, image/jpeg" multiple />
                                 </div>
                             </div>
@@ -126,9 +124,6 @@
         </div>
     </div>
 </div>
-
-{{/section}}
-
 {{! DEFINE A 'script' SECTION }}
 {{#section "script"}}
 <script src="	https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>

@@ -144,7 +144,7 @@ exports.transfer = async (req, res, next) => {
                 return res.json(response);
             }
             accAdmin.Balance = parseFloat(accAdmin.Balance) + money;
-            console.log("Admin bal: ",accAdmin.Balance);
+            console.log("Admin bal: ", accAdmin.Balance);
             await accountModel.updateAccount(adminId, accAdmin);
             await accountModel.updateAccount(acc.AccID, acc);
             response.Response = 'true';
@@ -171,15 +171,15 @@ exports.transfer = async (req, res, next) => {
     }
 }
 
-exports.showHistory = async(req, res, next) => {
+exports.showHistory = async (req, res, next) => {
     var response = {
         Response: 'False'
-    }    
+    }
     if (req.user) {
         const tras = await transactionModel.getTransactionByAccId(req.user.AccID);
         response.Response = 'True'
         if (!tras) {
-            return res.render('message',{
+            return res.render('message', {
                 msg: 'Chưa có giao dịch nào',
                 link: '/',
                 text: 'Quay lại trang chính'

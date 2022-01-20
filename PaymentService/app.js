@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'development') {
 //   };
 app.use('/', paymentRouter);
 
-app.use(express.static(path.join(__dirname + "../public")));
+app.use(express.static(path.join(__dirname + "/public")));
 app.all("*", (req, res, next) => {
     next(console.log(`Can't find ${req.originalUrl} on this server`, 404));
 });

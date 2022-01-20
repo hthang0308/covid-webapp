@@ -8,10 +8,11 @@ const router = express.Router();
 // Login to access
 router.use(authCtrl.protect);
 
-// 0: Admin, 1:User, 2: Manager. Admin creates Manager. User signs up.
+// 0: Admin, 1:User, 2: Manager. Admin creates Manager. Manager creates User.
 
 router.use(authCtrl.restrictTo(2));
 router.get("/", productCtrl.getAllProducts);
+router.get("/search", productCtrl.searchProduct);
 router.route("/:id").get(productCtrl.getProduct).patch(upload.array("images", 5), productCtrl.editProduct).delete(productCtrl.deleteProduct);
 router.route("/add").get(productCtrl.createProduct).post(upload.array("images", 5), productCtrl.createProduct);
 
