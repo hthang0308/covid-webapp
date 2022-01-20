@@ -4,12 +4,13 @@
   <h6><span class="badge badge-danger">{{msg}}</span></h6>
 {{/if}}
 <br />
-<b>History Of Account</b>
+<b>Lịch sử tài khoản</b>
 <br />
 {{#each account.f_History}}
   {{this}}
   <br />
 {{/each}}
+<br />
 <form
   class="form"
   action="/account/{{account.f_ID}}"
