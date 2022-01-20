@@ -4,6 +4,7 @@ const saltRounds = 10;
 // Route
 exports.getAllAccounts = async (req, res) => {
   arr = await accountModel.getAllAccounts();
+  arr.filter((item) => item.f_Permission === 2);
   res.render("accounts/all", {
     accounts: arr,
   });
