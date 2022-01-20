@@ -77,15 +77,6 @@ module.exports = {
   },
 
   deposit: async (_f_ID, token) => {
-    let { data } = await axios({
-      method: "POST",
-      url: `${API_URL}/addBalance/${_f_ID}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
-    return { data };
+
   },
 };

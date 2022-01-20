@@ -3,6 +3,7 @@ const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
 const jwt = require('jsonwebtoken');
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
+const { API_URL } = require("../utils/constant");
 
 // Route
 // GetHomePage for Users
@@ -24,19 +25,30 @@ exports.getOrder = async (req, res) => {
 };
 
 exports.getBalance = async (req, res) => {
-  const id = req.params.id;
-  console.log('ID: ', id);
+  const id = req.user.f_ID;
+  // console.log('ID: ', id);
   //const { data: user } = await userModel.getUserByID(id);
   const user = await userModel.getUserByID(id);
-  console.log("User: ", user);
+  // console.log("User: ", user);
   // const { banking_token: token } = user;
   const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
   let data = {};
   if (token) {
     data = await userModel.getPayment(id, token);
-    console.log("data:", data);
+    // console.log("data:", data);
   }
   return res.json(data)
+}
+
+exports.deposit = async (req, res) => {
+  //Step 1: Check user
+  const id = req.user.f_ID;
+
+  //Step 2: Pass id to payment
+  const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
+  if (token) {
+    return res.redirect(`${API_URL}/`)
+  }
 }
 
 // For managers
@@ -148,7 +160,7 @@ exports.createUser = async (req, res) => {
     await userModel.editUser(source.f_ID, source);
   }
   return res.render("users/form_adduser", { layout: "manager", cities, data: req.body, qls, err: "Successfully" });
-  //done
+  //done 
 };
 
 exports.getUser = async (req, res) => {

@@ -14,6 +14,7 @@ router.route("/").get(userCtrl.getHome);
 router.route('/balance').get(userCtrl.getBalance);
 router.route("/history").get(userCtrl.getHistory);
 router.route("/packages").get(userCtrl.getOrder);
+router.route("/deposit").get(userCtrl.deposit);
 
 // Manager roles
 router.use(authCtrl.restrictTo(0, 2));
