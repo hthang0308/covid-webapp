@@ -5,19 +5,17 @@
                 style="font-size: 1.8rem; font-weight: bold;">Thống kê người liên quan Covid-19</p>
         </div>
         <div class="col-12 col-lg-4">
-            <form id="filterby-form" class="form-inline" action="/manager/people/statistic">
-                <div class="form-group mb-2">
-                    <label for="filter-by"><i class="fas fa-calendar-alt"></i></label>
-                    <select class="form-control shadow-none custom-select filterby mx-sm-2" id="filter-by"
-                        aria-label="filter-by" name="filter_by">
-                        <option class="py-1" value="day-current" data-filter="&filterby=(day:current)">Hôm nay</option>
-                        <option class="py-1" value="week-current" data-filter="&filterby=(week:current)">Tuần này
-                        </option>
-                        <option class="py-1" value="month-current" data-filter="&filterby=(month:current)">Tháng này
-                        </option>
-                    </select>
-                </div>
-            </form>
+      <form id="filterby-form" class="form-inline" action="/statistic/sta" method="post">
+        <div class="form-group mb-2">
+          <label for="filter-by"><i class="fas fa-calendar-alt"></i></label>
+          <select class="form-control shadow-none custom-select filterby mx-sm-2" id="filter-by" aria-label="filter-by" name="filter_by">
+            <option value="1/2022">1/2022</option>
+            <option value="12/2021">12/2021</option>
+            <option value="11/2021">11/2021</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Tìm kiếm</button>
+      </form>
         </div>
     </div>
     <!-- STATISTICS -->
@@ -33,13 +31,13 @@
                             <th scope="col" class="text-center">Tổng số người</th>
                         </tr>
                     </thead>
+                    {{#if status}}
                     <tbody>
-                        {{#if status}}
                         {{#each status}}
                             <tr class="section">
                                 <th scope="row">{{sum @index 1}}</th>
                                 <td class="status">
-                                    {{this.trangthai}}
+                                    F{{this.f_Fx}}
                                 </td>
                                 <td class="quantity text-center">
                                     {{this.soluong}}
@@ -50,16 +48,16 @@
                             <th scope="row" colspan="2">Tổng</th>
                             <td id="total" class="number-total text-center"></td>
                         </tr>
-                        {{else}}
-                            <h3 class="text-uppercase">Không có dữ liệu</h3>
-                        {{/if}}
                     </tbody>
+                    {{else}}
+                        <h3 class="text-uppercase">Không có dữ liệu</h3>
+                    {{/if}}
                 </table>
             </div>
         </div>
         {{#if status}} 
             <div class="col-md-7 col-12 d-flex justify-content-center">
-                <div id="people-chart" style="min-height: 350px;"></div>
+                <canvas id="people-chart"></canvas>
             </div>
         {{/if}}
     </div>
@@ -72,46 +70,59 @@
 {{#section 'script'}}
     {{#if status}}
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <script>
-            
-            $(document).ready(function() {
-                let total = 0;
-                $(".quantity").each(function() {
-                    total = total + parseInt($(this).text());
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>       
+    <script>
+        $(document).ready(function() {
+            let total = 0;
+            $(".quantity").each(function() {
+                total = total + parseInt($(this).text());
+                console.log(total);
+                if(total) {
                     $("#total").text(total);
-                })
+                } else {
+                    $("#total").text(0);
+                }
             })
 
-            google.charts.load('current', { 'packages': ['corechart'] });
-            google.charts.setOnLoadCallback(drawChart);
+            var xValues = [], yValues = [];
+                    
+            $(".status").each(function() {
+                xValues.push($(this).text().trim());
+            });
 
-            function drawChart() {
-                var peopleData = google.visualization.arrayToDataTable([
-                    ['Status', 'Amount'],
-                    {{#each status}}
-                        [{{this.trangthai}}, {{this.soluong}}],
-                    {{/each}}
-                ]);
+            $(".quantity").each(function() {
+                yValues.push(parseInt($(this).text()));
+            });
 
-                var options = {
-                    title: 'Người liên quan Covid-19',
-                    chartArea: {
-                        // leave room for y-axis labels
-                        width: '94%',
+            console.log(xValues);
+            console.log(yValues);
+
+            var barColors = [ '#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf'];
+            new Chart("people-chart", {
+                type: "pie",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Thống kê người liên quan Covid-19",
+                        fontSize: 20,
                     },
-                    width: '100%',
-                    height: '100%',
-                    colors: ['#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf'],
-                    animation: {
-                        duration: 1000,
-                        easing: 'out',
+                    legend: {
+                        position: 'bottom',
                     }
-                };
+                },
+            });
+        });
 
-                var chart = new google.visualization.PieChart(document.getElementById('people-chart'));
-                chart.draw(peopleData, options);
-            }    
+                    
+
         </script>
     {{/if}}
 {{/section}}

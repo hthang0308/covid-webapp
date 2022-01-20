@@ -43,7 +43,7 @@
             {{#each users}}
                 <tbody>
                     <tr class="section">
-                        <th scope="row">{{this.f_Id}}</th>
+                        <th scope="row">{{this.f_ID}}</th>
                         <td class="name">
                         <a class="nav-link details-link text-default" href="/people/">
                             {{this.f_Fullname}}
@@ -53,7 +53,7 @@
                         <td class="birth-year">{{this.f_DOB}}</td>
                         <td class="address">{{this.address}}</td>
                         <td class="status">{{this.f_Fx}}</td>
-                        <td class="treatment-place">
+                        <td class="treatment-place text-truncate">
                             {{#each this.f_History}}
                                 {{this}}, 
                             {{/each}}

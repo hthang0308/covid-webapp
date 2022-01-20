@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  {{!-- <div class="loading text-center">
+  <div class="loading text-center">
     <div class="spinner-border spinner-border-lg text-primary" role="status" aria-hidden="true"></div>
     <span class="my-5">
       <span class="h3 font-weight-bold">Đang tải</sp>
@@ -26,7 +26,7 @@
         <div class="spinner-grow spinner-grow-xs text-red mx-1 my-1" role="status"></div>
         <div class="spinner-grow spinner-grow-xs text-green mx-1 my-1" role="status"></div>
       </span>
-  </div> --}}
+  </div>
   {{!-- DEFAULT HEADER --}}
   {{#section 'header'}}
   <header id="main-navbar" class="navbar navbar-expand-lg navbar-light sticky-top">
@@ -156,6 +156,9 @@
       </main>
     </div>
   </div>
+  
+  {{{_sections.modal}}}
+
   <script src="/js/sidebar.js"></script>
   <script src="/js/main.js"></script>
   {{!-- DEFINE A 'script' SECTION --}}

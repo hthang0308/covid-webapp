@@ -5,34 +5,36 @@ const { uploadFiles } = require("../middlewares/firebase");
 
 // Route
 exports.getAllProducts = async (req, res) => {
-  arr = await productModel.getAllProducts();
-  if (req.query.sort === "name") sort.sortByName(arr);
-  if (req.query.sort === "id") sort.sortByID(arr);
-  if (req.query.sort === "price") sort.sortByPrice(arr);
-  arr.forEach((element) => {
-    if (element.f_Images) element.f_Image = element.f_Images[0];
+  products = await productModel.getAllProducts();
+  if (req.query.sort === "name") sort.sortByName(products);
+  if (req.query.sort === "id") sort.sortByID(products);
+  if (req.query.sort === "price") sort.sortByPrice(products);
+  var images=[]
+  products.forEach((element) => {
+    images.push(element.f_Images ? element.f_Images[0] : '/img/products/no_image.png')
   });
-  console.log(arr);
   res.render("products/all", {
-    products: arr,
+    products: products,
+    images: images,
     title: "Nhu yếu phẩm",
     layout: "manager",
   });
 };
 
 exports.searchProduct = async (req, res) => {
-  tmpProd = await productModel.searchProductByName(req.params.name);
+  var products = await productModel.searchProductByName(req.params.name);
+
   res.render("products/all", {
-    products: tmpProd,
+    products: products,
     title: "Tìm kiếm nhu yếu phẩm",
     layout: "manager",
   });
 };
 
 exports.getProduct = async (req, res) => {
-  tmpProd = await productModel.getProductById(req.params.id);
+  const product = await productModel.getProductById(req.params.id);
   res.render("products/single", {
-    product: tmpProd,
+    product: product,
     title: "Thông tin nhu yếu phẩm",
     layout: "manager",
   });
@@ -40,13 +42,15 @@ exports.getProduct = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   if (req.method === "POST") {
-    const files = await uploadFiles(req.files);
-    const product = { ...req.body, images: files };
+    if(!Array.isArray(product.f_Images)) {
+      product.f_Images = [product.f_Images]
+    }
+    const product = { ...req.body};
     await productModel.createProduct(product);
-    res.redirect("products/product_success", {
-      messages: "Thêm sản phẩm vào cơ sở dữ liệu thành công",
-    });
+    res.redirect("/product");
+    return;
   }
+  
   res.render("products/add", {
     title: "Thêm nhu yếu phẩm",
     layout: "manager",
@@ -54,32 +58,30 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.editProduct = async (req, res) => {
-  tmpProd = await productModel.getProductById(req.params.id);
-  if (req.method === "PATCH") {
-    const files = await uploadFiles(req.files);
-    const product = { ...req.body, images: files };
+    const product = { ...req.body };
+    if(!Array.isArray(product.f_Images)) {
+      product.f_Images = [product.f_Images]
+    }
     await productModel.editProduct(req.params.id, product);
-    res.redirect("products/product_success", {
-      messages: "Chỉnh sửa sản phẩm thành công",
-    });
-  }
-  res.render("products/edit", {
-    product: tmpProd,
-    title: "Chỉnh sửa nhu yếu phẩm",
-    layout: "manager",
-  });
+    console.log(product);
+    res.redirect(`/product/${req.params.id}`);
+    return;
 };
+
 exports.deleteProduct = async (req, res) => {
-  tmpProd = await productModel.getProductById(req.params.id);
+  var tmpProd = await productModel.getProductById(req.params.id);
   if (tmpProd === undefined) return;
-  pack = await packageModel.getAllPackages();
+  var pack = await packageModel.getAllPackages();
+  console.log(pack);
   for (const eachPack of pack) {
-    for (const product of eachPack.f_List) {
+    for (const product of eachPack.f_Products) {
       if (tmpProd === product) return;
     }
   }
   await productModel.deleteProduct(req.params.id);
-  res.redirect("products/product_success", {
-    messages: "Xóa sản phẩm thành công",
-  });
+  // res.redirect("products/all", {
+  //   messages: "Xóa sản phẩm thành công",
+  // });
+
+  res.send('"Xóa sản phẩm thành công"')
 };

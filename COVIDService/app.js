@@ -1,4 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+//require("https").globalAgent.options.ca = require("ssl-root-cas/latest").create();
+
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
@@ -27,7 +29,8 @@ app.use(methodOverride("_method"));
 //Done Change
 
 dotenv.config({ path: "./.env" });
-
+//thang them
+//done
 app.use(
   session({
     cookie: {
@@ -56,8 +59,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.get("/", function (req, res) {
+  console.log(req.cookies);
   res.render("home", {
     cssP: () => "css",
+    username: req.cookies.username,
     // scriptP: () => "empty",
     // navP: () => "nav",
     footerP: () => "footer",
@@ -71,4 +76,3 @@ app.all("*", (req, res, next) => {
 });
 
 module.exports = app;
-
