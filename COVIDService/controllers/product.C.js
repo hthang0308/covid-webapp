@@ -9,6 +9,10 @@ exports.getAllProducts = async (req, res) => {
   if (req.query.sort === "name") sort.sortByName(arr);
   if (req.query.sort === "id") sort.sortByID(arr);
   if (req.query.sort === "price") sort.sortByPrice(arr);
+  arr.forEach((element) => {
+    if (element.f_Images) element.f_Image = element.f_Images[0];
+  });
+  console.log(arr);
   res.render("products/all", {
     products: arr,
     title: "Nhu yếu phẩm",
