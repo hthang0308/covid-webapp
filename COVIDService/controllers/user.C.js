@@ -19,13 +19,18 @@ exports.getAllUsers = async (req, res) => {
   if (req.query.sort === "name") sort.sortByFullName(arr);
   res.render("users/all", {
     users: arr,
+    title: 'Danh sách người liên quan COVID-19',
+    layout: 'manager',
   });
 };
 
 exports.searchUser = async (req, res) => {
   tmpUser = await userModel.searchUserByNationalID(req.query.natid);
+  if (tmpUser === undefined) return;
   res.render("users/all", {
     users: tmpUser,
+    title: 'Tìm kiếm người liên quan COVID-19',
+    layout: 'manager',
   });
 };
 
@@ -77,9 +82,8 @@ exports.createUser = async (req, res) => {
   const qls = await userModel.getAllQL();
   if (err !== "") return res.render("users/form_adduser", { layout: "tmp", data: req.body, cities, qls, err });
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const newUser = {
     f_Username: req.body.username,
     f_Password: "",
@@ -161,9 +165,8 @@ exports.editUser = async (req, res) => {
   const tmpUser = await userModel.getUserByID(req.params.id);
   if (tmpUser === undefined) return;
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `; //If in form has covid address
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `; //If in form has covid address
   if (req.body.ql !== undefined) {
     tmpUser.f_QuarantineID = req.body.ql;
     const tmpNewCovidAddress = await userModel.getQLByID(tmpUser.f_QuarantineID);

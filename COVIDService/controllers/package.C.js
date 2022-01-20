@@ -25,18 +25,20 @@ exports.searchPackages = async (req, res) => {
 exports.getPackage = async (req, res) => {
     // Step 1: Find the correct package
     tmpPack = await packModel.getPackageById(req.params.id);
+    // console.log(tmpPack);
     if (tmpPack === undefined) return;
 
     // Step 2: Render each product inside the package
-    for (const product of tmpPack.f_product) {
-        productInfo = await productModel.getProductById(product.f_id);
-        if (productInfo === undefined) return;
-    }
+    // for (const product of tmpPack.f_Products) {
+    // productInfo = await productModel.getProductById(product.f_id);
+    // if (productInfo === undefined) return;
+    // console.log(productInfo);
+    // }
 
     // Step 3: Render the package
     res.render('packages/single', {
         package: tmpPack,
-        products: productInfo,
+        // products: productInfo,
         layout: 'manager',
         title: 'Thông tin gói'
     })
