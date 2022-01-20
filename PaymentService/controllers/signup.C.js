@@ -50,13 +50,13 @@ class SignUpController {
                 var decoded = await jwt.verify(req.body.access_token, process.env.JWT_SECRET);
                 if (decoded) {
                     var acc = {
-                        AccID: decoded.id,
+                        AccID: req.body.accid,
                         Password: null,
                         Balance: 0
                     }
                     await accountModel.addAccount(acc);
                     response.Response = 'true';
-                    response.AccID = decoded.id;
+                    response.AccID = req.body.accid;
                     res.json(response);
                     return
                 }

@@ -14,7 +14,7 @@ exports.statistic = async (req, res) => {
   data.forEach(element => {
     chart_data.push(parseInt(element.soluong));
   })
-  console.log("Chart data: ",chart_data);
+  console.log("Chart data: ", chart_data);
   //   foreach (item in datas)
   //   {
   //       if (f_Fx===0)
@@ -28,11 +28,18 @@ exports.statistic = async (req, res) => {
 };
 
 exports.simpleStatistic = async (req, res) => {
-  let tableName = "Products";
-  let fieldName = "ProName";
-  let staField = "Sold";
-  data = await db.simpleStatistic(tableName, fieldName, staField, "ProID");
-  res.render("simpleSta", {
+  let tableName = "Orders";
+  let fieldName = "f_PackageID";
+  // let staField = "Sold";
+  let data = await db.simpleStatistic(tableName, fieldName, "f_Quantity");
+  const chart_data = [];
+  data.forEach(element => {
+    chart_data.push(parseInt(element.sum));
+  })
+  console.log("chart: ", chart_data);
+  res.render("statistics/products", {
+    layout: "manager",
     status: data,
+    data: chart_data,
   });
 };
