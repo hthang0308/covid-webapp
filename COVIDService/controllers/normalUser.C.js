@@ -64,10 +64,14 @@ exports.getHistory = async (req, res) => {
 
 exports.getOrder = async (req, res) => {
   // user = await userModel.getUserByID(req.user.f_ID);
-  var result = await orderModel.getOrderByAccountID(req.user.f_ID);
-  console.log(result);
+  var result = await orderModel.searchOrderByAccountID(req.user.f_ID);
+  for (const element of result) {
+    element.f_Buyer = req.user.f_Fullname;
+    const tmpPackage = await orderModel.getPackageNameByID(element.f_PackageID);
+    element.f_PackageName = tmpPackage.f_Name;
+  }
   res.render("normaluser/order", {
-    history: result,
+    histories: result,
     title: "Lịch sử tiêu thụ nhu yếu phẩm",
   });
 };

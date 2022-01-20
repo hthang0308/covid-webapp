@@ -26,6 +26,7 @@ module.exports = {
   getCityByID: async (_f_ID) => factory.getOne("Cities", "f_ID", _f_ID),
   getUserByNationalID: async (_f_NatID) => factory.getOne(TableName, "f_NatID", _f_NatID),
   editQL: async (_f_ID, _user) => factory.updateOne("QuarantineLocations", "f_ID", _f_ID, _user),
+  searchOrder: async (_f_ID) => factory.search("Orders", "f_ID", _f_ID),
   // Self-defined
   blockManager: async (_f_ID, _manager) => {
     let tmpManager = await factory.getOne(TableName, "f_ID", _f_ID);
