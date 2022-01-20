@@ -50,18 +50,17 @@ exports.createAndSendToken = (user, statusCode, res) => {
 
 exports.getSignUp = async (req, res) => {
   //chuyen huong khi da co jwt
-  console.log("123");
   if (req.cookies.jwt !== null && req.cookies.jwt !== undefined) {
     res.redirect("/");
   }
   const allUser = await userModel.getAllUsers();
-  console.log(allUser.length);
-  if (allUser.length > 0) {
+  console.log(allUser);
+  if (allUser && allUser.length > 0) {
     return res.redirect("login");
   }
   return res.render("auth/signup", {
     layout: "authBG",
-    title: "Đăng ký",
+    title: "Đăng ký tài khoản admin",
   });
 };
 
@@ -144,7 +143,7 @@ exports.signup = async (req, res) => {
   const tmpUser = {
     f_Username: username,
     f_Password: passwordHashed,
-    f_Permission: 1,
+    f_Permission: 0, //admin first sign up
     f_History: [`${currentTime} Manager Create User`],
   };
 
