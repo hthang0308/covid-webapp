@@ -11,6 +11,8 @@ exports.getAllProducts = async (req, res) => {
   if (req.query.sort === "price") sort.sortByPrice(arr);
   res.render("products/all", {
     products: arr,
+    title: 'Nhu yếu phẩm',
+    layout: 'manager',
   });
 };
 
@@ -18,13 +20,17 @@ exports.searchProduct = async (req, res) => {
   tmpProd = await productModel.searchProductByName(req.params.name);
   res.render("products/all", {
     products: tmpProd,
+    title: 'Tìm kiếm nhu yếu phẩm',
+    layout: 'manager',
   });
 };
 
 exports.getProduct = async (req, res) => {
   tmpProd = await productModel.getProductById(req.params.id);
   res.render("products/single", {
-    tmpProd,
+    product: tmpProd,
+    title: 'Thông tin nhu yếu phẩm',
+    layout: 'manager',
   });
 };
 
@@ -37,7 +43,10 @@ exports.createProduct = async (req, res) => {
       messages: "Thêm sản phẩm vào cơ sở dữ liệu thành công",
     });
   }
-  res.render("products/add");
+  res.render("products/add", {
+    title: 'Thêm nhu yếu phẩm',
+    layout: 'manager',
+  });
 };
 
 exports.editProduct = async (req, res) => {
@@ -52,6 +61,8 @@ exports.editProduct = async (req, res) => {
   }
   res.render("products/edit", {
     product: tmpProd,
+    title: 'Chỉnh sửa nhu yếu phẩm',
+    layout: 'manager',
   });
 };
 exports.deleteProduct = async (req, res) => {

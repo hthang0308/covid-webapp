@@ -1,4 +1,5 @@
 const packModel = require('../models/package.M');
+const productModel = require('../models/product.M');
 const sort = require('../utils/sort');
 
 //Routes
@@ -10,7 +11,7 @@ exports.getAllPackages = async (req, res) => {
     res.render('packages/all', {
         packages: arr,
         layout: 'manager',
-        title: 'Gói nhu yếu phẩm'
+        title: 'Danh sách gói nhu yếu phẩm'
     })
 }
 
@@ -22,10 +23,22 @@ exports.searchPackages = async (req, res) => {
 };
 
 exports.getPackage = async (req, res) => {
+    // Step 1: Find the correct package
     tmpPack = await packModel.getPackageById(req.params.id);
     if (tmpPack === undefined) return;
+
+    // Step 2: Render each product inside the package
+    for (const product of tmpPack.f_product) {
+        productInfo = await productModel.getProductById(product.f_id);
+        if (productInfo === undefined) return;
+    }
+
+    // Step 3: Render the package
     res.render('packages/single', {
-        package: tmpPack
+        package: tmpPack,
+        products: productInfo,
+        layout: 'manager',
+        title: 'Thông tin gói'
     })
 };
 
@@ -47,7 +60,10 @@ exports.createPackage = async (req, res) => {
             messages: 'Thêm gói nhu yếu phẩm thành công'
         });
     }
-    res.render('packages/add');
+    res.render('packages/add', {
+        title: 'Thêm gói nhu yếu phẩm',
+        layouts: 'manager'
+    });
 }
 
 exports.editPackage = async (req, res) => {
@@ -70,13 +86,17 @@ exports.editPackage = async (req, res) => {
         });
     }
     res.render('packages/edit', {
-        package: tmpPack
+        package: tmpPack,
+        title: 'Chỉnh sửa gói nhu yếu phẩm',
+        layouts: 'manager'
     });
 }
 
 exports.deletePackage = async (req, res) => {
-    await packModel.deletePackage(req.params.id);
-    res.redirect('packages/package-success', {
-        messages: 'Xóa gói nhu yếu phẩm thành công'
-    });
+    if (req.method == 'DELETE') {
+        await packModel.deletePackage(req.params.id);
+        res.redirect('packages/package-success', {
+            messages: 'Xóa gói nhu yếu phẩm thành công'
+        });
+    }
 }
