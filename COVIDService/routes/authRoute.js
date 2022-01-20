@@ -1,5 +1,6 @@
 const express = require("express");
 const authCtrl = require("../controllers/auth.C");
+const { route } = require("./packageRoute");
 
 const router = express.Router();
 
@@ -14,5 +15,5 @@ router.route("/forget-password").get(authCtrl.getForgotPassword).put(authCtrl.fo
 
 // Change password inside user, means login
 router.use(authCtrl.protect);
-router.route("/change-password").get(authCtrl.getChangePassword).put(authCtrl.changePassword);
+router.route("/changepassword").get(authCtrl.getChangePassword).put(authCtrl.changePassword);
 module.exports = router;
