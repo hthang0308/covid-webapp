@@ -4,9 +4,17 @@ exports.statistic = async (req, res) => {
   let tableName = "Users";
   let fieldName = "f_Fx";
   // Ngày thống kê sẽ lấy từ req
-  let value = "2021-12-12";
-  let staField = "ngaythem";
-
+  let value = "3/1/2022";
+  if (req.body) {
+    value = req.body.filter_by
+  }
+  const data = await db.newStatistic(tableName, fieldName, value);
+  console.log("data: ", data);
+  const chart_data = [];
+  data.forEach(element => {
+    chart_data.push(parseInt(element.soluong));
+  })
+  console.log("Chart data: ",chart_data);
   //   foreach (item in datas)
   //   {
   //       if (f_Fx===0)
@@ -15,6 +23,7 @@ exports.statistic = async (req, res) => {
   res.render("statistics/products", {
     layout: "manager",
     status: data,
+    data: chart_data,
   });
 };
 
