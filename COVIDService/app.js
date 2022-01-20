@@ -1,4 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+//require("https").globalAgent.options.ca = require("ssl-root-cas/latest").create();
+
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
@@ -28,7 +30,6 @@ app.use(methodOverride("_method"));
 
 dotenv.config({ path: "./.env" });
 //thang them
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
 //done
 app.use(
   session({
