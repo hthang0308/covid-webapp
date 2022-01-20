@@ -1,6 +1,6 @@
 $(function() {
-    $('#sub-nav__sort-by').on('change', function() {
-        $('#sortby-form').submit();
+    $('#sub-nav__sort-by, select.filterby, select.sortby').on('change', function() {
+        $(this).parents('form').submit();
     })
     
     $('button[data-target="#edit-modal"]').click(function(e) {

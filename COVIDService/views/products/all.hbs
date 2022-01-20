@@ -6,8 +6,6 @@
 <br />
 {{/each}} --}}
 
-{{! DEFINE A 'content' SECTION }}
-{{#section "content"}}
 <div id="content-1" class="content shadow border rounded container-fluid">
   <div class="row pt-3">
     <div class="col-12 h-100">
@@ -26,7 +24,7 @@
     </form>
 
     <!-- Sort -->
-    <form id='sortby-form' class="form-inline" action="/manager/people">
+    <form id='sortby-form' class="form-inline" action="/manager/products">
       <div class="form-group mb-2">
         <label for="sub-nav__sort-by">Sắp xếp theo</label>
         <select class="form-control shadow-none custom-select mx-sm-2" id="sub-nav__sort-by" aria-label="sort-by"
@@ -44,101 +42,35 @@
   <!-- LIST OF products -->
   <div class="container-fluid menu products-list">
     <div class="row">
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/rice.jfif" alt="Hồ Quang Cua - Gạo ST25 Ông Cua">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Hồ Quang Cua - Gạo
-              ST25 Ông Cua</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">172.000đ</p>
+      {{#if products}}
+        {{#each products}}
+          <div class="section col-md-3 col-sm-4 col-12 mb-4">
+            <div class="card shadow h-100">
+              <img class="card-img-top" src="../../assets/img/products/rice.jfif" alt="Hồ Quang Cua - Gạo ST25 Ông Cua">
+              <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
+                <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">
+                  {{this.f_Name}}
+                </a>
+                <p class="card-text text-red price-info" style="font-size: 1.3rem;">{{this.f_Price}}đ</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/muop.jpg" alt="Mướp hương gói 500g">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Mướp hương gói
-              500g</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">23,030đ</p>
-          </div>
-        </div>
-      </div>
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/apple.jpg"
-            alt="Táo Royal Gala NZL PG size 90-120(Nk) gói (1000-1100g)">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Táo Royal Gala NZL
-              PG size 90-120(Nk) gói (1000-1100g)</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">73,395đ</p>
-          </div>
-        </div>
-      </div>
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/heo_xay.jpg"
-            alt="Thịt heo xay Meat deli loại 1(S) khay (350-385g)">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Thịt heo xay Meat
-              deli loại 1(S) khay (350-385g)</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">47,804đ</p>
-          </div>
-        </div>
-      </div>
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/bot_ngot.webp"
-            alt="Bột ngọt (mì chính) Ajinomoto gói 454g">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Bột ngọt (mì
-              chính) Ajinomoto gói 454g</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">30,900đ</p>
-          </div>
-        </div>
-      </div>
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/muoi_bien.webp" alt="Muối biển VISAchef gói 1kg">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Muối biển VISAchef
-              gói 1kg</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">11,000đ</p>
-          </div>
-        </div>
-      </div>
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/muoi_bien.webp" alt="Muối biển VISAchef gói 1kg">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Muối biển VISAchef
-              gói 1kg</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">11,000đ</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="section col-md-3 col-sm-4 col-12 mb-4">
-        <div class="card shadow h-100">
-          <img class="card-img-top" src="../../assets/img/products/dutchMilk.jpg"
-            alt="Thùng 48 hộp sữa tươi tiệt trùng Dutch lady có đường 180ml">
-          <div class="card-body d-flex flex-column justify-content-between" style="min-height: 120px;">
-            <a class="h5 card-title text-truncate text-default text-decoration-none" href="#">Thùng 48 hộp sữa
-              tươi tiệt trùng Dutch lady có đường 180ml</a>
-            <p class="card-text text-red price-info" style="font-size: 1.3rem;">396,000đ</p>
-          </div>
-        </div>
-      </div>
+        {{/each}}
+      {{else}}
+        <h3 class="text-uppercase">Không có dữ liệu</h3>
+      {{/if}}
     </div>
   </div>
   <!-- PAGINATION -->
   <nav id="main-pagination" class="mt-3" aria-label="Search results pages"></nav>
 </div>
 
-{{/section}}
 
 {{! DEFINE A 'script' SECTION }}
 {{#section "script"}}
+<script>
+  var perPage = 6;
+</script>
 <script src="/js/jquery.twbsPagination.js"></script>
 <script src="/js/paging.js"></script>
 {{/section}}
