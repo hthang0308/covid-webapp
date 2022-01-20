@@ -1,5 +1,6 @@
 const db = require("../utils/db");
 const userModel = require("../models/user.M");
+
 exports.statistic = async (req, res) => {
   let tableName = "Users";
   let fieldName = "f_Fx";
@@ -14,13 +15,11 @@ exports.statistic = async (req, res) => {
   data.forEach(element => {
     chart_data.push(parseInt(element.soluong));
   })
+
   console.log("Chart data: ",chart_data);
-  //   foreach (item in datas)
-  //   {
-  //       if (f_Fx===0)
-  //   }
-  //   console.log(data);
-  res.render("statistics/products", {
+
+  res.render("statistics/people", {
+    title: "Thống kê người liên quan Covid 19",
     layout: "manager",
     status: data,
     data: chart_data,
