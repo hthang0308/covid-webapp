@@ -118,7 +118,6 @@ exports.createUser = async (req, res) => {
   if (!result) {
     err = "Can't add this user";
   }
-  console.log("REsult is", result);
   const obj = {
     id: result.f_ID,
   };
@@ -127,7 +126,6 @@ exports.createUser = async (req, res) => {
     access_token: token,
     accid: result.f_ID,
   });
-  console.log("REsult is", result);
   if (err !== "") return res.render("users/form_adduser", { layout: "manager", data: req.body, cities, qls, err });
 
   if (source) {
