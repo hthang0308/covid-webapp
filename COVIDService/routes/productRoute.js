@@ -12,6 +12,7 @@ router.use(authCtrl.protect);
 
 router.use(authCtrl.restrictTo(2));
 router.get("/", productCtrl.getAllProducts);
+router.get("/search", productCtrl.searchProduct);
 router.route("/:id").get(productCtrl.getProduct).patch(upload.array("images", 5), productCtrl.editProduct).delete(productCtrl.deleteProduct);
 router.route("/add").get(productCtrl.createProduct).post(upload.array("images", 5), productCtrl.createProduct);
 

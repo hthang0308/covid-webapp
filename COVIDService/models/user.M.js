@@ -35,26 +35,30 @@ module.exports = {
   getPayment: async (_f_ID, token) => {
     let { data } = await axios({
       method: "GET",
-      url: `${API_URL}/api/transactions/history/${_f_ID}`,
+      url: `${API_URL}/balance/${_f_ID}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      data: {
+        access_token: token,
+        accID: _f_ID
+      }
     })
       .then((res) => res.data)
       .catch((err) => console.log(err));
 
-    data = data.map((item) => ({
-      ...item,
-      action: getName(item.action),
-      date: moment,
-    }));
+    // data = data.map((item) => ({
+    // ...item,
+    // action: getName(item.action),
+    // date: moment,
+    // }));
     return { data };
   },
 
-  getBalance: async (_f_ID, token) => {
+  deposit: async (_f_ID, token) => {
     let { data } = await axios({
-      method: "GET",
-      url: `${API_URL}/${_f_ID}/balance`,
+      method: "POST",
+      url: `${API_URL}/addBalance/${_f_ID}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

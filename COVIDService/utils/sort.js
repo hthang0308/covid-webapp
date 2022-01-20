@@ -10,6 +10,12 @@ const sortByID = (array) => {
   });
 };
 
+const sortByTime = (array) => {
+  array.sort(function (a, b) {
+    return a.f_Time - b.f_Time;
+  });
+};
+
 const sortByName = (array) => {
   array.sort(function (a, b) {
     return a.f_Name.localeCompare(b.f_Name);
@@ -27,4 +33,4 @@ const sortByPrice = (array) => {
   });
 };
 
-module.exports = { sortByDate, sortByID, sortByName, sortByFullName, sortByPrice };
+module.exports = { sortByDate, sortByID, sortByName, sortByTime, sortByFullName, sortByPrice };
