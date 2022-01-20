@@ -1,7 +1,11 @@
 const port = 5000;
 const app = require('./app');
-const https = require("https");
 
+//const { app, credentials } = require('./app');
+// const https = require("https");
+// var rootCas = require('ssl-root-cas').create();
+// require('https').globalAgent.options.ca = rootCas;
+// require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 // https.createServer(credentials, app).listen(port, () => {
 //     console.log(`Server started on port ${port}`);
 // });

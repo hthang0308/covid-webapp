@@ -1,6 +1,7 @@
 const userModel = require("../models/user.M");
 const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
+const jwt = require('jsonwebtoken');
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 
 // Route
@@ -23,18 +24,21 @@ exports.getOrder = async (req, res) => {
 }
 
 exports.getBalance = async (req, res) => {
-  const id = req.params;
-  const { data: user } = await userModel.getUserByID(id);
-  const { banking_token: token } = user;
-
+  const id = req.params.id;
+  console.log('ID: ',id);
+  //const { data: user } = await userModel.getUserByID(id);
+  const user = await userModel.getUserByID(id);
+  console.log("User: ",user);
+  // const { banking_token: token } = user;
+  const token = jwt.sign({id: id}, process.env.JWT_SECRET);
   let data = {};
   // let userBankingDetail = {};
 
   if (token) {
-    data = (await userModel.getPayment(id, token)).data;
+    data = await userModel.getPayment(id, token);
+    console.log("data:", data);
   }
-
-  console.log(data || null);
+  return res.json(data)
 }
 
 // For managers

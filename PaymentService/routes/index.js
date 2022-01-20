@@ -13,6 +13,7 @@ router.get('/signout', signoutController);
 router.route('/firstSignIn').get(signinController.getFirstSignIn).post(signinController.postFirstSignIn);
 
 router.route('/changePass').get(manageController.getChangePass).post(manageController.handleChangePass);
+router.get('/balance', manageController.getBalance);
 router.post('/balance', manageController.getBalance);
 router.get('/history', manageController.showHistory);
 router.post('/addBalance', manageController.addBalance);

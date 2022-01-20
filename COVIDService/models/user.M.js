@@ -33,26 +33,47 @@ module.exports = {
   },
 
   getPayment: async (_f_ID, token) => {
-    let { data } = await axios({
-      method: "GET",
-      url: `${API_URL}/balance/${_f_ID}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        access_token: token,
-        accID: _f_ID
-      }
+    // let { data } = await axios({
+    //   method: "POST",
+    //   url: `${API_URL}/balance`,
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   data: {
+    //     access_token: token,
+    //     accid: _f_ID
+    //   }
+    // })
+    //   await axios.get('https://incomplete-chain.badssl.com')
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    var response = await axios.post(`https://localhost:5000/balance`, {
+      access_token: token,
+      accid: _f_ID
     })
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
+    return response.data;
+      // .then((res) => {
+      //   console.log("Res: ", res.data);
+      //   if (res.data.Response === 'true') {
+      //     console.log("true");
+      //     return res.data;
+      //   }
+      // })
+      // .catch((err) => {
+      //   console.log("Error Balance: ", err)
+      //   return err;
+      // }
+      //   );
 
     // data = data.map((item) => ({
     // ...item,
     // action: getName(item.action),
     // date: moment,
     // }));
-    return { data };
   },
 
   deposit: async (_f_ID, token) => {

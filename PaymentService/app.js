@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
@@ -49,7 +50,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 // const credentials = {
 //     key: fs.readFileSync(path.join(__dirname, 'certs', 'localhost-key.pem'), { encoding: 'utf-8' }),
-//     cert: fs.readFileSync(path.join(__dirname, 'certs', 'localhost.pem'), { encoding: 'utf-8' })
+//     cert: fs.readFileSync(path.join(__dirname, 'certs', 'localhost-fullchain.pem'), { encoding: 'utf-8' })
 //   };
 app.use('/', paymentRouter);
 
@@ -58,4 +59,4 @@ app.all("*", (req, res, next) => {
     next(console.log(`Can't find ${req.originalUrl} on this server`, 404));
 });
 module.exports = app;
-//module.exports = app;
+//module.exports = {app, credentials};
