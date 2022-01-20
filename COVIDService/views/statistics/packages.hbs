@@ -1,0 +1,96 @@
+<div id="content-1" class="content shadow border rounded container-fluid mb-5">
+    <div class="row pt-3 border-bottom">
+        <div class="col-12 col-lg-8 h-100">
+            <p id="product-name" class="title text-blue text-center text-md-left text-uppercase"
+                style="font-size: 1.8rem; font-weight: bold;">Thống kê người liên quan Covid-19</p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <form id='filterby-form' class="form-inline" action="/manager/products/statistic">
+                <div class="form-group mb-2">
+                    <label for="filter-by"><i class="fas fa-calendar-alt"></i></label>
+                    <select class="form-control shadow-none custom-select filterby mx-sm-2"
+                        id="filter-by" aria-label="filter-by" name="filter_by">
+                        <option class="py-1" value="day-current" data-filter="&filterby=(day:current)">
+                            Hôm nay</option>
+                        <option class="py-1" value="week-current"
+                            data-filter="&filterby=(week:current)">Tuần này</option>
+                        <option class="py-1" value="month-current"
+                            data-filter="&filterby=(month:current)">Tháng này</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- STATISTICS -->
+    <!-- THỐNG KÊ NGƯỜI LIÊN QUAN -->
+    <div class="row my-3 justify-content-between align-items-center flex-column-reverse flex-md-row">
+        <div class="col-md-5 col-12">
+            <div class="table-responsive-xl table-hover">
+                <table class="table table-content border mb-0 menu">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col d-flex align-items-center">#</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col" class="text-center">Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if status}}
+                        {{#each status}}
+                            <tr class="section">
+                                <th scope="row">{{sum @index 1}}</th>
+                                <td class="status">
+                                    {{this.ProName}}
+                                </td>
+                                <td class="number text-center">
+                                    {{this.Sold}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                        <tr class="section total-row font-weight-bold">
+                            <th scope="row" colspan="2">Tổng</th>
+                            <td class="number-total text-center"></td>
+                        </tr>
+                        {{else}}
+                            <h3 class="text-uppercase">Không có dữ liệu</h3>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{#if status}} 
+            <div class="col-md-7 col-12 d-flex justify-content-center">
+                <div id="product-chart" style="min-height: 350px;"></div>
+            </div>
+        {{/if}}
+    </div>
+</div>
+
+{{#section 'script'}}
+    {{#if status}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+        var xValues = [{{#each status}}{{this.ProName}},{{/each}}];
+        var yValues = [{{#each status}}{{_toInt this.ProName}},{{/each}}];
+        var barColors = ['#f57a75', '#BDD5EA', '#8be4ba','#49c6c5', '#3a59bf'];
+
+        new Chart("product-chart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "Doanh số bán nhu yếu phẩm"
+                }
+            }
+        });
+    </script>
+    {{/if}}
+{{/section}}

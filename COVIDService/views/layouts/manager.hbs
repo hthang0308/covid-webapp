@@ -67,47 +67,57 @@
     <div class="row">
       {{!-- DEFAULT SIDEBAR --}}
       {{#section 'sidebar'}}
-      <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
-        <div class="position-sticky pt-3">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
-                href="/dashboard" aria-current="page">
-                <i class="fas fa-home"></i>
-                <span class="ml-2">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
-                href="/user/all">
-                <i class="fas fa-users"></i>
-                <span class="ml-2">Nguời liên quan Covid-19</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
-                href="/product">
-                <i class="fas fa-fish"></i>
-                <span class="ml-2"> Nhu yếu phẩm</span>
-              </a>
-            </li>
+        <nav class="col-md-3 col-lg-2 collapse navbar-collapse d-lg-block shadow sidebar" id="sidebar">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                            href="#" aria-current="page">
+                            <i class="fas fa-home"></i>
+                            <span class="ml-2">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                            href="#">
+                            <i class="fas fa-users"></i>
+                            <span class="ml-2">Nguời liên quan Covid-19</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center my-2"
+                            href="#">
+                            <i class="fas fa-fish"></i>
+                            <span class="ml-2"> Nhu yếu phẩm</span>
+                        </a>
+                    </li>
 
-            <li class="nav-item ">
-              <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center"
-                href="/package">
-                <i class="fas fa-box"></i>
-                <span class="ml-2">Gói nhu yếu phẩm</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+                    <li class="nav-item ">
+                        <a class="nav-link d-flex align-items-center justify-content-md-start justify-content-center"
+                            href="#">
+                            <i class="fas fa-box"></i>
+                            <span class="ml-2">Gói nhu yếu phẩm</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-md-start justify-content-center" href="#" id="statistics-nav" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="ml-2">Thống kê</span>
+                        </a>
+                        <div class="dropdown-menu text-center text-md-left" aria-labelledby="statistics-nav" style="right: 0; ">
+                          <a class="dropdown-item" href="#">Người liên quan Covid-19</a>
+                          <a class="dropdown-item" href="#">Nhu yếu phẩm</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
       {{/section}}
       {{!-- DEFINE A 'sidebar' SECTION --}}
       {{{_sections.sidebar}}}
 
       <main class=" pt-4 ml-sm-auto col-lg-10">
-        {{!-- DEFINE A 'content' SECTION --}}
+        {{!-- DEFINE A 'body' SECTION --}}
         {{{body}}}
         <footer class="container-fluid py-3 my-4 border-top">
           <div class="d-flex align-items-center justify-content-center">
