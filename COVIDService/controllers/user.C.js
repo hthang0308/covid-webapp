@@ -1,72 +1,10 @@
 const userModel = require("../models/user.M");
-const orderModel = require("../models/order.M");
 const sort = require("../utils/sort");
 const jwt = require("jsonwebtoken");
 const { isNumber, isValidFx, isValidName } = require("../utils/validate");
 const { API_URL } = require("../utils/constant");
 
 // Route
-// GetHomePage for Users
-exports.getHome = async (req, res) => {
-  user = await userModel.getUserByID(req.user.f_ID);
-  if (user === undefined) return;
-  res.render('normaluser/single', {
-    user: user,
-    title: 'Thông tin tài khoản'
-  });
-};
-
-exports.getHistory = async (req, res) => {
-  user = await userModel.getUserByID(req.user.f_ID);
-  var result = await user.f_History.filter((item) => item.includes("Manage User"));
-
-  let date = [];
-  let time = [];
-  let action = [];
-  result.forEach(result => {
-    date.push(result.split('')[0]);
-    time.push(result.split('')[1]);
-    action.push(result.split('')[2]);
-  });
-
-  res.render('normaluser/history', {
-    date: date,
-    time: time,
-    action: action,
-    title: 'Lịch sử quản lý người dùng'
-  })
-};
-
-exports.getOrder = async (req, res) => {
-  // user = await userModel.getUserByID(req.user.f_ID);
-  var result = await orderModel.getOrderByAccountID(req.user.f_ID);
-  console.log(result);
-  res.render('normaluser/order', {
-    history: result,
-    title: 'Lịch sử tiêu thụ nhu yếu phẩm'
-  })
-};
-
-exports.getBalance = async (req, res) => {
-  const id = req.user.f_ID;
-  const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
-  let data = {};
-  if (token) {
-    data = await userModel.getPayment(id, token);
-  }
-  return res.json(data);
-};
-
-exports.deposit = async (req, res) => {
-  //Step 1: Check user
-  const id = req.user.f_ID;
-
-  //Step 2: Pass id to payment
-  const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
-  if (token) {
-    return res.redirect(`${API_URL}/`);
-  }
-};
 
 // For managers
 exports.getAllUsers = async (req, res) => {
@@ -149,9 +87,8 @@ exports.createUser = async (req, res) => {
   const qls = await userModel.getAllQL();
   if (err !== "") return res.render("users/form_adduser", { layout: "manager", data: req.body, cities, qls, err });
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const newUser = {
     f_Username: req.body.username,
     f_Password: "",
@@ -234,9 +171,8 @@ exports.editUser = async (req, res) => {
   const tmpUser = await userModel.getUserByID(req.params.id);
   if (tmpUser === undefined) return;
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `; //If in form has covid address
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `; //If in form has covid address
   if (req.body.ql !== undefined) {
     tmpUser.f_QuarantineID = req.body.ql;
     const tmpNewCovidAddress = await userModel.getQLByID(tmpUser.f_QuarantineID);
