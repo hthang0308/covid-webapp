@@ -56,7 +56,7 @@ exports.get = async (tableName, fieldName, value) => {
 // SEARCHING
 exports.search = async (tableName, fieldName, value) => {
   const table = new pgp.helpers.TableName({ table: tableName, schema: schema });
-  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"::text like '%${value}%'`, table);
+  const queryStr = pgp.as.format(`SELECT * from $1 where "${fieldName}"::text ilike '%${value}%'`, table);
   try {
     const res = await db.any(queryStr);
     return res;
@@ -123,9 +123,10 @@ exports.statistic = async (tbName, fieldName, staField, value) => {
 exports.newStatistic = async (tbName, fieldName, value) => {
   const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
   const qStr = pgp.as.format(
-    `SELECT "f_Fx", count(*) as "soluong" FROM ${table} WHERE "f_Fx" is not null and "f_History"::text LIKE '{"%${value}%"}' GROUP BY "${fieldName}" ORDER BY "${fieldName}" ASC`, {
-    table,    
-  }
+    `SELECT "f_Fx", count(*) as "soluong" FROM ${table} WHERE "f_Fx" is not null and "f_History"::text LIKE '{"%${value}%"}' GROUP BY "${fieldName}" ORDER BY "${fieldName}" ASC`,
+    {
+      table,
+    }
   );
   try {
     const res = await db.any(qStr);
