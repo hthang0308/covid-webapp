@@ -17,9 +17,8 @@ exports.createAccount = async (req, res) => {
     return res.render("accounts/form_add", { msg: "Username already exist!", color: "danger" });
   }
   var currentDate = new Date();
-  var currentTime = `${currentDate.getDay()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   const f_Password = await bcrypt.hashSync(req.body.password, saltRounds);
   const tmpUser = {
     f_Username: req.body.username,
@@ -39,10 +38,9 @@ exports.lockAccount = async (req, res) => {
   if (tmpAccount.f_Permission != null) tmpAccount.f_Permission *= -1;
   var tmpID = tmpAccount.f_ID;
   delete tmpAccount.f_ID;
-  var currentdate = new Date();
-  var currentTime = `${currentDate.getDay()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
+  var currentDate = new Date();
+  var currentTime = `${currentDate.getDay()}/${currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()} `;
   if (tmpAccount.f_Permission < 0) tmpAccount.f_History.push(`${currentTime} Lock User`);
   else tmpAccount.f_History.push(`${currentTime} Unlock User`);
   accountModel.editAccount(tmpID, tmpAccount);
