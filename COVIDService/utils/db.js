@@ -120,6 +120,21 @@ exports.statistic = async (tbName, fieldName, staField, value) => {
   }
 };
 
+exports.newStatistic = async (tbName, fieldName, value) => {
+  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+  const qStr = pgp.as.format(
+    `SELECT "f_Fx", count(*) as "soluong" FROM ${table} WHERE "f_Fx" is not null and "f_History"::text LIKE '{"%${value}%"}' GROUP BY "${fieldName}" ORDER BY "${fieldName}" ASC`, {
+    table,    
+  }
+  );
+  console.log("Qstr: ", qStr);
+  try {
+    const res = await db.any(qStr);
+    return res;
+  } catch (error) {
+    console.log("Error new statistics");
+  }
+};
 // SIMPLE STATISTICS
 exports.simpleStatistic = async (tbName, fieldName, staField, orderField) => {
   const table = new pgp.helpers.TableName({ table: tbName, schema: schema });

@@ -27,17 +27,16 @@ class SignInController {
                     });
                     return;
                 }
-                res.render('firstSignIn', {
+                return res.render('firstSignIn', {
                     accid: acc.AccID
                 });
-                return;
             }
-            res.render('signin', {
+            return res.render('signin', {
                 msg: 'ID tài khoản không tồn tại',
                 color: 'danger',
             })
         }
-        res.render('signin', {
+        return res.render('signin', {
             msg: 'ID tài khoản trống',
             color: 'danger'
         })
@@ -87,7 +86,7 @@ class SignInController {
                     id: user.AccID
                 }
                 const token = jwt.sign(userToken, process.env.JWT_SECRET);
-                res.cookie('access_token', token);                
+                res.cookie('access_token', token);
                 return res.redirect('/');
             });
         })(req, res, next);
@@ -128,7 +127,7 @@ class SignInController {
             return res.render('message', {
                 msg: 'Tạo mât khẩu thành công',
                 link: '/signin',
-                text:'Quay lại trang đăng nhập'
+                text: 'Quay lại trang đăng nhập'
             });
         }
         res.redirect('/')

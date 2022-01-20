@@ -1,14 +1,31 @@
+Danh sách
+{{length}}
+tài khoản quản lý hiện có:
+<br />
 {{#each accounts}}
-  <a href="/account/{{this.f_ID}}">{{this.f_Username}}</a>
+  <a href="/account/{{this.f_ID}}">ID{{this.f_ID}} - {{this.f_Username}}</a>
   <br />
 {{/each}}
-<form class="form" action="/account/create" method="get" style="width:40vw" onsubmit="setTimeout(function(){window.location.reload();},100);">
-  <button type="submit" class="btn btn-default btn-success">
-    Add New Account
-  </button>
-</form>
-<form class="form" action="/ql" method="get" style="width:40vw">
-  <button type="submit" class="btn btn-default btn-success">
-    Manage Quarantine Location
-  </button>
-</form>
+<div class="row">
+  <div class="col">
+    <form
+      class="form"
+      class="m-5"
+      action="/account/create"
+      method="get"
+      style="width:40vw; margin:10px"
+      onsubmit="setTimeout(function(){window.location.reload();},100);"
+    >
+      <button type="submit" class="btn btn-default btn-success">
+        Thêm tài khoản quản lý mới
+      </button>
+    </form>
+  </div>
+  <div class="col">
+    <form class="form" class="m-5" action="/ql" method="get" style="width:40vw; margin:10px">
+      <button type="submit" class="btn btn-default btn-success">
+        Quản lý danh sách nơi cách ly
+      </button>
+    </form>
+  </div>
+</div>

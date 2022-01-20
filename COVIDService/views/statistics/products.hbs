@@ -1,21 +1,24 @@
 <div id="content-1" class="content shadow border rounded container-fluid mb-5">
   <div class="row pt-3 border-bottom">
     <div class="col-12 col-lg-8 h-100">
-      <p id="product-name" class="title text-blue text-center text-md-left text-uppercase" style="font-size: 1.8rem; font-weight: bold;">Thống kê nhu
-        yếu phẩm</p>
+      <p id="product-name" class="title text-blue text-center text-md-left text-uppercase" style="font-size: 1.8rem; font-weight: bold;">Thống kê số người nhiễm Covid</p>
     </div>
     <div class="col-12 col-lg-4">
-      <form id="filterby-form" class="form-inline" action="/manager/people/statistic">
+      <form id="filterby-form" class="form-inline" action="/statistic/sta" method="post">
         <div class="form-group mb-2">
           <label for="filter-by"><i class="fas fa-calendar-alt"></i></label>
           <select class="form-control shadow-none custom-select filterby mx-sm-2" id="filter-by" aria-label="filter-by" name="filter_by">
-            <option class="py-1" value="day-current" data-filter="&filterby=(day:current)">Hôm nay</option>
+            {{!-- <option class="py-1" value="day-current" data-filter="&filterby=(day:current)">Hôm nay</option>
             <option class="py-1" value="week-current" data-filter="&filterby=(week:current)">Tuần này
             </option>
             <option class="py-1" value="month-current" data-filter="&filterby=(month:current)">Tháng này
-            </option>
+            </option> --}}
+            <option value="1/2022">1/2022</option>
+            <option value="12/2021">12/2021</option>
+            <option value="11/2021">11/2021</option>
           </select>
         </div>
+        <button type="submit" class="btn btn-success">Tìm kiếm</button>
       </form>
     </div>
   </div>
@@ -27,30 +30,21 @@
         <table class="table table-content border mb-0 menu">
           <thead class="thead-light">
             <tr>
-              <th scope="col d-flex align-items-center">#</th>
-              <th scope="col">Trạng thái</th>
+              <th scope="col">Trạng thái (F)</th>
               <th scope="col" class="text-center">Tổng số người</th>
             </tr>
           </thead>
           <tbody>
+            {{#each status}}
             <tr class="section">
-              <th scope="row">a</th>
               <td class="status">
-                F0
+                {{this.f_Fx}}
               </td>
               <td class="quantity text-center">
-                5
+                {{this.soluong}}
               </td>
             </tr>
-            <tr class="section">
-              <th scope="row">b</th>
-              <td class="status">
-                F2
-              </td>
-              <td class="quantity text-center">
-                10
-              </td>
-            </tr>
+            {{/each}}
             <tr class="section total-row font-weight-bold">
               <th scope="row" colspan="2">Tổng</th>
               <td id="total" class="number-total text-center"></td>
@@ -62,11 +56,47 @@
     {{#if status}}
       <div class="col-md-7 col-12 d-flex justify-content-center">
         <div id="people-chart" style="min-height: 350px;"></div>
+        <canvas id="myChart" width="400" height="400"></canvas>
+
       </div>
     {{/if}}
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['F0', 'F1', 'F2', 'F3'],
+        datasets: [{
+            label: '#F',
+            data: [{{data}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
 {{#section "script"}}
   {{#if status}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>

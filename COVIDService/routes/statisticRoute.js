@@ -12,5 +12,6 @@ router.use(authCtrl.protect);
 router.use(authCtrl.restrictTo(0, 1, 2));
 router.get("/ssta", statCtrl.simpleStatistic);
 router.get("/sta", statCtrl.statistic);
+router.post("/sta", statCtrl.statistic);
 
 module.exports = router;
