@@ -68,8 +68,14 @@ app.get("/", function (req, res) {
   if (req.cookies.role === "2") {
     myrole = "manager";
   }
+  var value = "";
+  if (req.cookies) {
+    value = req.cookies.id;
+  }
+  console.log(req.user);
   res.render("home", {
     layout: myrole,
+    value,
     cssP: () => "css",
     username: req.cookies.username,
     myrole,

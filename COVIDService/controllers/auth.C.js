@@ -120,6 +120,7 @@ exports.signin = async (req, res) => {
     res.cookie("jwt", token);
     res.cookie("username", req.body.username);
     res.cookie("role", user.f_Permission);
+    res.cookie("id", user.f_ID);
     return res.redirect("/");
   }
   const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
@@ -128,6 +129,7 @@ exports.signin = async (req, res) => {
   res.cookie("jwt", token);
   res.cookie("username", req.body.username);
   res.cookie("role", user.f_Permission);
+  res.cookie("id", user.f_ID);
   return res.redirect("/auth/changepassword");
 };
 

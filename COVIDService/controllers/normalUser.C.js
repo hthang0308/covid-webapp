@@ -8,7 +8,7 @@ exports.getHome = async (req, res) => {
   if (!tmpUser) {
     return res.redirect("/");
   }
-  const fulladdress = "";
+  var fulladdress = "";
   const ward = await userModel.getWardByID(tmpUser.f_Ward);
   if (ward) {
     const district = await userModel.getDistrictByID(ward.f_District);
@@ -19,14 +19,19 @@ exports.getHome = async (req, res) => {
       }
     }
   }
-  const qlocation = await userModel.getQLByID(tmpUser.f_QuarantineID);
+  var qlocation = await userModel.getQLByID(tmpUser.f_QuarantineID);
   try {
     tmpUser.f_DOB = tmpUser.f_DOB.toISOString().split("T")[0];
   } catch (err) {
     console.log(err);
   }
   if (qlocation) qlocation = qlocation.f_Address;
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("normaluser/single", {
+    layout,
     user: tmpUser,
     title: "Thông tin tài khoản",
     address: fulladdress,
@@ -56,7 +61,12 @@ exports.getHistory = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("normaluser/history", {
+    layout,
     histories,
     title: "Lịch sử quản lý người dùng",
   });
@@ -70,13 +80,22 @@ exports.getOrder = async (req, res) => {
     const tmpPackage = await orderModel.getPackageNameByID(element.f_PackageID);
     element.f_PackageName = tmpPackage.f_Name;
   }
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("normaluser/order", {
+    layout,
     histories: result,
     title: "Lịch sử tiêu thụ nhu yếu phẩm",
   });
 };
 
 exports.getBalance = async (req, res) => {
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   try {
     const id = req.user.f_ID;
     const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
@@ -85,11 +104,13 @@ exports.getBalance = async (req, res) => {
       data = await userModel.getPayment(id, token);
     }
     res.render("normaluser/balance", {
+      layout,
       title: "Số dư hiện tại",
       data: data.Balance,
     });
   } catch (error) {
     res.render("normaluser/balance", {
+      layout,
       title: "Số dư hiện tại",
       data: 0,
     });

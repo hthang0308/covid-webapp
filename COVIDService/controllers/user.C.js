@@ -100,7 +100,12 @@ exports.createUser = async (req, res) => {
   if (req.cookies.role === "0") {
     layout = "admin";
   } else if (req.cookies.role === "1") layout = "user";
-  if (err !== "") return res.render("users/form_adduser", { layout, data: req.body, cities, qls, err });
+  //if (err !== "") return res.render("users/form_adduser", { layout, data: req.body, cities, qls, err });
+  if (err !== "")
+    return res.json({
+      data: req.body,
+      err,
+    });
   var currentDate = new Date();
   var currentTime = `${currentDate.getDay()}/${
     currentDate.getMonth() + 1
@@ -243,11 +248,12 @@ exports.editUser = async (req, res) => {
     if (tmpUser.f_RelatedID !== null)
       for (const anotherID of tmpUser.f_RelatedID) {
         tmpUser2 = await userModel.getUserByID(anotherID);
-        if (tmpUser2.f_Fx > 0) {
-          tmpUser2.f_Fx--;
-          tmpUser2.f_History.push(currentTime + `Manager Change From F${tmpUser2.f_Fx + 1} To F${tmpUser2.f_Fx}`);
-          userModel.editUser(tmpUser2.f_ID, tmpUser2);
-        }
+        if (tmpUser2)
+          if (tmpUser2.f_Fx > 0) {
+            tmpUser2.f_Fx--;
+            tmpUser2.f_History.push(currentTime + `Manager Change From F${tmpUser2.f_Fx + 1} To F${tmpUser2.f_Fx}`);
+            userModel.editUser(tmpUser2.f_ID, tmpUser2);
+          }
       }
     //Update this ID
     tmpUser.f_Fx--;
