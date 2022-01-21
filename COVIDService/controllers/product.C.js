@@ -62,10 +62,12 @@ exports.getProduct = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   if (req.method === "POST") {
-    if (!Array.isArray(product.f_Images)) {
+    const product = { ...req.body };
+    if (product.f_Images === "") {
+      product.f_Images = null;
+    } else if (!Array.isArray(product.f_Images)) {
       product.f_Images = [product.f_Images];
     }
-    const product = { ...req.body };
     await productModel.createProduct(product);
     res.redirect("/product");
     return;
