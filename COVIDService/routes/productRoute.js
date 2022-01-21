@@ -17,13 +17,17 @@ router.get("/search", productCtrl.searchProduct);
 const productModel = require("../models/product.M");
 
 router.get("/edit/:id", async (req, res, next) => {
-    const product = await productModel.getProductById(req.params.id);
-    console.log(product);
-    res.render("products/edit", {
-      product: product,
-      title: "Thông tin nhu yếu phẩm",
-      layout: "manager",
-    });
+  const product = await productModel.getProductById(req.params.id);
+  console.log(product);
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
+  res.render("products/edit", {
+    product: product,
+    title: "Thông tin nhu yếu phẩm",
+    layout,
+  });
 });
 
 router.route("/add").get(productCtrl.createProduct).post(upload.array("images", 5), productCtrl.createProduct);

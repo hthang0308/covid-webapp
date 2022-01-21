@@ -7,20 +7,23 @@ exports.statistic = async (req, res) => {
   // Ngày thống kê sẽ lấy từ req
   let value = "1/2022";
   if (req.body && req.body.filter_by) {
-    value = req.body.filter_by
+    value = req.body.filter_by;
   }
   const data = await db.newStatistic(tableName, fieldName, value);
   console.log("data: ", data);
   const chart_data = [];
-  data.forEach(element => {
+  data.forEach((element) => {
     chart_data.push(parseInt(element.soluong));
-  })
+  });
 
-  console.log("Chart data: ",chart_data);
-
+  console.log("Chart data: ", chart_data);
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("statistics/people", {
     title: "Thống kê người liên quan Covid 19",
-    layout: "manager",
+    layout,
     status: data,
     data: chart_data,
   });
@@ -33,13 +36,17 @@ exports.simpleStatistic = async (req, res) => {
   let data = await db.simpleStatistic(tableName, fieldName, "f_Quantity");
   var chart_data = [];
   var label = [];
-  data.forEach(element => {
+  data.forEach((element) => {
     chart_data.push(parseInt(element.sum));
-    label.push(element.f_PackageID)
-  })
+    label.push(element.f_PackageID);
+  });
   console.log("chart: ", chart_data);
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("statistics/products", {
-    layout: "manager",
+    layout,
     status: data,
     label: label,
     data: chart_data,

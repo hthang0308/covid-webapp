@@ -9,9 +9,13 @@ exports.getAllPackages = async (req, res) => {
   if (req.query.sort === "name") sort.sortByName(arr);
   if (req.query.sort === "time") sort.sortByTime(arr);
 
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("packages/all", {
     packages: arr,
-    layout: "manager",
+    layout,
     title: "Danh sách gói nhu yếu phẩm",
   });
 };
@@ -38,10 +42,14 @@ exports.getPackage = async (req, res) => {
   // }
 
   // Step 3: Render the package
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("packages/single", {
     package: tmpPack,
     // products: productInfo,
-    layout: "manager",
+    layout,
     title: "Thông tin gói",
   });
 };
@@ -64,9 +72,13 @@ exports.createPackage = async (req, res) => {
       messages: "Thêm gói nhu yếu phẩm thành công",
     });
   }
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("packages/add", {
     title: "Thêm gói nhu yếu phẩm",
-    layouts: "manager",
+    layout,
   });
 };
 
@@ -89,10 +101,14 @@ exports.editPackage = async (req, res) => {
       messages: "Chỉnh sửa gói nhu yếu phẩm thành công",
     });
   }
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("packages/edit", {
     package: tmpPack,
     title: "Chỉnh sửa gói nhu yếu phẩm",
-    layouts: "manager",
+    layout,
   });
 };
 

@@ -115,6 +115,7 @@ exports.signin = async (req, res) => {
     });
     res.cookie("jwt", token);
     res.cookie("username", req.body.username);
+    res.cookie("role", user.f_Permission);
     return res.redirect("/");
   }
   const token = jwt.sign({ id: user.f_ID }, process.env.JWT_SECRET, {
@@ -122,6 +123,7 @@ exports.signin = async (req, res) => {
   });
   res.cookie("jwt", token);
   res.cookie("username", req.body.username);
+  res.cookie("role", user.f_Permission);
   return res.redirect("/auth/changepassword");
 };
 
@@ -150,8 +152,13 @@ exports.signup = async (req, res) => {
 };
 
 exports.getChangePassword = async (req, res) => {
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
+  console.log("Layout is", layout);
   return res.render("normaluser/changepassword", {
-    layout: "manager",
+    layout,
   });
 };
 
@@ -164,8 +171,12 @@ exports.changePassword = async (req, res) => {
       console.log(err);
     }
     if (!checkOld) {
+      var layout = "manager";
+      if (req.cookies.role === "0") {
+        layout = "admin";
+      } else if (req.cookies.role === "1") layout = "user";
       return res.render("normaluser/changepassword", {
-        layout: "manager",
+        layout,
         data: req.body,
         err: "Old password not match",
       });
@@ -173,8 +184,12 @@ exports.changePassword = async (req, res) => {
   }
   const checkSame = req.body.newPassword === req.body.confirmNewPassword;
   if (!checkSame) {
+    var layout = "manager";
+    if (req.cookies.role === "0") {
+      layout = "admin";
+    } else if (req.cookies.role === "1") layout = "user";
     return res.render("normaluser/changepassword", {
-      layout: "manager",
+      layout,
       data: req.body,
       err: "Confirm new password is wrong!",
     });
@@ -188,8 +203,12 @@ exports.changePassword = async (req, res) => {
   req.user.f_History.push(`${currentTime} Change password`);
   await accountM.editAccount(req.user.f_ID, req.user);
   console.log(req.user);
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   return res.render("normaluser/changepassword", {
-    layout: "manager",
+    layout,
     data: req.body,
     err: "Change password successfully!",
   });

@@ -59,10 +59,21 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.get("/", function (req, res) {
-  console.log(req.cookies);
+  if (req.cookies.role === "0") {
+    myrole = "admin";
+  }
+  if (req.cookies.role === "1") {
+    myrole = "user";
+  }
+  if (req.cookies.role === "2") {
+    myrole = "manager";
+  }
   res.render("home", {
+    layout: myrole,
     cssP: () => "css",
     username: req.cookies.username,
+    myrole,
+
     // scriptP: () => "empty",
     // navP: () => "nav",
     footerP: () => "footer",

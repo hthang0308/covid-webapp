@@ -25,20 +25,28 @@ exports.getAllUsers = async (req, res) => {
     element.f_Ward = tmpWard.f_Name;
   });
   console.log("IDDD", req.user.f_ID);
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("users/all", {
     users: arr,
     title: "Danh sách người liên quan COVID-19",
-    layout: "manager",
+    layout,
   });
 };
 
 exports.searchUser = async (req, res) => {
   tmpUser = await userModel.searchUserByName(req.query.search);
   if (tmpUser === undefined) return;
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
   res.render("users/all", {
     users: tmpUser,
     title: "Tìm kiếm người liên quan COVID-19",
-    layout: "manager",
+    layout,
   });
 };
 
@@ -88,7 +96,11 @@ exports.createUser = async (req, res) => {
 
   const cities = await userModel.getAllCities();
   const qls = await userModel.getAllQL();
-  if (err !== "") return res.render("users/form_adduser", { layout: "manager", data: req.body, cities, qls, err });
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
+  if (err !== "") return res.render("users/form_adduser", { layout, data: req.body, cities, qls, err });
   var currentDate = new Date();
   var currentTime = `${currentDate.getDay()}/${
     currentDate.getMonth() + 1
@@ -126,7 +138,11 @@ exports.createUser = async (req, res) => {
     access_token: token,
     accid: result.f_ID,
   });
-  if (err !== "") return res.render("users/form_adduser", { layout: "manager", data: req.body, cities, qls, err });
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
+  if (err !== "") return res.render("users/form_adduser", { layout, data: req.body, cities, qls, err });
 
   if (source) {
     console.log(source.f_RelatedID);
@@ -136,7 +152,11 @@ exports.createUser = async (req, res) => {
     }
     await userModel.editUser(source.f_ID, source);
   }
-  return res.render("users/form_adduser", { layout: "manager", cities, data: req.body, qls, err: "Successfully" });
+  var layout = "manager";
+  if (req.cookies.role === "0") {
+    layout = "admin";
+  } else if (req.cookies.role === "1") layout = "user";
+  return res.render("users/form_adduser", { layout, cities, data: req.body, qls, err: "Successfully" });
   //done
 };
 

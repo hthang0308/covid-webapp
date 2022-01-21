@@ -3,7 +3,7 @@ const hbs_section = require("express-handlebars-sections");
 
 module.exports = (app) => {
   const hbs = exhbs.create({
-    defaultLayout: "manager",
+    defaultLayout: "admin",
     extname: ".hbs",
     layoutsDir: "views/layouts",
     partialsDir: "views/partials",
@@ -54,7 +54,7 @@ module.exports = (app) => {
 
       _indexOf: function (arr, i) {
         return arr[i];
-      }
+      },
     },
   });
   hbs_section(hbs);
