@@ -5,9 +5,8 @@ const router = express.Router();
 
 router.use(authCtrl.protect);
 
-router.use(authCtrl.restrictTo(1));
-
 router.route("/").get(normalCtrl.getHome);
+
 router.route("/balance").get(normalCtrl.getBalance);
 router.route("/history").get(normalCtrl.getHistory);
 router.route("/order").get(normalCtrl.getOrder);

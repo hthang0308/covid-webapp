@@ -8,15 +8,6 @@ router.use(authCtrl.protect);
 
 // 0: Admin, 1:User, 2: Manager. Admin creates Manager. User signs up.
 
-// User roles
-// router.use(authCtrl.restrictTo(1))
-// router.route("/").get(userCtrl.getHome);
-// router.route('/balance').get(userCtrl.getBalance);
-// router.route("/history").get(userCtrl.getHistory);
-// router.route("/packages").get(userCtrl.getOrder);
-// router.route("/deposit").get(userCtrl.deposit);
-
-// Manager roles
 router.use(authCtrl.restrictTo(0, 2));
 router.route("/all").get(userCtrl.getAllUsers);
 router.get("/search", userCtrl.searchUser); //user/search?id=2333

@@ -8,29 +8,29 @@ exports.getHome = async (req, res) => {
   if (!tmpUser) {
     return res.redirect("/");
   }
+  const fulladdress = "";
   const ward = await userModel.getWardByID(tmpUser.f_Ward);
-  console.log("ward", ward);
-  if (!ward) {
-    return res.redirect("/");
+  if (ward) {
+    const district = await userModel.getDistrictByID(ward.f_District);
+    if (district) {
+      const city = await userModel.getCityByID(district.f_City);
+      if (city) {
+        fulladdress = ward.f_Name + ", " + district.f_Name + ", " + city.f_Name;
+      }
+    }
   }
-  const district = await userModel.getDistrictByID(ward.f_District);
-  console.log("district", district);
-  if (!district) {
-    return res.redirect("/");
-  }
-  const city = await userModel.getCityByID(district.f_City);
-  console.log("city", city);
-  if (!city) {
-    return res.redirect("/");
-  }
-  const fulladdress = ward.f_Name + ", " + district.f_Name + ", " + city.f_Name;
   const qlocation = await userModel.getQLByID(tmpUser.f_QuarantineID);
-  tmpUser.f_DOB = tmpUser.f_DOB.toISOString().split("T")[0];
+  try {
+    tmpUser.f_DOB = tmpUser.f_DOB.toISOString().split("T")[0];
+  } catch (err) {
+    console.log(err);
+  }
+  if (qlocation) qlocation = qlocation.f_Address;
   res.render("normaluser/single", {
     user: tmpUser,
     title: "Thông tin tài khoản",
     address: fulladdress,
-    qlocation: qlocation.f_Address,
+    qlocation: qlocation,
   });
   //   if (user === undefined) return;
   //   res.render("normaluser/single", {

@@ -10,7 +10,7 @@ router.use(authCtrl.protect);
 
 // 0: Admin, 1:User, 2: Manager. Admin creates Manager. Manager creates User.
 
-router.use(authCtrl.restrictTo(2));
+router.use(authCtrl.restrictTo(0, 2));
 router.get("/", productCtrl.getAllProducts);
 router.get("/search", productCtrl.searchProduct);
 
