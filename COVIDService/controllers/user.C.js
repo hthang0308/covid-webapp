@@ -162,6 +162,20 @@ exports.getUser = async (req, res) => {
   }
   const fulladdress = ward.f_Name + ", " + district.f_Name + ", " + city.f_Name;
   const qlocation = await userModel.getQLByID(tmpUser.f_QuarantineID);
+  try {
+    tmpUser.f_DOB = tmpUser.f_DOB.toISOString().split("T")[0];
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    var tmp = "";
+    user.f_RelatedID.forEach((element) => {
+      tmp += element + " ";
+    });
+    user.f_RelatedID = tmp;
+  } catch (err) {
+    console.log(err);
+  }
   res.render("users/single", {
     user: tmpUser,
     address: fulladdress,
