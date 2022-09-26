@@ -13,7 +13,7 @@
   "devDependencies": {
     "express-handlebars-sections": "^1.0.1",
     "https-localhost": "^4.7.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.20"
   },
   "dependencies": {
     "axios": "^0.24.0",
